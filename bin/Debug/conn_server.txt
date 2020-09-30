@@ -1,0 +1,1 @@
+Server=192.168.1.60;Database=caja; Uid=cremeriasql;Pwd=CremeriaSQL;Connection Timeout=60;Convert Zero Datetime=True;Integrated Security=True;

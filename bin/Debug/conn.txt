@@ -1,0 +1,1 @@
+Server=localhost;Database=caja; Uid=root;Pwd=aioros;Connection Timeout=60;Convert Zero Datetime=True;Integrated Security=True;

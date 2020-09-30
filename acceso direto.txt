@@ -1,0 +1,1 @@
+c:\cremeria\nir\nircmd.exe shortcut "C:\cremeria\cremeria.exe" "c:\Users\%USERNAME%\Desktop" "Cremeria"

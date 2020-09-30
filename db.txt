@@ -1,0 +1,8 @@
+ALTER TABLE `tbapagticket` ADD `fecha` DATE NOT NULL AFTER `tipo_pago`;
+
+ALTER TABLE `retiros` ADD `notas` TEXT NOT NULL AFTER `monto_proveedor`;
+
+
+ALTER TABLE `tbaproductos` ADD `proveedor` INT NOT NULL AFTER `max_p5`;
+
+

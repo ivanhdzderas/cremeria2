@@ -1,0 +1,57 @@
+﻿using System;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto.Tls;
+
+namespace Cremeria.Models
+{
+    public abstract class ConnectDB : IDisposable
+    {
+
+      
+        MySqlConnection databaseConnection = new MySqlConnection(Inicial.connectionString);
+        public void Dispose() {
+
+            databaseConnection.Close();
+        }
+        private MySqlDataReader OpenConnection(string query) {
+
+
+			try{
+
+                if (databaseConnection.State == System.Data.ConnectionState.Open)
+                {
+                  
+                    databaseConnection.Close();
+                }
+               
+                //MessageBox.Show(databaseConnection.ConnectionTimeout.ToString());
+                databaseConnection.Open();
+                MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+
+                //commandDatabase.CommandTimeout = 60;
+                return commandDatabase.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
+        public MySqlDataReader runQuery(string query) {
+            try
+            {
+                return OpenConnection(query);
+            }
+            catch (MySqlException ex)
+            { 
+                 throw ex;
+            }
+        
+        }
+
+    }
+
+
+}
