@@ -9,7 +9,7 @@ namespace Cremeria.Models
 {
     public class Connect_Web : IDisposable
 	{
-        MySqlConnection databaseConnection_web = new MySqlConnection(Inicial.web_string);
+        MySqlConnection databaseConnection_web = new MySqlConnection(System.IO.File.ReadAllText(@"conn2.txt"));
         public void Dispose()
         {
             databaseConnection_web.Close();

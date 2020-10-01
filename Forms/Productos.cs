@@ -12,6 +12,7 @@ namespace Cremeria.Forms
 {
 	public partial class Productos : Form
 	{
+        
         public string connectionstring2;
 		public Productos()
 		{
@@ -65,6 +66,24 @@ namespace Cremeria.Forms
 
 
         }
+
+        public void carga2()
+        {
+            intercambios.conector = connectionstring2;
+            dataGridView1.Rows.Clear();
+            Models.Produc_suc product = new Models.Produc_suc();
+            using (product)
+            {
+                List<Models.Produc_suc> result = product.getProductNoSub();
+
+                foreach (Models.Produc_suc item in result)
+                {
+                    dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+                }
+            }
+
+
+        }
         private void Productos_Load(object sender, EventArgs e)
 		{
 			carga();
@@ -107,6 +126,7 @@ namespace Cremeria.Forms
             string codigo = Convert.ToString(selectedRow.Cells["id"].Value);
             Forms.Producto.Codigo = codigo;
             Producto Producto = new Producto();
+            Forms.Producto.connectionstring2 = connectionstring2;
             Producto.Show(this);
         }
 
@@ -116,26 +136,55 @@ namespace Cremeria.Forms
             {
                 if (textBox1.Text == "")
                 {
-                    carga();
+                    if (cbOficina.Text != "")
+					{
+                        carga();
+					}
+					else
+					{
+                        carga2();
+					}
 
                 }
                 else
                 {
                     dataGridView1.Rows.Clear();
-                    string bus_descripcion = textBox1.Text;
+                    if (cbOficina.Text != "")
+					{
+                        string bus_descripcion = textBox1.Text;
 
 
-                    Models.Product product = new Models.Product();
-                    using (product)
-                    {
-                        List<Models.Product> result = product.getProductByDescription(bus_descripcion);
-
-                        foreach (Models.Product item in result)
+                        Models.Product product = new Models.Product();
+                        using (product)
                         {
-                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+                            List<Models.Product> result = product.getProductByDescription(bus_descripcion);
 
+                            foreach (Models.Product item in result)
+                            {
+                                dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+
+                            }
+                        }
+					}
+					else
+					{
+
+                        string bus_descripcion = textBox1.Text;
+
+                        intercambios.conector = connectionstring2;
+                        Models.Produc_suc product = new Models.Produc_suc();
+                        using (product)
+                        {
+                            List<Models.Produc_suc> result = product.getProductByDescription(bus_descripcion);
+
+                            foreach (Models.Produc_suc item in result)
+                            {
+                                dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+
+                            }
                         }
                     }
+                    
 
 
                 }
@@ -149,23 +198,51 @@ namespace Cremeria.Forms
             {
                 if (textBox2.Text == "")
                 {
-                    carga();
+                    if (cbOficina.Text != "")
+					{
+                        carga();
+					}
+					else
+					{
+                        carga2();
+					}
                 }
                 else
                 {
                     dataGridView1.Rows.Clear();
-                    string codigo_buscar = textBox2.Text;
-                    Models.Product product = new Models.Product();
-                    using (product)
-                    {
-                        List<Models.Product> result = product.getProductByCode(codigo_buscar);
-
-                        foreach (Models.Product item in result)
+                    if (cbOficina.Text != "")
+					{
+                        string codigo_buscar = textBox2.Text;
+                        Models.Product product = new Models.Product();
+                        using (product)
                         {
-                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+                            List<Models.Product> result = product.getProductByCode(codigo_buscar);
 
+                            foreach (Models.Product item in result)
+                            {
+                                dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+
+                            }
                         }
                     }
+					else
+					{
+                        intercambios.conector = connectionstring2;
+                        string codigo_buscar = textBox2.Text;
+                        Models.Produc_suc product = new Models.Produc_suc();
+                        using (product)
+                        {
+                            List<Models.Produc_suc> result = product.getProductByCode(codigo_buscar);
+
+                            foreach (Models.Produc_suc item in result)
+                            {
+                                dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, item.Cost, (item.Existencia + item.Devoluciones), item.Price1, item.Price2);
+
+                            }
+                        }
+                    }
+                    
+                    
 
                 }
 
@@ -216,7 +293,7 @@ namespace Cremeria.Forms
 
 		private void button5_Click(object sender, EventArgs e)
 		{
-            connectionstring2 = Inicial.connectionString;
+            
             Models.Offices oficinas = new Models.Offices();
 
             using (oficinas)
@@ -224,8 +301,9 @@ namespace Cremeria.Forms
                 List<Models.Offices> lista = oficinas.GetOfficesbyid(Convert.ToInt32(cbOficina.SelectedValue.ToString()));
                 if (lista[0].Connection!="")
 				{
-                    Inicial.connectionString = lista[0].Connection;
-                    carga();
+                    //Inicial.connectionString = lista[0].Connection;
+                    connectionstring2 = lista[0].Connection;
+                    carga2();
                 }
 				else
 				{
@@ -235,12 +313,6 @@ namespace Cremeria.Forms
             }
 		}
 
-		private void Productos_FormClosing(object sender, FormClosingEventArgs e)
-		{
-            if (connectionstring2 != Inicial.connectionString)
-			{
-                Inicial.connectionString = connectionstring2;
-			}
-		}
+		
 	}
 }

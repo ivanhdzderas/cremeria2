@@ -7,6 +7,7 @@ namespace Cremeria.Forms
 {
 	public class intercambios
 	{
+        public static string conector { get; set; }
 		public static string Codigo { get; set; }
 		public static int Id_producto { get; set; }
 

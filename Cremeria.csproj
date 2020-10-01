@@ -160,6 +160,12 @@
     <Compile Include="Forms\Ajustes.Designer.cs">
       <DependentUpon>Ajustes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Alertas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Alertas.Designer.cs">
+      <DependentUpon>Alertas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Autenficiar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -522,6 +528,7 @@
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Acumulados.cs" />
+    <Compile Include="Models\Acumulados_suc.cs" />
     <Compile Include="Models\Afecta_inv.cs" />
     <Compile Include="Models\Ajuste.cs" />
     <Compile Include="Models\Caducidades.cs" />
@@ -532,6 +539,7 @@
     <Compile Include="Models\Compras.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\ConnectDB.cs" />
+    <Compile Include="Models\ConnectOtherDb.cs" />
     <Compile Include="Models\Connect_Web.cs" />
     <Compile Include="Models\Cortes.cs" />
     <Compile Include="Models\Detallado_ticket.cs" />
@@ -558,6 +566,7 @@
     <Compile Include="Models\Inv_in.cs" />
     <Compile Include="Models\Inv_out.cs" />
     <Compile Include="Models\Kardex.cs" />
+    <Compile Include="Models\Kardex_suc.cs" />
     <Compile Include="Models\Lista_precios.cs" />
     <Compile Include="Models\Marcas.cs" />
     <Compile Include="Models\Offices.cs" />
@@ -567,6 +576,7 @@
     <Compile Include="Models\Payment_Form.cs" />
     <Compile Include="Models\Permisos.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Produc_suc.cs" />
     <Compile Include="Models\Providers.cs" />
     <Compile Include="Models\Purchases.cs" />
     <Compile Include="Models\Reports\Det_promotor.cs" />
@@ -607,6 +617,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Ajustes.resx">
       <DependentUpon>Ajustes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Alertas.resx">
+      <DependentUpon>Alertas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Autenficiar.resx">
       <DependentUpon>Autenficiar.cs</DependentUpon>
@@ -858,6 +871,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\campana.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

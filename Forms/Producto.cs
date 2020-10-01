@@ -12,6 +12,7 @@ namespace Cremeria.Forms
 {
 	public partial class Producto : Form
 	{
+        public static string connectionstring2;
         public static int Id_productos;
 		public static string Codigo;
 		public static string SubProducto;
@@ -22,79 +23,162 @@ namespace Cremeria.Forms
 		}
         private void carga_kardex()
         {
-            Models.Kardex historia = new Models.Kardex();
-            using (historia)
-            {
-                List<Models.Kardex> result = historia.getKardex(Convert.ToInt16(Codigo));
-                foreach (Models.Kardex item in result)
+            if (connectionstring2 != "")
+			{
+                Models.Kardex historia = new Models.Kardex();
+                using (historia)
                 {
-                    string id = item.Id.ToString();
-                    string fecha = item.Fecha;
-                    string folio_documento = item.Id_documento.ToString();
-                    string antes = item.Antes.ToString();
-                    string cantidad = item.Cantidad.ToString();
-                    string tipo = "";
-                    switch (item.Tipo)
+                    List<Models.Kardex> result = historia.getKardex(Convert.ToInt16(Codigo));
+                    foreach (Models.Kardex item in result)
                     {
-                        case "E":
-                            tipo = "Entrada";
-                            break;
-                        case "S":
-                            tipo = "Salida";
-                            break;
-                        case "A":
-                            tipo = "Ajuste";
-                            break;
-                        case "V":
-                            tipo = "Venta";
-                            break;
-                        case "T":
-                            tipo = "Traspaso";
-                            break;
-                        case "C":
-                            tipo = "Compra";
-                            break;
-                        case "D":
-                            tipo = "Ticket";
-                            break;
+                        string id = item.Id.ToString();
+                        string fecha = item.Fecha;
+                        string folio_documento = item.Id_documento.ToString();
+                        string antes = item.Antes.ToString();
+                        string cantidad = item.Cantidad.ToString();
+                        string tipo = "";
+                        switch (item.Tipo)
+                        {
+                            case "E":
+                                tipo = "Entrada";
+                                break;
+                            case "S":
+                                tipo = "Salida";
+                                break;
+                            case "A":
+                                tipo = "Ajuste";
+                                break;
+                            case "V":
+                                tipo = "Venta";
+                                break;
+                            case "T":
+                                tipo = "Traspaso";
+                                break;
+                            case "C":
+                                tipo = "Compra";
+                                break;
+                            case "D":
+                                tipo = "Ticket";
+                                break;
+                        }
+                        dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
                     }
-                    dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
+                }
+			}
+			else
+			{
+                intercambios.conector = connectionstring2;
+                Models.Kardex_suc historia = new Models.Kardex_suc();
+                using (historia)
+                {
+                    List<Models.Kardex_suc> result = historia.getKardex(Convert.ToInt16(Codigo));
+                    foreach (Models.Kardex_suc item in result)
+                    {
+                        string id = item.Id.ToString();
+                        string fecha = item.Fecha;
+                        string folio_documento = item.Id_documento.ToString();
+                        string antes = item.Antes.ToString();
+                        string cantidad = item.Cantidad.ToString();
+                        string tipo = "";
+                        switch (item.Tipo)
+                        {
+                            case "E":
+                                tipo = "Entrada";
+                                break;
+                            case "S":
+                                tipo = "Salida";
+                                break;
+                            case "A":
+                                tipo = "Ajuste";
+                                break;
+                            case "V":
+                                tipo = "Venta";
+                                break;
+                            case "T":
+                                tipo = "Traspaso";
+                                break;
+                            case "C":
+                                tipo = "Compra";
+                                break;
+                            case "D":
+                                tipo = "Ticket";
+                                break;
+                        }
+                        dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
+                    }
                 }
             }
+            
 
         }
         public void carga_pack(int id)
         {
-
-            Models.Product sub = new Models.Product();
-            using (sub)
-            {
-                List<Models.Product> item = sub.getProduct(id);
-                if (item.Any() == true)
+            if (connectionstring2 != "")
+			{
+                Models.Product sub = new Models.Product();
+                using (sub)
                 {
-                    chkCaja.Checked = true;
-                    foreach (Models.Product prod in item)
+                    List<Models.Product> item = sub.getProduct(id);
+                    if (item.Any() == true)
                     {
-                        SubProducto = prod.Id.ToString();
-                        txtCodigoCaja.Text = prod.Code1;
-                        txtSkuCaja.Text = prod.Sku;
-                        txtDescripcionCaja.Text = prod.Description;
-                        txtCostoCaja.Text = prod.Cost.ToString();
-                        txtUtilidad1C.Text = prod.Utility1.ToString();
-                        txtUtilidad2C.Text = prod.Utility2.ToString();
-                        txtUtilidad3C.Text = prod.Utility3.ToString();
+                        chkCaja.Checked = true;
+                        foreach (Models.Product prod in item)
+                        {
+                            SubProducto = prod.Id.ToString();
+                            txtCodigoCaja.Text = prod.Code1;
+                            txtSkuCaja.Text = prod.Sku;
+                            txtDescripcionCaja.Text = prod.Description;
+                            txtCostoCaja.Text = prod.Cost.ToString();
+                            txtUtilidad1C.Text = prod.Utility1.ToString();
+                            txtUtilidad2C.Text = prod.Utility2.ToString();
+                            txtUtilidad3C.Text = prod.Utility3.ToString();
 
-                        txtPrecio1C.Text = prod.Price1.ToString();
-                        txtPrecio2C.Text = prod.Price2.ToString();
-                        txtPrecio3C.Text = prod.Price3.ToString();
-                        max_p1c.Value = Convert.ToDecimal(prod.Max_p1);
-                        max_p2c.Value = Convert.ToDecimal(prod.Max_p2);
-                        max_p3c.Value = Convert.ToDecimal(prod.Max_p3);
+                            txtPrecio1C.Text = prod.Price1.ToString();
+                            txtPrecio2C.Text = prod.Price2.ToString();
+                            txtPrecio3C.Text = prod.Price3.ToString();
+                            max_p1c.Value = Convert.ToDecimal(prod.Max_p1);
+                            max_p2c.Value = Convert.ToDecimal(prod.Max_p2);
+                            max_p3c.Value = Convert.ToDecimal(prod.Max_p3);
 
-                        txtPCaja.Text = prod.C_unidad;
+                            txtPCaja.Text = prod.C_unidad;
+                        }
+                    }
+                }
+			}
+			else
+			{
+                intercambios.conector = connectionstring2;
+                Models.Produc_suc sub = new Models.Produc_suc();
+                using (sub)
+                {
+                    List<Models.Produc_suc> item = sub.getProduct(id);
+                    if (item.Any() == true)
+                    {
+                        chkCaja.Checked = true;
+                        foreach (Models.Produc_suc prod in item)
+                        {
+                            SubProducto = prod.Id.ToString();
+                            txtCodigoCaja.Text = prod.Code1;
+                            txtSkuCaja.Text = prod.Sku;
+                            txtDescripcionCaja.Text = prod.Description;
+                            txtCostoCaja.Text = prod.Cost.ToString();
+                            txtUtilidad1C.Text = prod.Utility1.ToString();
+                            txtUtilidad2C.Text = prod.Utility2.ToString();
+                            txtUtilidad3C.Text = prod.Utility3.ToString();
+
+                            txtPrecio1C.Text = prod.Price1.ToString();
+                            txtPrecio2C.Text = prod.Price2.ToString();
+                            txtPrecio3C.Text = prod.Price3.ToString();
+                            max_p1c.Value = Convert.ToDecimal(prod.Max_p1);
+                            max_p2c.Value = Convert.ToDecimal(prod.Max_p2);
+                            max_p3c.Value = Convert.ToDecimal(prod.Max_p3);
+
+                            txtPCaja.Text = prod.C_unidad;
+                        }
                     }
                 }
             }
+            
 
 
         }
@@ -299,34 +383,70 @@ namespace Cremeria.Forms
 
             if (SubProducto != null)
             {
-                Models.Product sub = new Models.Product();
-                using (sub)
-                {
-                    List<Models.Product> item = sub.getProduct(Convert.ToInt32(SubProducto));
-                    if (item.Any() == true)
+                if (connectionstring2 != "")
+				{
+                    Models.Product sub = new Models.Product();
+                    using (sub)
                     {
-                        chkCarton.Checked = true;
-                        foreach (Models.Product prod in item)
+                        List<Models.Product> item = sub.getProduct(Convert.ToInt32(SubProducto));
+                        if (item.Any() == true)
                         {
-                            SubSubProducto = prod.Id.ToString();
-                            txtCodigoCarton.Text = prod.Code1;
-                            txtSkuCarton.Text = prod.Sku;
-                            txtDescripcionCarton.Text = prod.Description;
-                            txtCostoCarton.Text = prod.Cost.ToString();
-                            txtUtilidad1Ct.Text = prod.Utility1.ToString();
-                            txtUtilidad2Ct.Text = prod.Utility2.ToString();
-                            txtUtilidad3Ct.Text = prod.Utility3.ToString();
+                            chkCarton.Checked = true;
+                            foreach (Models.Product prod in item)
+                            {
+                                SubSubProducto = prod.Id.ToString();
+                                txtCodigoCarton.Text = prod.Code1;
+                                txtSkuCarton.Text = prod.Sku;
+                                txtDescripcionCarton.Text = prod.Description;
+                                txtCostoCarton.Text = prod.Cost.ToString();
+                                txtUtilidad1Ct.Text = prod.Utility1.ToString();
+                                txtUtilidad2Ct.Text = prod.Utility2.ToString();
+                                txtUtilidad3Ct.Text = prod.Utility3.ToString();
 
-                            txtPrecio1Ct.Text = prod.Price1.ToString();
-                            txtPrecio2Ct.Text = prod.Price2.ToString();
-                            txtPrecio3Ct.Text = prod.Price3.ToString();
-                            max_p1ct.Value = Convert.ToDecimal(prod.Max_p1);
-                            max_p2ct.Value = Convert.ToDecimal(prod.Max_p2);
-                            max_p3ct.Value = Convert.ToDecimal(prod.Max_p3);
-                            txtp_carton.Text = prod.C_unidad;
+                                txtPrecio1Ct.Text = prod.Price1.ToString();
+                                txtPrecio2Ct.Text = prod.Price2.ToString();
+                                txtPrecio3Ct.Text = prod.Price3.ToString();
+                                max_p1ct.Value = Convert.ToDecimal(prod.Max_p1);
+                                max_p2ct.Value = Convert.ToDecimal(prod.Max_p2);
+                                max_p3ct.Value = Convert.ToDecimal(prod.Max_p3);
+                                txtp_carton.Text = prod.C_unidad;
+                            }
+                        }
+                    }
+				}
+				else
+				{
+                    intercambios.conector = connectionstring2;
+                    Models.Produc_suc sub = new Models.Produc_suc();
+                    using (sub)
+                    {
+                        List<Models.Produc_suc> item = sub.getProduct(Convert.ToInt32(SubProducto));
+                        if (item.Any() == true)
+                        {
+                            chkCarton.Checked = true;
+                            foreach (Models.Produc_suc prod in item)
+                            {
+                                SubSubProducto = prod.Id.ToString();
+                                txtCodigoCarton.Text = prod.Code1;
+                                txtSkuCarton.Text = prod.Sku;
+                                txtDescripcionCarton.Text = prod.Description;
+                                txtCostoCarton.Text = prod.Cost.ToString();
+                                txtUtilidad1Ct.Text = prod.Utility1.ToString();
+                                txtUtilidad2Ct.Text = prod.Utility2.ToString();
+                                txtUtilidad3Ct.Text = prod.Utility3.ToString();
+
+                                txtPrecio1Ct.Text = prod.Price1.ToString();
+                                txtPrecio2Ct.Text = prod.Price2.ToString();
+                                txtPrecio3Ct.Text = prod.Price3.ToString();
+                                max_p1ct.Value = Convert.ToDecimal(prod.Max_p1);
+                                max_p2ct.Value = Convert.ToDecimal(prod.Max_p2);
+                                max_p3ct.Value = Convert.ToDecimal(prod.Max_p3);
+                                txtp_carton.Text = prod.C_unidad;
+                            }
                         }
                     }
                 }
+                
 
             }
 
@@ -433,119 +553,240 @@ namespace Cremeria.Forms
             cboCompra.SelectedIndex = 2;
             if (Codigo != "")
             {
-                Models.Product product = new Models.Product();
+                if (connectionstring2 != "")
+				{
+                    Models.Product product = new Models.Product();
 
-                List<Models.Product> result = product.getProductById(Convert.ToInt32(Codigo));
+                    List<Models.Product> result = product.getProductById(Convert.ToInt32(Codigo));
 
-                foreach (Models.Product item in result)
-                {
-                    txtCodigo1.Text = item.Code1;
-                    txtCodigo2.Text = item.Code2;
-                    txtCodigo3.Text = item.Code3;
-                    txtCodigo4.Text = item.Code4;
-                    txtCodigo5.Text = item.Code5;
-                    txtDescripcion.Text = item.Description;
-                    txtCosto.Text = item.Cost.ToString();
-                    txtPercentPrice1.Text = item.Utility1.ToString();
-                    txtPercentPrice2.Text = item.Utility2.ToString();
-                    txtPercentPrice3.Text = item.Utility3.ToString();
-                    txtPercentPrice4.Text = item.Utility4.ToString();
-                    txtPercentPrice5.Text = item.Utility5.ToString();
-                    txtPrice1.Text = item.Price1.ToString();
-                    txtPrice2.Text = item.Price2.ToString();
-                    txtPrice3.Text = item.Price3.ToString();
-                    txtPrice4.Text = item.Price4.ToString();
-                    txtPrice5.Text = item.Price5.ToString();
-                    txtExistencia.Text = item.Existencia.ToString();
-                    txtDevoluciones.Text = item.Devoluciones.ToString();
-                    cboMarca.SelectedValue = item.Brand;
-                    chkActivo.Checked = Convert.ToBoolean(item.Active);
-                    CallRecursive(tvGrupos, item.Group);
-
-
-                    cboUnidad.SelectedValue = item.Unit;
-                    txtSAT.Text = item.Code_sat;
-                    txtUnidadSat.Text = item.Medida_sat;
-                    txtMinimo.Text = item.Min.ToString();
-                    txtMaximo.Text = item.Max.ToString();
-                    chkDescuento.Checked = Convert.ToBoolean(item.Discount);
-                    txtDescuento.Text = item.Mount_discount.ToString();
-
-                    if (Convert.ToBoolean(item.Discount) == true)
+                    foreach (Models.Product item in result)
                     {
-                        txtDescuento.Enabled = false;
-                    }
-                    else
-                    {
-                        txtDescuento.Enabled = true;
-                    }
-                    chkLote.Checked = Convert.ToBoolean(item.Lote);
-                    max_p1.Value = Convert.ToDecimal(item.Max_p1);
-                    max_p2.Value = Convert.ToDecimal(item.Max_p2);
-                    max_p3.Value = Convert.ToDecimal(item.Max_p3);
-                    max_p4.Value = Convert.ToDecimal(item.Max_p4);
-                    max_p5.Value = Convert.ToDecimal(item.Max_p5);
-                    txtdias.Text = item.Dias_alerta.ToString();
-                    txtProveedor.Text = item.Proveedor.ToString();
-                    chkGrupal.Checked = item.Grupal;
+                        txtCodigo1.Text = item.Code1;
+                        txtCodigo2.Text = item.Code2;
+                        txtCodigo3.Text = item.Code3;
+                        txtCodigo4.Text = item.Code4;
+                        txtCodigo5.Text = item.Code5;
+                        txtDescripcion.Text = item.Description;
+                        txtCosto.Text = item.Cost.ToString();
+                        txtPercentPrice1.Text = item.Utility1.ToString();
+                        txtPercentPrice2.Text = item.Utility2.ToString();
+                        txtPercentPrice3.Text = item.Utility3.ToString();
+                        txtPercentPrice4.Text = item.Utility4.ToString();
+                        txtPercentPrice5.Text = item.Utility5.ToString();
+                        txtPrice1.Text = item.Price1.ToString();
+                        txtPrice2.Text = item.Price2.ToString();
+                        txtPrice3.Text = item.Price3.ToString();
+                        txtPrice4.Text = item.Price4.ToString();
+                        txtPrice5.Text = item.Price5.ToString();
+                        txtExistencia.Text = item.Existencia.ToString();
+                        txtDevoluciones.Text = item.Devoluciones.ToString();
+                        cboMarca.SelectedValue = item.Brand;
+                        chkActivo.Checked = Convert.ToBoolean(item.Active);
+                        CallRecursive(tvGrupos, item.Group);
+
+
+                        cboUnidad.SelectedValue = item.Unit;
+                        txtSAT.Text = item.Code_sat;
+                        txtUnidadSat.Text = item.Medida_sat;
+                        txtMinimo.Text = item.Min.ToString();
+                        txtMaximo.Text = item.Max.ToString();
+                        chkDescuento.Checked = Convert.ToBoolean(item.Discount);
+                        txtDescuento.Text = item.Mount_discount.ToString();
+
+                        if (Convert.ToBoolean(item.Discount) == true)
+                        {
+                            txtDescuento.Enabled = false;
+                        }
+                        else
+                        {
+                            txtDescuento.Enabled = true;
+                        }
+                        chkLote.Checked = Convert.ToBoolean(item.Lote);
+                        max_p1.Value = Convert.ToDecimal(item.Max_p1);
+                        max_p2.Value = Convert.ToDecimal(item.Max_p2);
+                        max_p3.Value = Convert.ToDecimal(item.Max_p3);
+                        max_p4.Value = Convert.ToDecimal(item.Max_p4);
+                        max_p5.Value = Convert.ToDecimal(item.Max_p5);
+                        txtdias.Text = item.Dias_alerta.ToString();
+                        txtProveedor.Text = item.Proveedor.ToString();
+                        chkGrupal.Checked = item.Grupal;
 
 
 
-                    switch (item.Buy_tax)
-                    {
-                        case "EXENTO IMPUESTOS":
-                            cboCompra.SelectedIndex = 0;
-                            break;
-                        case "IVA 11":
-                            cboCompra.SelectedIndex = 1;
-                            break;
+                        switch (item.Buy_tax)
+                        {
+                            case "EXENTO IMPUESTOS":
+                                cboCompra.SelectedIndex = 0;
+                                break;
+                            case "IVA 11":
+                                cboCompra.SelectedIndex = 1;
+                                break;
 
-                        case "IVA 16":
-                            cboCompra.SelectedIndex = 2;
-                            break;
-                        case "IVA TASA CERO":
-                            cboCompra.SelectedIndex = 3;
-                            break;
-                    }
-
-
-                    switch (item.Sale_tax)
-                    {
-                        case "EXENTO IMPUESTOS":
-                            cboVenta.SelectedIndex = 0;
-                            break;
-                        case "IVA 11":
-                            cboVenta.SelectedIndex = 1;
-                            break;
-
-                        case "IVA 16":
-                            cboVenta.SelectedIndex = 2;
-                            break;
-                        case "IVA TASA CERO":
-                            cboVenta.SelectedIndex = 3;
-                            break;
-                    }
-                    carga_pack(Convert.ToUInt16(Codigo));
-                    carga_box();
-                    carga_kardex();
+                            case "IVA 16":
+                                cboCompra.SelectedIndex = 2;
+                                break;
+                            case "IVA TASA CERO":
+                                cboCompra.SelectedIndex = 3;
+                                break;
+                        }
 
 
-                    if (item.Grupal == true)
-					{
-                        Models.Acumulados acumulados = new Models.Acumulados();
+                        switch (item.Sale_tax)
+                        {
+                            case "EXENTO IMPUESTOS":
+                                cboVenta.SelectedIndex = 0;
+                                break;
+                            case "IVA 11":
+                                cboVenta.SelectedIndex = 1;
+                                break;
 
-						using (acumulados)
-						{
-                            List<Models.Acumulados> acumulado = acumulados.get_acumulados(item.Id);
-                            foreach(Models.Acumulados it in acumulado)
-							{
-                                List<Models.Product> productos2 = product.getProductById(it.Id_producto);
-                                dtProducto.Rows.Add(it.Id_producto,productos2[0].Code1, it.Cantidad, productos2[0].Description);
+                            case "IVA 16":
+                                cboVenta.SelectedIndex = 2;
+                                break;
+                            case "IVA TASA CERO":
+                                cboVenta.SelectedIndex = 3;
+                                break;
+                        }
+                        carga_pack(Convert.ToUInt16(Codigo));
+                        carga_box();
+                        carga_kardex();
+
+
+                        if (item.Grupal == true)
+                        {
+                            Models.Acumulados acumulados = new Models.Acumulados();
+
+                            using (acumulados)
+                            {
+                                List<Models.Acumulados> acumulado = acumulados.get_acumulados(item.Id);
+                                foreach (Models.Acumulados it in acumulado)
+                                {
+                                    List<Models.Product> productos2 = product.getProductById(it.Id_producto);
+                                    dtProducto.Rows.Add(it.Id_producto, productos2[0].Code1, it.Cantidad, productos2[0].Description);
+                                }
+
                             }
-                            
-						}
-					}
+                        }
+                    }
+				}
+				else
+				{
+                    intercambios.conector = connectionstring2;
+                    Models.Produc_suc product = new Models.Produc_suc();
+
+                    List<Models.Produc_suc> result = product.getProductById(Convert.ToInt32(Codigo));
+
+                    foreach (Models.Produc_suc item in result)
+                    {
+                        txtCodigo1.Text = item.Code1;
+                        txtCodigo2.Text = item.Code2;
+                        txtCodigo3.Text = item.Code3;
+                        txtCodigo4.Text = item.Code4;
+                        txtCodigo5.Text = item.Code5;
+                        txtDescripcion.Text = item.Description;
+                        txtCosto.Text = item.Cost.ToString();
+                        txtPercentPrice1.Text = item.Utility1.ToString();
+                        txtPercentPrice2.Text = item.Utility2.ToString();
+                        txtPercentPrice3.Text = item.Utility3.ToString();
+                        txtPercentPrice4.Text = item.Utility4.ToString();
+                        txtPercentPrice5.Text = item.Utility5.ToString();
+                        txtPrice1.Text = item.Price1.ToString();
+                        txtPrice2.Text = item.Price2.ToString();
+                        txtPrice3.Text = item.Price3.ToString();
+                        txtPrice4.Text = item.Price4.ToString();
+                        txtPrice5.Text = item.Price5.ToString();
+                        txtExistencia.Text = item.Existencia.ToString();
+                        txtDevoluciones.Text = item.Devoluciones.ToString();
+                        cboMarca.SelectedValue = item.Brand;
+                        chkActivo.Checked = Convert.ToBoolean(item.Active);
+                        CallRecursive(tvGrupos, item.Group);
+
+
+                        cboUnidad.SelectedValue = item.Unit;
+                        txtSAT.Text = item.Code_sat;
+                        txtUnidadSat.Text = item.Medida_sat;
+                        txtMinimo.Text = item.Min.ToString();
+                        txtMaximo.Text = item.Max.ToString();
+                        chkDescuento.Checked = Convert.ToBoolean(item.Discount);
+                        txtDescuento.Text = item.Mount_discount.ToString();
+
+                        if (Convert.ToBoolean(item.Discount) == true)
+                        {
+                            txtDescuento.Enabled = false;
+                        }
+                        else
+                        {
+                            txtDescuento.Enabled = true;
+                        }
+                        chkLote.Checked = Convert.ToBoolean(item.Lote);
+                        max_p1.Value = Convert.ToDecimal(item.Max_p1);
+                        max_p2.Value = Convert.ToDecimal(item.Max_p2);
+                        max_p3.Value = Convert.ToDecimal(item.Max_p3);
+                        max_p4.Value = Convert.ToDecimal(item.Max_p4);
+                        max_p5.Value = Convert.ToDecimal(item.Max_p5);
+                        txtdias.Text = item.Dias_alerta.ToString();
+                        txtProveedor.Text = item.Proveedor.ToString();
+                        chkGrupal.Checked = item.Grupal;
+
+
+
+                        switch (item.Buy_tax)
+                        {
+                            case "EXENTO IMPUESTOS":
+                                cboCompra.SelectedIndex = 0;
+                                break;
+                            case "IVA 11":
+                                cboCompra.SelectedIndex = 1;
+                                break;
+
+                            case "IVA 16":
+                                cboCompra.SelectedIndex = 2;
+                                break;
+                            case "IVA TASA CERO":
+                                cboCompra.SelectedIndex = 3;
+                                break;
+                        }
+
+
+                        switch (item.Sale_tax)
+                        {
+                            case "EXENTO IMPUESTOS":
+                                cboVenta.SelectedIndex = 0;
+                                break;
+                            case "IVA 11":
+                                cboVenta.SelectedIndex = 1;
+                                break;
+
+                            case "IVA 16":
+                                cboVenta.SelectedIndex = 2;
+                                break;
+                            case "IVA TASA CERO":
+                                cboVenta.SelectedIndex = 3;
+                                break;
+                        }
+                        carga_pack(Convert.ToUInt16(Codigo));
+                        carga_box();
+                        carga_kardex();
+
+
+                        if (item.Grupal == true)
+                        {
+                            Models.Acumulados acumulados = new Models.Acumulados();
+
+                            using (acumulados)
+                            {
+                                List<Models.Acumulados> acumulado = acumulados.get_acumulados(item.Id);
+                                foreach (Models.Acumulados it in acumulado)
+                                {
+                                    List<Models.Produc_suc> productos2 = product.getProductById(it.Id_producto);
+                                    dtProducto.Rows.Add(it.Id_producto, productos2[0].Code1, it.Cantidad, productos2[0].Description);
+                                }
+
+                            }
+                        }
+                    }
                 }
+                
 
 
             }
@@ -617,9 +858,9 @@ namespace Cremeria.Forms
                     unidad = "";
                 }
 
-
-
-                Models.Product product = new Models.Product(
+                if (connectionstring2 != "")
+				{
+                    Models.Product product = new Models.Product(
                 0,
                 txtDescripcion.Text,
                 txtCodigo1.Text,
@@ -665,86 +906,15 @@ namespace Cremeria.Forms
                 Convert.ToInt16(txtProveedor.Text),
                 chkGrupal.Checked
                 );
-                product.Active = Convert.ToInt16(chkActivo.Checked);
-                if (Codigo == "")
-                {
-
-                    product.createProduct();
-                    List<Models.Product> result = product.getProductByCode(txtCodigo1.Text);
-                    foreach (Models.Product item in result)
-                    {
-                        Codigo = item.Id.ToString();
-                    }
-
-
-                }
-                else
-                {
-
-                    product.Id = Convert.ToInt32(Codigo);
-                    product.saveProduct();
-
-
-                }
-
-                if (chkCaja.Checked == true)
-                {
-
-                    Models.Product subproduct = new Models.Product(
-                    0,
-                    txtDescripcionCaja.Text,
-                    txtCodigoCaja.Text,
-                    "",
-                    "",
-                    "",
-                    "",
-                    0,
-                    0,
-                    tvGrupos.SelectedNode.Tag.ToString(),
-                    cboMarca.SelectedValue.ToString(),
-                    cboUnidad.SelectedValue.ToString(),
-                    Convert.ToDouble(txtPrecio1C.Text),
-                    Convert.ToDouble(txtPrecio2C.Text),
-                    Convert.ToDouble(txtPrecio3C.Text),
-                    Convert.ToDouble("0"),
-                    Convert.ToDouble("0"),
-                    Convert.ToDouble(txtUtilidad1C.Text),
-                    Convert.ToDouble(txtUtilidad2C.Text),
-                    Convert.ToDouble(txtUtilidad3C.Text),
-                    Convert.ToDouble("0"),
-                    Convert.ToDouble("0"),
-                    Convert.ToDouble(txtCostoCaja.Text),
-                    Convert.ToUInt16(true),
-                    txtSAT.Text,
-                    txtSkuCaja.Text,
-                    txtUnidadSat.Text,
-                    cboVenta.SelectedItem.ToString(),
-                    cboCompra.SelectedItem.ToString(),
-                    Convert.ToUInt16("0"),
-                    Convert.ToUInt16("0"),
-                    Convert.ToUInt16("0"),
-                    Convert.ToUInt16("0"),
-                    Codigo.ToString(),
-                    txtPCaja.Text,
-                    Convert.ToUInt16(txtdias.Text),
-                    Convert.ToUInt16(chkLote.Checked),
-                    Convert.ToDouble(max_p1c.Value),
-                    Convert.ToDouble(max_p2c.Value),
-                    Convert.ToDouble(max_p3c.Value),
-                    0,
-                    0,
-                    Convert.ToInt16(txtProveedor.Text),
-                    false
-                    );
-                    subproduct.Active = Convert.ToInt16(chkActivo.Checked);
+                    product.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
                     {
 
-                        subproduct.createProduct();
+                        product.createProduct();
                         List<Models.Product> result = product.getProductByCode(txtCodigo1.Text);
                         foreach (Models.Product item in result)
                         {
-                            SubProducto = item.Id.ToString();
+                            Codigo = item.Id.ToString();
                         }
 
 
@@ -752,98 +922,403 @@ namespace Cremeria.Forms
                     else
                     {
 
-                        subproduct.Id = Convert.ToInt16(SubProducto);
-                        subproduct.saveProduct();
+                        product.Id = Convert.ToInt32(Codigo);
+                        product.saveProduct();
 
 
                     }
 
+                    if (chkCaja.Checked == true)
+                    {
+
+                        Models.Product subproduct = new Models.Product(
+                        0,
+                        txtDescripcionCaja.Text,
+                        txtCodigoCaja.Text,
+                        "",
+                        "",
+                        "",
+                        "",
+                        0,
+                        0,
+                        tvGrupos.SelectedNode.Tag.ToString(),
+                        cboMarca.SelectedValue.ToString(),
+                        cboUnidad.SelectedValue.ToString(),
+                        Convert.ToDouble(txtPrecio1C.Text),
+                        Convert.ToDouble(txtPrecio2C.Text),
+                        Convert.ToDouble(txtPrecio3C.Text),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble(txtUtilidad1C.Text),
+                        Convert.ToDouble(txtUtilidad2C.Text),
+                        Convert.ToDouble(txtUtilidad3C.Text),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble(txtCostoCaja.Text),
+                        Convert.ToUInt16(true),
+                        txtSAT.Text,
+                        txtSkuCaja.Text,
+                        txtUnidadSat.Text,
+                        cboVenta.SelectedItem.ToString(),
+                        cboCompra.SelectedItem.ToString(),
+                        Convert.ToUInt16("0"),
+                        Convert.ToUInt16("0"),
+                        Convert.ToUInt16("0"),
+                        Convert.ToUInt16("0"),
+                        Codigo.ToString(),
+                        txtPCaja.Text,
+                        Convert.ToUInt16(txtdias.Text),
+                        Convert.ToUInt16(chkLote.Checked),
+                        Convert.ToDouble(max_p1c.Value),
+                        Convert.ToDouble(max_p2c.Value),
+                        Convert.ToDouble(max_p3c.Value),
+                        0,
+                        0,
+                        Convert.ToInt16(txtProveedor.Text),
+                        false
+                        );
+                        subproduct.Active = Convert.ToInt16(chkActivo.Checked);
+                        if (Codigo == "")
+                        {
+
+                            subproduct.createProduct();
+                            List<Models.Product> result = product.getProductByCode(txtCodigo1.Text);
+                            foreach (Models.Product item in result)
+                            {
+                                SubProducto = item.Id.ToString();
+                            }
+
+
+                        }
+                        else
+                        {
+
+                            subproduct.Id = Convert.ToInt16(SubProducto);
+                            subproduct.saveProduct();
+
+
+                        }
 
 
 
+
+                    }
+                    if (chkCarton.Checked == true)
+                    {
+                        Models.Product subsub = new Models.Product(
+                           0,
+                           txtDescripcionCarton.Text,
+                           txtCodigoCarton.Text,
+                           "",
+                           "",
+                           "",
+                           "",
+                           0,
+                           0,
+                           grupo,
+                           cboMarca.SelectedValue.ToString(),
+                           cboUnidad.SelectedValue.ToString(),
+                           Convert.ToDouble(txtPrecio1Ct.Text),
+                           Convert.ToDouble(txtPrecio2Ct.Text),
+                           Convert.ToDouble(txtPrecio3Ct.Text),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble(txtUtilidad1Ct.Text),
+                           Convert.ToDouble(txtUtilidad2Ct.Text),
+                           Convert.ToDouble(txtUtilidad3Ct.Text),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble(txtCostoCarton.Text),
+                           Convert.ToUInt16(true),
+                           txtSAT.Text,
+                           txtSkuCarton.Text,
+                           txtUnidadSat.Text,
+                           cboVenta.SelectedItem.ToString(),
+                           cboCompra.SelectedItem.ToString(),
+                           Convert.ToUInt16("0"),
+                           Convert.ToUInt16("0"),
+                           Convert.ToUInt16("0"),
+                           Convert.ToUInt16("0"),
+                           SubProducto.ToString(),
+                           txtp_carton.Text,
+                           Convert.ToUInt16(txtdias.Text),
+                           Convert.ToUInt16(chkLote.Checked),
+                           Convert.ToDouble(max_p1ct.Value),
+                           Convert.ToDouble(max_p2ct.Value),
+                           Convert.ToDouble(max_p3ct.Value),
+                           0,
+                           0,
+                           Convert.ToInt16(txtProveedor.Text),
+                           false
+                           );
+                        subsub.Active = Convert.ToInt16(chkActivo.Checked);
+                        if (Codigo == "")
+                        {
+
+                            subsub.createProduct();
+
+
+                        }
+                        else
+                        {
+
+                            subsub.Id = Convert.ToInt16(SubSubProducto);
+                            subsub.saveProduct();
+
+
+                        }
+
+                    }
+
+
+                    List<Models.Product> result2 = product.getProductByCode(txtCodigo1.Text);
+                    Models.Acumulados acumulados = new Models.Acumulados();
+                    using (acumulados)
+                    {
+
+                        acumulados.Id_master_product = result2[0].Id;
+                        acumulados.delete_acumulados();
+                        foreach (DataGridViewRow row in dtProducto.Rows)
+                        {
+                            acumulados.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+                            acumulados.Cantidad = Convert.ToDouble(row.Cells["cantidad_producto"].Value.ToString());
+                            acumulados.create_acumulado();
+                        }
+
+                    }
                 }
-                if (chkCarton.Checked == true)
-                {
-                    Models.Product subsub = new Models.Product(
-                       0,
-                       txtDescripcionCarton.Text,
-                       txtCodigoCarton.Text,
-                       "",
-                       "",
-                       "",
-                       "",
-                       0,
-                       0,
-                       grupo,
-                       cboMarca.SelectedValue.ToString(),
-                       cboUnidad.SelectedValue.ToString(),
-                       Convert.ToDouble(txtPrecio1Ct.Text),
-                       Convert.ToDouble(txtPrecio2Ct.Text),
-                       Convert.ToDouble(txtPrecio3Ct.Text),
-                       Convert.ToDouble("0"),
-                       Convert.ToDouble("0"),
-                       Convert.ToDouble(txtUtilidad1Ct.Text),
-                       Convert.ToDouble(txtUtilidad2Ct.Text),
-                       Convert.ToDouble(txtUtilidad3Ct.Text),
-                       Convert.ToDouble("0"),
-                       Convert.ToDouble("0"),
-                       Convert.ToDouble(txtCostoCarton.Text),
-                       Convert.ToUInt16(true),
-                       txtSAT.Text,
-                       txtSkuCarton.Text,
-                       txtUnidadSat.Text,
-                       cboVenta.SelectedItem.ToString(),
-                       cboCompra.SelectedItem.ToString(),
-                       Convert.ToUInt16("0"),
-                       Convert.ToUInt16("0"),
-                       Convert.ToUInt16("0"),
-                       Convert.ToUInt16("0"),
-                       SubProducto.ToString(),
-                       txtp_carton.Text,
-                       Convert.ToUInt16(txtdias.Text),
-                       Convert.ToUInt16(chkLote.Checked),
-                       Convert.ToDouble(max_p1ct.Value),
-                       Convert.ToDouble(max_p2ct.Value),
-                       Convert.ToDouble(max_p3ct.Value),
-                       0,
-                       0,
-                       Convert.ToInt16(txtProveedor.Text),
-                       false
-                       );
-                    subsub.Active = Convert.ToInt16(chkActivo.Checked);
+				else
+				{
+                    intercambios.conector = connectionstring2;
+                    Models.Produc_suc product = new Models.Produc_suc(
+                0,
+                txtDescripcion.Text,
+                txtCodigo1.Text,
+                txtCodigo2.Text,
+                txtCodigo3.Text,
+                txtCodigo4.Text,
+                txtCodigo5.Text,
+                0,
+                0,
+                grupo,
+                marca,
+                unidad,
+                Convert.ToDouble(txtPrice1.Text),
+                Convert.ToDouble(txtPrice2.Text),
+                Convert.ToDouble(txtPrice3.Text),
+                Convert.ToDouble(txtPrice4.Text),
+                Convert.ToDouble(txtPrice5.Text),
+                Convert.ToDouble(txtPercentPrice1.Text),
+                Convert.ToDouble(txtPercentPrice2.Text),
+                Convert.ToDouble(txtPercentPrice3.Text),
+                Convert.ToDouble(txtPercentPrice4.Text),
+                Convert.ToDouble(txtPercentPrice5.Text),
+                Convert.ToDouble(txtCosto.Text),
+                Convert.ToUInt16(true),
+                txtSAT.Text,
+                txtSKU.Text,
+                txtUnidadSat.Text,
+                cboVenta.SelectedItem.ToString(),
+                cboCompra.SelectedItem.ToString(),
+                Convert.ToUInt16(chkDescuento.Checked),
+                Convert.ToUInt16(txtDescuento.Text),
+                Convert.ToUInt16(txtMinimo.Text),
+                Convert.ToUInt16(txtMaximo.Text),
+                "0",
+                "0",
+                Convert.ToUInt16(txtdias.Text),
+                Convert.ToUInt16(chkLote.Checked),
+                Convert.ToDouble(max_p1.Value),
+                Convert.ToDouble(max_p2.Value),
+                Convert.ToDouble(max_p3.Value),
+                Convert.ToDouble(max_p4.Value),
+                Convert.ToDouble(max_p5.Value),
+                Convert.ToInt16(txtProveedor.Text),
+                chkGrupal.Checked
+                );
+                    product.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
                     {
 
-                        subsub.createProduct();
+                        product.createProduct();
+                        List<Models.Produc_suc> result = product.getProductByCode(txtCodigo1.Text);
+                        foreach (Models.Produc_suc item in result)
+                        {
+                            Codigo = item.Id.ToString();
+                        }
 
 
                     }
                     else
                     {
 
-                        subsub.Id = Convert.ToInt16(SubSubProducto);
-                        subsub.saveProduct();
+                        product.Id = Convert.ToInt32(Codigo);
+                        product.saveProduct();
 
 
                     }
 
-                }
+                    if (chkCaja.Checked == true)
+                    {
+
+                        Models.Produc_suc subproduct = new Models.Produc_suc(
+                        0,
+                        txtDescripcionCaja.Text,
+                        txtCodigoCaja.Text,
+                        "",
+                        "",
+                        "",
+                        "",
+                        0,
+                        0,
+                        tvGrupos.SelectedNode.Tag.ToString(),
+                        cboMarca.SelectedValue.ToString(),
+                        cboUnidad.SelectedValue.ToString(),
+                        Convert.ToDouble(txtPrecio1C.Text),
+                        Convert.ToDouble(txtPrecio2C.Text),
+                        Convert.ToDouble(txtPrecio3C.Text),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble(txtUtilidad1C.Text),
+                        Convert.ToDouble(txtUtilidad2C.Text),
+                        Convert.ToDouble(txtUtilidad3C.Text),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble("0"),
+                        Convert.ToDouble(txtCostoCaja.Text),
+                        Convert.ToUInt16(true),
+                        txtSAT.Text,
+                        txtSkuCaja.Text,
+                        txtUnidadSat.Text,
+                        cboVenta.SelectedItem.ToString(),
+                        cboCompra.SelectedItem.ToString(),
+                        Convert.ToUInt16("0"),
+                        Convert.ToUInt16("0"),
+                        Convert.ToUInt16("0"),
+                        Convert.ToUInt16("0"),
+                        Codigo.ToString(),
+                        txtPCaja.Text,
+                        Convert.ToUInt16(txtdias.Text),
+                        Convert.ToUInt16(chkLote.Checked),
+                        Convert.ToDouble(max_p1c.Value),
+                        Convert.ToDouble(max_p2c.Value),
+                        Convert.ToDouble(max_p3c.Value),
+                        0,
+                        0,
+                        Convert.ToInt16(txtProveedor.Text),
+                        false
+                        );
+                        subproduct.Active = Convert.ToInt16(chkActivo.Checked);
+                        if (Codigo == "")
+                        {
+
+                            subproduct.createProduct();
+                            List<Models.Produc_suc> result = product.getProductByCode(txtCodigo1.Text);
+                            foreach (Models.Produc_suc item in result)
+                            {
+                                SubProducto = item.Id.ToString();
+                            }
 
 
-                List<Models.Product> result2 = product.getProductByCode(txtCodigo1.Text);
-                Models.Acumulados acumulados = new Models.Acumulados();
-				using (acumulados)
-				{
+                        }
+                        else
+                        {
 
-                    acumulados.Id_master_product = result2[0].Id;
-                    acumulados.delete_acumulados();
-                    foreach (DataGridViewRow row in dtProducto.Rows) {
-                        acumulados.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
-                        acumulados.Cantidad = Convert.ToDouble(row.Cells["cantidad_producto"].Value.ToString());
-                        acumulados.create_acumulado();
+                            subproduct.Id = Convert.ToInt16(SubProducto);
+                            subproduct.saveProduct();
+
+
+                        }
+
+
+
+
+                    }
+                    if (chkCarton.Checked == true)
+                    {
+                        Models.Produc_suc subsub = new Models.Produc_suc(
+                           0,
+                           txtDescripcionCarton.Text,
+                           txtCodigoCarton.Text,
+                           "",
+                           "",
+                           "",
+                           "",
+                           0,
+                           0,
+                           grupo,
+                           cboMarca.SelectedValue.ToString(),
+                           cboUnidad.SelectedValue.ToString(),
+                           Convert.ToDouble(txtPrecio1Ct.Text),
+                           Convert.ToDouble(txtPrecio2Ct.Text),
+                           Convert.ToDouble(txtPrecio3Ct.Text),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble(txtUtilidad1Ct.Text),
+                           Convert.ToDouble(txtUtilidad2Ct.Text),
+                           Convert.ToDouble(txtUtilidad3Ct.Text),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble("0"),
+                           Convert.ToDouble(txtCostoCarton.Text),
+                           Convert.ToUInt16(true),
+                           txtSAT.Text,
+                           txtSkuCarton.Text,
+                           txtUnidadSat.Text,
+                           cboVenta.SelectedItem.ToString(),
+                           cboCompra.SelectedItem.ToString(),
+                           Convert.ToUInt16("0"),
+                           Convert.ToUInt16("0"),
+                           Convert.ToUInt16("0"),
+                           Convert.ToUInt16("0"),
+                           SubProducto.ToString(),
+                           txtp_carton.Text,
+                           Convert.ToUInt16(txtdias.Text),
+                           Convert.ToUInt16(chkLote.Checked),
+                           Convert.ToDouble(max_p1ct.Value),
+                           Convert.ToDouble(max_p2ct.Value),
+                           Convert.ToDouble(max_p3ct.Value),
+                           0,
+                           0,
+                           Convert.ToInt16(txtProveedor.Text),
+                           false
+                           );
+                        subsub.Active = Convert.ToInt16(chkActivo.Checked);
+                        if (Codigo == "")
+                        {
+
+                            subsub.createProduct();
+
+
+                        }
+                        else
+                        {
+
+                            subsub.Id = Convert.ToInt16(SubSubProducto);
+                            subsub.saveProduct();
+
+
+                        }
+
                     }
 
+
+                    List<Models.Produc_suc> result2 = product.getProductByCode(txtCodigo1.Text);
+                    Models.Acumulados_suc acumulados = new Models.Acumulados_suc();
+                    using (acumulados)
+                    {
+
+                        acumulados.Id_master_product = result2[0].Id;
+                        acumulados.delete_acumulados();
+                        foreach (DataGridViewRow row in dtProducto.Rows)
+                        {
+                            acumulados.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+                            acumulados.Cantidad = Convert.ToDouble(row.Cells["cantidad_producto"].Value.ToString());
+                            acumulados.create_acumulado();
+                        }
+
+                    }
                 }
+
+                
                 this.Close();
             }
         }

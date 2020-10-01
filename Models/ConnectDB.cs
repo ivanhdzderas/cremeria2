@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Crypto.Tls;
 
 namespace Cremeria.Models
 {
-    public abstract class ConnectDB : IDisposable
+	public abstract class ConnectDB : IDisposable
     {
 
       

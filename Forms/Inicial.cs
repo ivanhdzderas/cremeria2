@@ -8,9 +8,7 @@ namespace Cremeria
 	{
 		private int childFormNumber = 0;
 
-		public static string conntxt;
-		public static string connectionString;
-		public static string web_string;
+	
 		public static Boolean exit;
 		public static Boolean cajero;
 		public static string nombre;
@@ -88,9 +86,9 @@ namespace Cremeria
 		private void Inicial_Load(object sender, EventArgs e)
 		{
 			timer1.Start();
-			conntxt = System.IO.File.ReadAllText(@"conn.txt");
-			connectionString = conntxt;
-			web_string = System.IO.File.ReadAllText(@"conn2.txt");
+			
+			
+			
 
 			if (System.IO.File.Exists(@"nueva.txt"))
 			{
@@ -453,6 +451,13 @@ namespace Cremeria
 			{
 				nuevo.ejecuta("select now();");
 			}
+		}
+
+		private void alertaToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Alertas alertas = new Alertas();
+			alertas.MdiParent = this;
+			alertas.Show();
 		}
 	}
 }
