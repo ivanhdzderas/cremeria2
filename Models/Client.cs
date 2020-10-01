@@ -19,6 +19,7 @@ namespace Cremeria.Models
         public string Tel { get; set; }
         public string Note { get; set; }
         public string Email { get; set; }
+        public string Uso_cfdi { get; set; }
         public Client(
             int id,
             string name,
@@ -32,7 +33,8 @@ namespace Cremeria.Models
             string muni, 
             string tel,
             string note, 
-            string email
+            string email,
+            string uso_cfdi
             ) {
             Id = id;
             Name = name;
@@ -47,13 +49,14 @@ namespace Cremeria.Models
             Tel = tel;
             Note = note;
             Email = email;
+            Uso_cfdi = uso_cfdi;
         }
 
         public Client() { 
         }
 
         public void createClient() {
-            string query = "insert into tbaclientes (nombre, RFC, calle,num_ext, num_int, colonia, cp, estado, municipio, telefono, notas, email)";
+            string query = "insert into tbaclientes (nombre, RFC, calle,num_ext, num_int, colonia, cp, estado, municipio, telefono, notas, email, uso_cfdi)";
             query += " values (";
             query += "'" + this.Name + "', ";
             query += "'" + this.RFC + "', ";
@@ -66,7 +69,8 @@ namespace Cremeria.Models
             query += "'" + this.Muni + "', ";
             query += "'" + this.Tel + "', ";
             query += "'" + this.Note + "', ";
-            query += "'" + this.Email + "'";
+            query += "'" + this.Email + "', ";
+            query += "'" + this.Uso_cfdi + "'";
             query += ")";
             object result = runQuery(query);
         }
@@ -84,7 +88,8 @@ namespace Cremeria.Models
             query += "municipio='" + this.Muni +"',";
             query += "telefono='" + this.Tel +"',";
             query += "notas='" + this.Note +"',";
-            query += "email='" + this.Email +"' ";
+            query += "email='" + this.Email +"', ";
+            query += "uso_cfdi='" + this.Uso_cfdi + "' ";
             query += "where id='" + this.Id + "'";
             object result = runQuery(query);
         }
@@ -102,11 +107,12 @@ namespace Cremeria.Models
                 data.GetString("municipio"),
                 data.GetString("telefono"),
                 data.GetString("notas"),
-                data.GetString("email")
+                data.GetString("email"),
+                data.GetString("uso_cfdi")
                 );
             return item;
         }
-        private string maq_query = "select id, nombre, RFC, calle, num_ext, num_int, colonia, cp,estado, municipio, telefono, notas, email from tbaclientes";
+        private string maq_query = "select id, nombre, RFC, calle, num_ext, num_int, colonia, cp,estado, municipio, telefono, notas, email, uso_cfdi from tbaclientes";
         public List<Client> getClients() {
             string query = maq_query;
             MySqlDataReader data = runQuery(query);

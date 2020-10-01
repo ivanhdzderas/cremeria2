@@ -116,6 +116,7 @@ namespace Cremeria.Forms
                     tickets.Recibido = Convert.ToDouble(txtRecibido.Text);
                     tickets.CreateTicket();
                     Caja.Folio_guardado = Folio;
+                    Caja.Facturar = chkFactura.Checked;
                     Forms.Caja.cancelado = false;
                     this.Close();
                 }

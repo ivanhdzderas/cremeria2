@@ -30,6 +30,7 @@ namespace Cremeria.Forms
 		public static double porcentaje_anterior;
 		public static bool autorizado;
 		public static int Quien_autorizo;
+		public static bool Facturar = false;
 		public Caja()
 		{
 			InitializeComponent();
@@ -958,23 +959,35 @@ namespace Cremeria.Forms
 				if (cancelado == false)
 				{
 					Guardar();
-					printDocument1 = new PrintDocument();
-					Models.Configuration configuracion = new Models.Configuration();
-					int cuantos = dtProductos.RowCount;
-					int faltantes = 0;
-					int valor = 0;
-					using (configuracion)
-					{
-						faltantes = cuantos - 1;
-						valor = 110 * faltantes;
-						valor = valor + 1150;
-						PaperSize ps = new PaperSize("Custom", 300, valor);
-						List<Models.Configuration> config = configuracion.getConfiguration();
-						printDocument1.DefaultPageSettings.PaperSize = ps;
-						printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
-						printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-						printDocument1.Print();
+					if (Facturar==true) {
+						Models.Client clientes = new Models.Client();
+						using (clientes)
+						{
+
+						}
 					}
+					else
+					{
+						printDocument1 = new PrintDocument();
+						Models.Configuration configuracion = new Models.Configuration();
+						int cuantos = dtProductos.RowCount;
+						int faltantes = 0;
+						int valor = 0;
+						using (configuracion)
+						{
+							faltantes = cuantos - 1;
+							valor = 110 * faltantes;
+							valor = valor + 1150;
+							PaperSize ps = new PaperSize("Custom", 300, valor);
+							List<Models.Configuration> config = configuracion.getConfiguration();
+							printDocument1.DefaultPageSettings.PaperSize = ps;
+							printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
+							printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+							printDocument1.Print();
+						}
+					}
+
+					
 					Folio_guardado = 0;
 					Recuperada = "NO";
 					limpiar();
@@ -1505,6 +1518,32 @@ namespace Cremeria.Forms
 			}
 		}
 
-		
+		private void printDocument2_PrintPage(object sender, PrintPageEventArgs e)
+		{
+			Models.Configuration configuracion = new Models.Configuration();
+			Models.Dettickets detalles = new Models.Dettickets();
+			Models.Tickets tickets = new Models.Tickets();
+			Models.Client clientes = new Models.Client();
+			using (configuracion)
+			{
+
+				List<Models.Configuration> config = configuracion.getConfiguration();
+				Font font = new Font("Verdana", 8, FontStyle.Regular);
+				int y = 70;
+				var format = new StringFormat() { Alignment = StringAlignment.Center };
+				double cambio = 0;
+				double descuento = Convert.ToDouble(txtDescuento.Text);
+
+
+				if (config[0].Logo_ticket != "")
+				{
+					if (File.Exists(config[0].Logo_ticket))
+					{
+						Image logo = Image.FromFile(config[0].Logo_ticket);
+						e.Graphics.DrawImage(logo, new Rectangle(0, 00, 250, 70));
+					}
+				}
+			}
+		}
 	}
 }

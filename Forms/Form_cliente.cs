@@ -60,6 +60,7 @@ namespace Cremeria.Forms
                         txtTelefono.Text = item.Tel;
                         txtNotas.Text = item.Note;
                         txtEmail.Text = item.Email;
+                        txtUso.Text = item.Uso_cfdi;
                     }
                 }
 
@@ -83,7 +84,8 @@ namespace Cremeria.Forms
                     txtMunicipio.Text,
                     txtTelefono.Text,
                     txtNotas.Text,
-                    txtEmail.Text
+                    txtEmail.Text,
+                    txtUso.Text
                     );
                 using (client)
                 {

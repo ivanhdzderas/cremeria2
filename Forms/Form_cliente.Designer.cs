@@ -55,24 +55,26 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtUso = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(209, 380);
+			this.button2.Location = new System.Drawing.Point(204, 398);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(75, 23);
-			this.button2.TabIndex = 52;
+			this.button2.TabIndex = 53;
 			this.button2.Text = "Cancelar";
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(58, 380);
+			this.button1.Location = new System.Drawing.Point(53, 398);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 51;
+			this.button1.TabIndex = 52;
 			this.button1.Text = "Guardar";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -83,14 +85,14 @@
 			this.txtTelefono.Mask = "(999)000-0000";
 			this.txtTelefono.Name = "txtTelefono";
 			this.txtTelefono.Size = new System.Drawing.Size(100, 20);
-			this.txtTelefono.TabIndex = 50;
+			this.txtTelefono.TabIndex = 48;
 			// 
 			// txtEmail
 			// 
 			this.txtEmail.Location = new System.Drawing.Point(105, 341);
 			this.txtEmail.Name = "txtEmail";
 			this.txtEmail.Size = new System.Drawing.Size(311, 20);
-			this.txtEmail.TabIndex = 49;
+			this.txtEmail.TabIndex = 50;
 			// 
 			// txtNotas
 			// 
@@ -98,7 +100,7 @@
 			this.txtNotas.Multiline = true;
 			this.txtNotas.Name = "txtNotas";
 			this.txtNotas.Size = new System.Drawing.Size(311, 63);
-			this.txtNotas.TabIndex = 48;
+			this.txtNotas.TabIndex = 49;
 			// 
 			// txtMunicipio
 			// 
@@ -271,11 +273,29 @@
 			this.label1.TabIndex = 27;
 			this.label1.Text = "Nombre";
 			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(46, 375);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(53, 13);
+			this.label13.TabIndex = 53;
+			this.label13.Text = "Uso CFDI";
+			// 
+			// txtUso
+			// 
+			this.txtUso.Location = new System.Drawing.Point(105, 372);
+			this.txtUso.Name = "txtUso";
+			this.txtUso.Size = new System.Drawing.Size(100, 20);
+			this.txtUso.TabIndex = 51;
+			// 
 			// Form_cliente
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(428, 419);
+			this.ClientSize = new System.Drawing.Size(428, 430);
+			this.Controls.Add(this.txtUso);
+			this.Controls.Add(this.label13);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.txtTelefono);
@@ -341,5 +361,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.TextBox txtUso;
 	}
 }

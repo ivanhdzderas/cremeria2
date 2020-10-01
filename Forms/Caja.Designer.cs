@@ -89,6 +89,7 @@
 			this.btnAdelante = new System.Windows.Forms.Button();
 			this.btnUltimo = new System.Windows.Forms.Button();
 			this.txtTotal = new System.Windows.Forms.TextBox();
+			this.printDocument2 = new System.Drawing.Printing.PrintDocument();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -665,6 +666,10 @@
 			this.txtTotal.Text = "0";
 			this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
+			// printDocument2
+			// 
+			this.printDocument2.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument2_PrintPage);
+			// 
 			// Caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -789,5 +794,6 @@
 		private System.Windows.Forms.Button btnPrimero;
 		internal System.Drawing.Printing.PrintDocument printDocument1;
 		private System.Windows.Forms.TextBox txtTotal;
+		private System.Drawing.Printing.PrintDocument printDocument2;
 	}
 }

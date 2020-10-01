@@ -91,7 +91,7 @@ namespace Cremeria.Forms
 					Models.Tickets ticket = new Models.Tickets();
 					using (ticket)
 					{
-						List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
+						List<Models.Tickets> tic = ticket.getforbuild(txtIdCliente.Text);
 						dtTickets.Rows.Clear();
 						foreach (Models.Tickets item in tic)
 						{

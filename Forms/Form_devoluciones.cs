@@ -273,17 +273,21 @@ namespace Cremeria.Forms
 
 
 
-						using (productos)
-						{
-							productos.Id = Convert.ToInt32(row.Cells["id"].Value.ToString());
-							List<Models.Product> produ = productos.getProductById(Convert.ToInt32(row.Cells["id"].Value.ToString()));
-							productos.Devoluciones = produ[0].Devoluciones - Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-							productos.update_devoluciones();
-						}
+						
 
 						
 						if (row.Cells["folios"].Value.ToString() != "")
 						{
+
+							using (productos)
+							{
+								productos.Id = Convert.ToInt32(row.Cells["id"].Value.ToString());
+								List<Models.Product> produ = productos.getProductById(Convert.ToInt32(row.Cells["id"].Value.ToString()));
+								productos.Devoluciones = produ[0].Devoluciones - Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+								productos.update_devoluciones();
+							}
+
+
 							char delimitar = ',';
 							string[] folios = row.Cells["folios"].Value.ToString().Split(delimitar);
 							int cuantos = folios.Count();
@@ -296,6 +300,18 @@ namespace Cremeria.Forms
 									det_devolu.enviar();
 								}
 								
+							}
+
+
+						}
+						else
+						{
+							using (productos)
+							{
+								List<Models.Product> producto = productos.getProductById(Convert.ToInt32(row.Cells["id"].Value.ToString()));
+								productos.Existencia = producto[0].Existencia - Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+								productos.Id = Convert.ToInt32(row.Cells["id"].Value.ToString());
+								productos.update_inventary();
 							}
 						}
 					}

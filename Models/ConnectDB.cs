@@ -9,7 +9,7 @@ namespace Cremeria.Models
     {
 
       
-        MySqlConnection databaseConnection = new MySqlConnection(Inicial.connectionString);
+        MySqlConnection databaseConnection = new MySqlConnection(System.IO.File.ReadAllText(@"conn.txt"));
         public void Dispose() {
 
             databaseConnection.Close();
@@ -25,10 +25,10 @@ namespace Cremeria.Models
                     databaseConnection.Close();
                 }
                
-                //MessageBox.Show(databaseConnection.ConnectionTimeout.ToString());
+              
                 databaseConnection.Open();
                 MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-
+                
                 //commandDatabase.CommandTimeout = 60;
                 return commandDatabase.ExecuteReader();
             }
@@ -45,8 +45,9 @@ namespace Cremeria.Models
                 return OpenConnection(query);
             }
             catch (MySqlException ex)
-            { 
-                 throw ex;
+            {
+				throw ex;
+                
             }
         
         }

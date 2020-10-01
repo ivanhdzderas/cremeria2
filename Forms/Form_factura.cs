@@ -129,7 +129,8 @@ namespace Cremeria.Forms
 					StreamWriter XMLL = new StreamWriter(url + txtFolio.Text + ".xml");
 					XMLL.Write(selloResponse.stampResult.xml);
 					XMLL.Close();
-					this.Close();
+					File.Delete(url+ "SOAP_Request.xml");
+					
 				}
 			}
 
@@ -541,6 +542,8 @@ namespace Cremeria.Forms
 			}
 			
 			xml2();
+
+
 		}
 
 		private void txtUsoCfdi_KeyDown(object sender, KeyEventArgs e)

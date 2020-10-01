@@ -1,1 +1,1 @@
-Server=localhost;Database=caja; Uid=root;Pwd=aioros;Connection Timeout=60;Convert Zero Datetime=True;Integrated Security=True;
+server=localhost;port=3306;uid=root;pwd=aioros;database=caja;charset=utf8;
