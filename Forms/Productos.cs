@@ -136,7 +136,7 @@ namespace Cremeria.Forms
             {
                 if (textBox1.Text == "")
                 {
-                    if (cbOficina.Text != "")
+                    if (cbOficina.Text == "")
 					{
                         carga();
 					}
@@ -149,7 +149,7 @@ namespace Cremeria.Forms
                 else
                 {
                     dataGridView1.Rows.Clear();
-                    if (cbOficina.Text != "")
+                    if (cbOficina.Text == "")
 					{
                         string bus_descripcion = textBox1.Text;
 
@@ -198,7 +198,7 @@ namespace Cremeria.Forms
             {
                 if (textBox2.Text == "")
                 {
-                    if (cbOficina.Text != "")
+                    if (cbOficina.Text == "")
 					{
                         carga();
 					}
@@ -210,7 +210,7 @@ namespace Cremeria.Forms
                 else
                 {
                     dataGridView1.Rows.Clear();
-                    if (cbOficina.Text != "")
+                    if (cbOficina.Text == "")
 					{
                         string codigo_buscar = textBox2.Text;
                         Models.Product product = new Models.Product();

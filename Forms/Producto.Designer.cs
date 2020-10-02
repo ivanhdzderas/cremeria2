@@ -189,6 +189,9 @@
 			this.butCancel = new System.Windows.Forms.Button();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.chkGrupal = new System.Windows.Forms.CheckBox();
+			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+			this.label60 = new System.Windows.Forms.Label();
+			this.txtNotas = new System.Windows.Forms.TextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -211,6 +214,7 @@
 			this.Grupo.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dtProducto)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// chkActivo
@@ -257,6 +261,8 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.txtNotas);
+			this.tabPage1.Controls.Add(this.label60);
 			this.tabPage1.Controls.Add(this.label56);
 			this.tabPage1.Controls.Add(this.txtProveedor);
 			this.tabPage1.Controls.Add(this.txtDevoluciones);
@@ -1789,6 +1795,27 @@
 			this.chkGrupal.Text = "Paquetes";
 			this.chkGrupal.UseVisualStyleBackColor = true;
 			// 
+			// errorProvider1
+			// 
+			this.errorProvider1.ContainerControl = this;
+			// 
+			// label60
+			// 
+			this.label60.AutoSize = true;
+			this.label60.Location = new System.Drawing.Point(6, 288);
+			this.label60.Name = "label60";
+			this.label60.Size = new System.Drawing.Size(35, 13);
+			this.label60.TabIndex = 60;
+			this.label60.Text = "Notas";
+			// 
+			// txtNotas
+			// 
+			this.txtNotas.Location = new System.Drawing.Point(9, 304);
+			this.txtNotas.Multiline = true;
+			this.txtNotas.Name = "txtNotas";
+			this.txtNotas.Size = new System.Drawing.Size(725, 86);
+			this.txtNotas.TabIndex = 61;
+			// 
 			// Producto
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1835,6 +1862,7 @@
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dtProducto)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -2001,5 +2029,8 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn codigo_producto;
 		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_producto;
 		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion_producto;
+		private System.Windows.Forms.ErrorProvider errorProvider1;
+		private System.Windows.Forms.TextBox txtNotas;
+		private System.Windows.Forms.Label label60;
 	}
 }

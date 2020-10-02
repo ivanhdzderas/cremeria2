@@ -261,19 +261,27 @@ namespace Cremeria.Forms
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				Models.Product producto = new Models.Product();
-				using (producto)
+				if (txtCodigo.Text != "")
 				{
-					List<Models.Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
-					foreach (Models.Product item in result)
+					Models.Product producto = new Models.Product();
+					using (producto)
 					{
-						id = item.Id.ToString();
-						txtCodigo.Text = item.Code1;
-						txtDescripcion.Text = item.Description;
-						txtpu.Text = item.Cost.ToString();
+						List<Models.Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
+						foreach (Models.Product item in result)
+						{
+							id = item.Id.ToString();
+							txtCodigo.Text = item.Code1;
+							txtDescripcion.Text = item.Description;
+							txtpu.Text = item.Cost.ToString();
+						}
 					}
+					txtpu.Focus();
 				}
-				txtpu.Focus();
+				else
+				{
+					txtdescuento.Focus();
+				}
+				
 			}
 			if (e.KeyCode == Keys.F2)
 			{
@@ -454,19 +462,19 @@ namespace Cremeria.Forms
 		private void button2_Click(object sender, EventArgs e)
 		{
 			int dias = 0;
-			string fecha_credito = "0000-00-00 00:00:00";
+			string fecha_credito = "0000-00-00";
 			string pagado = "SI";
 			if (chkContado.Checked != true)
 			{
 				dias = Convert.ToInt16(txtdias.Text);
-				fecha_credito = dtVencimiento.Text + " 00:00:00";
+				fecha_credito = dtVencimiento.Text;
 				pagado = "NO";
 			}
 			Models.Compras compra = new Models.Compras(
 				0,
 				txtFolio.Text,
-				dtFecha.Text + " 00:00:00",
-				dtFechaDoc.Text + " 00:00:00",
+				dtFecha.Text ,
+				dtFechaDoc.Text,
 				txtNumero.Text,
 				"A",
 				dias,
@@ -480,7 +488,7 @@ namespace Cremeria.Forms
 			using (compra)
 			{
 				compra.crateCompra();
-				List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text + " 00:00:00", dtFechaDoc.Text + " 00:00:00", txtNumero.Text, Convert.ToDouble(txttotal.Text));
+				List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text, dtFechaDoc.Text, txtNumero.Text, Convert.ToDouble(txttotal.Text));
 				Models.Purchases detalles = new Models.Purchases();
 				detalles.Id = 0;
 				detalles.Id_compra = resultado[0].Id;

@@ -16,5 +16,10 @@ namespace Cremeria.Forms
 		{
 			InitializeComponent();
 		}
+
+		private void Alertas_Load(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }

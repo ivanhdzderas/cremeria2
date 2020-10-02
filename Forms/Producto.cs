@@ -291,58 +291,75 @@ namespace Cremeria.Forms
             if (txtDescripcion.Text == "")
             {
                 validador = false;
+                errorProvider1.SetError(txtDescripcion, "Ingrese descripcion del producto");
             }
             if (txtCodigo1.Text == "")
             {
                 validador = false;
+                errorProvider1.SetError(txtCodigo1, "Ingrese codigo del producto");
             }
             if (txtPrice1.Text == "" || txtPrice1.Text == "0.00")
             {
                 validador = false;
+                errorProvider1.SetError(txtPrice1, "Ingrese precio del producto");
             }
             if (txtPercentPrice1.Text == "0.00")
             {
                 validador = false;
+                errorProvider1.SetError(txtPercentPrice1, "Ingrese porcentaje de utilidad del producto");
             }
 
             if (txtCosto.Text == "" || txtCosto.Text == "0.00")
             {
-                validador = false;
+				validador = false;
+                errorProvider1.SetError(txtCosto, "Ingrese costo del producto");
             }
             if (txtdias.Text == "")
             {
                 validador = false;
+                errorProvider1.SetError(txtdias, "Ingrese dias de alerta del producto");
             }
-
+            if (txtProveedor.Text == "")
+			{
+                validador= false;
+                errorProvider1.SetError(txtProveedor, "Ingrese a que proveedor pertecene el producto");
+            }
             if (chkCaja.Checked == true)
             {
                 if (txtCodigoCaja.Text == "")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtCodigoCaja, "Ingrese codigo de caja del producto");
                 }
                 if (txtDescripcionCaja.Text == "")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtDescripcionCaja, "Ingrese descripcion de caja del producto");
                 }
                 if (txtPCaja.Text == "" || txtPCaja.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtPCaja, "Ingrese precio de caja del producto");
                 }
                 if (txtCostoCaja.Text == "" || txtCostoCaja.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtCostoCaja, "Ingrese costo de caja del producto");
                 }
                 if (txtUtilidad1C.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtUtilidad1C, "Ingrese utilidad de caja del producto");
                 }
                 if (txtPrecio1C.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtPrecio1C, "Ingrese precio de caja del producto");
                 }
                 if (max_p1.Value == 0)
                 {
                     validador = false;
+                    errorProvider1.SetError(max_p1, "Ingrese maximo de precio de caja del producto");
                 }
             }
             if (chkCarton.Checked == true)
@@ -350,30 +367,37 @@ namespace Cremeria.Forms
                 if (txtCodigoCarton.Text == "")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtCodigoCarton, "Ingrese codigo de carton del producto");
                 }
                 if (txtDescripcionCarton.Text == "")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtDescripcionCarton, "Ingrese descripcion de carton del producto");
                 }
                 if (txtp_carton.Text == "" || txtp_carton.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtp_carton, "Ingrese precio de carton del producto");
                 }
                 if (txtCostoCarton.Text == "" || txtCostoCarton.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtCostoCarton, "Ingrese costo de carton del producto");
                 }
                 if (txtUtilidad1Ct.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtUtilidad1Ct, "Ingrese utilidad de carton del producto");
                 }
                 if (txtPrecio1Ct.Text == "0.00")
                 {
                     validador = false;
+                    errorProvider1.SetError(txtPrecio1Ct, "Ingrese precio de carton del producto");
                 }
                 if (max_p1ct.Value == 0)
                 {
                     validador = false;
+                    errorProvider1.SetError(max_p1ct, "Ingrese maximo de precio de carton del producto");
                 }
             }
             return validador;
@@ -647,6 +671,7 @@ namespace Cremeria.Forms
                                 cboVenta.SelectedIndex = 3;
                                 break;
                         }
+                        txtNotas.Text = item.Notas;
                         carga_pack(Convert.ToUInt16(Codigo));
                         carga_box();
                         carga_kardex();
@@ -904,7 +929,8 @@ namespace Cremeria.Forms
                 Convert.ToDouble(max_p4.Value),
                 Convert.ToDouble(max_p5.Value),
                 Convert.ToInt16(txtProveedor.Text),
-                chkGrupal.Checked
+                chkGrupal.Checked,
+                txtNotas.Text
                 );
                     product.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
@@ -975,7 +1001,8 @@ namespace Cremeria.Forms
                         0,
                         0,
                         Convert.ToInt16(txtProveedor.Text),
-                        false
+                        false,
+                        ""
                         );
                         subproduct.Active = Convert.ToInt16(chkActivo.Checked);
                         if (Codigo == "")
@@ -1049,7 +1076,8 @@ namespace Cremeria.Forms
                            0,
                            0,
                            Convert.ToInt16(txtProveedor.Text),
-                           false
+                           false,
+                           ""
                            );
                         subsub.Active = Convert.ToInt16(chkActivo.Checked);
                         if (Codigo == "")
