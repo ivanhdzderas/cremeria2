@@ -21,6 +21,21 @@ namespace Cremeria.Forms
 		{
 			InitializeComponent();
 		}
+        private void carga_costos()
+		{
+            dtCostos.Rows.Clear();
+            Models.prov_prod costo = new Models.prov_prod();
+			using (costo)
+			{
+                List<Models.prov_prod> cot = costo.get_costo(Convert.ToInt32(Codigo));
+                if (cot.Count>0) {
+                    foreach(Models.prov_prod item in cot)
+					{
+                        dtCostos.Rows.Add(item.Id,item.Id_proveedor,item.Costo, item.Cantidad);
+					}
+                }
+			}
+		}
         private void carga_kardex()
         {
             if (connectionstring2 != "")
@@ -470,14 +485,25 @@ namespace Cremeria.Forms
                         }
                     }
                 }
-                
-
             }
+        }
 
-
+        private void combobox_popular()
+		{
+            
+            Models.Providers proveedores = new Models.Providers();
+			using (proveedores)
+			{
+                int i = 1;
+                List<Models.Providers> proveedor = proveedores.getProviders();
+                cbproveedor.ValueMember = "Id";
+                cbproveedor.DisplayMember = "Name";
+                cbproveedor.DataSource = proveedor;
+            }
         }
         private void Producto_Load(object sender, EventArgs e)
 		{
+            combobox_popular();
             txtCodigo.AutoCompleteCustomSource = cargadatos();
             txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -526,6 +552,8 @@ namespace Cremeria.Forms
             max_p3ct.ThousandsSeparator = true;
             carga_marcas();
             carga_grupos();
+
+           
 
             DataTable table = new DataTable();
             DataRow row;
@@ -675,7 +703,7 @@ namespace Cremeria.Forms
                         carga_pack(Convert.ToUInt16(Codigo));
                         carga_box();
                         carga_kardex();
-
+                        carga_costos();
 
                         if (item.Grupal == true)
                         {
@@ -943,6 +971,27 @@ namespace Cremeria.Forms
                             Codigo = item.Id.ToString();
                         }
 
+                        Models.prov_prod relacion = new Models.prov_prod();
+						using (relacion)
+						{
+                            foreach(DataGridViewRow row in dtCostos.Rows)
+							{
+                                if (row.Cells["cbproveedor"].Value is null)
+                                {
+
+                                }
+                                else
+                                {
+                                    relacion.Id_producto = Convert.ToInt32(Codigo);
+                                    relacion.Id_proveedor = Convert.ToInt32(row.Cells["cbproveedor"].Value.ToString());
+                                    relacion.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
+                                    relacion.Cantidad = 0;
+                                    relacion.create();
+                                }
+
+                            }
+						}
+
 
                     }
                     else
@@ -951,6 +1000,29 @@ namespace Cremeria.Forms
                         product.Id = Convert.ToInt32(Codigo);
                         product.saveProduct();
 
+                        Models.prov_prod relacion = new Models.prov_prod();
+                        using (relacion)
+                        {
+                            relacion.Id_producto = Convert.ToInt32(Codigo);
+                            relacion.delete();
+                            foreach (DataGridViewRow row in dtCostos.Rows)
+                            {
+                                if (row.Cells["cbproveedor"].Value is null)
+								{
+
+								}
+								else
+								{
+                                    relacion.Id_producto = Convert.ToInt32(Codigo);
+                                    relacion.Id_proveedor = Convert.ToInt32(row.Cells["cbproveedor"].Value.ToString());
+                                    relacion.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
+                                    relacion.Cantidad = 0;
+                                    relacion.create();
+                                }
+                                
+
+                            }
+                        }
 
                     }
 

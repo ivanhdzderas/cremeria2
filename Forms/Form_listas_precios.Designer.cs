@@ -41,6 +41,8 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
+			this.txtPrecio = new System.Windows.Forms.TextBox();
+			this.txtMonto = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.nmDescuento)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -109,15 +111,16 @@
 			this.nmDescuento.Name = "nmDescuento";
 			this.nmDescuento.Size = new System.Drawing.Size(106, 20);
 			this.nmDescuento.TabIndex = 7;
+			this.nmDescuento.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nmDescuento_KeyDown);
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(195, 70);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(15, 13);
+			this.label4.Size = new System.Drawing.Size(39, 13);
 			this.label4.TabIndex = 8;
-			this.label4.Text = "%";
+			this.label4.Text = "%      $";
 			// 
 			// button1
 			// 
@@ -150,11 +153,29 @@
 			this.button3.Visible = false;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
+			// txtPrecio
+			// 
+			this.txtPrecio.Location = new System.Drawing.Point(593, 41);
+			this.txtPrecio.Name = "txtPrecio";
+			this.txtPrecio.ReadOnly = true;
+			this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+			this.txtPrecio.TabIndex = 12;
+			// 
+			// txtMonto
+			// 
+			this.txtMonto.Location = new System.Drawing.Point(240, 67);
+			this.txtMonto.Name = "txtMonto";
+			this.txtMonto.Size = new System.Drawing.Size(100, 20);
+			this.txtMonto.TabIndex = 13;
+			this.txtMonto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonto_KeyDown);
+			// 
 			// Form_listas_precios
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(602, 143);
+			this.ClientSize = new System.Drawing.Size(701, 143);
+			this.Controls.Add(this.txtMonto);
+			this.Controls.Add(this.txtPrecio);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
@@ -193,5 +214,7 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.TextBox txtPrecio;
+		private System.Windows.Forms.TextBox txtMonto;
 	}
 }

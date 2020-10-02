@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Asn1.Cms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -496,6 +497,7 @@ namespace Cremeria.Forms
 				Models.Product producto = new Models.Product();
 				Models.Afecta_inv afecta = new Models.Afecta_inv();
 				Models.Caducidades Caducida = new Models.Caducidades();
+				Models.prov_prod costos = new Models.prov_prod();
 				Caducida.Id = 0;
 				Caducida.Id_compra = resultado[0].Id;
 				double nuevo = 0;
@@ -514,11 +516,38 @@ namespace Cremeria.Forms
 
 
 						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-						detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+						detalles.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
 						detalles.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
 						detalles.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
 						using (detalles)
 						{
+
+							using (costos)
+							{
+								List<Models.prov_prod> cost = costos.get_costobyproveedor(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()),Convert.ToInt32(txtNumero.Text));
+								if (cost.Count>0)
+								{
+									costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+									costos.Id_proveedor = Convert.ToInt32(txtNumero.Text);
+									costos.Cantidad = cost[0].Cantidad;
+									costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+									costos.update_from_compra();
+								}
+								else
+								{
+									costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+									costos.Id_proveedor = Convert.ToInt32(txtNumero.Text);
+									costos.Cantidad =Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+									costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+									costos.create();
+								}
+								
+							}
+
+
+							
+
+
 							detalles.createPurchases();
 							Caducida.Id_producto = prod[0].Id;
 							Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();

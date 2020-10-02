@@ -52,6 +52,7 @@ namespace Cremeria.Forms
 					txtId_cliente_KeyDown(this, new KeyEventArgs(Keys.Enter));
 					busca_producto(lista[0].Id_Producto);
 					nmDescuento.Value = Convert.ToDecimal(lista[0].Descuento);
+					nmDescuento_KeyDown(this, new KeyEventArgs(Keys.Enter));
 					button3.Visible = true;
 					txtId_cliente.ReadOnly = true;
 					txtCliente.ReadOnly = true;
@@ -202,6 +203,7 @@ namespace Cremeria.Forms
 					{
 						txtDescripcion.Text = result[0].Description;
 						Id_producto = result[0].Id;
+						txtPrecio.Text = result[0].Price1.ToString();
 					}
 				}
 			}
@@ -219,6 +221,7 @@ namespace Cremeria.Forms
 					{
 						txtCodigo.Text = result[0].Code1;
 						Id_producto = result[0].Id;
+						txtPrecio.Text = result[0].Price1.ToString();
 					}
 				}
 			}
@@ -238,6 +241,22 @@ namespace Cremeria.Forms
 				}
 				this.Close();
 			
+			}
+		}
+
+		private void nmDescuento_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				txtMonto.Text = ((Convert.ToDouble(nmDescuento.Value)*Convert.ToDouble(txtPrecio.Text))/100).ToString() ;
+			}
+		}
+
+		private void txtMonto_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				nmDescuento.Value= Convert.ToDecimal((Convert.ToDouble(txtMonto.Text) * 100) / Convert.ToDouble(txtPrecio.Text));
 			}
 		}
 	}

@@ -578,6 +578,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Produc_suc.cs" />
     <Compile Include="Models\Providers.cs" />
+    <Compile Include="Models\prov_prod.cs" />
     <Compile Include="Models\Purchases.cs" />
     <Compile Include="Models\Reports\Det_promotor.cs" />
     <Compile Include="Models\Reports\Encaja.cs" />
