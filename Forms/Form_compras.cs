@@ -132,7 +132,8 @@ namespace Cremeria.Forms
 
 
 			}
-			double descuento = (importe / 100) * Convert.ToDouble(txtdescuento.Text);
+			//double descuento = (importe / 100) * Convert.ToDouble(txtdescuento.Text);
+			double descuento = Convert.ToDouble(txtdescuento.Text);
 			double productos = cuantos;
 			double subtotal = totales;
 
@@ -507,21 +508,18 @@ namespace Cremeria.Forms
 					{
 						List<Models.Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
 
-						nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 						while (prod[0].Parent != "0")
 						{
 							nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
 							prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
 						}
-
-
 						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 						detalles.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
 						detalles.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
 						detalles.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
 						using (detalles)
 						{
-
 							using (costos)
 							{
 								List<Models.prov_prod> cost = costos.get_costobyproveedor(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()),Convert.ToInt32(txtNumero.Text));
@@ -541,22 +539,19 @@ namespace Cremeria.Forms
 									costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
 									costos.create();
 								}
-								
 							}
-
-
-							
-
-
 							detalles.createPurchases();
-							Caducida.Id_producto = prod[0].Id;
-							Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
-							Caducida.Lote = row.Cells["lote"].Value.ToString();
-							Caducida.Cantidad = nuevo;
-							using (caducidad)
+							if (row.Cells["lote"].Value.ToString() != "")
 							{
-								Caducida.createCaducidad();
+								Caducida.Id_producto = prod[0].Id;
+								Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
+								Caducida.Lote = row.Cells["lote"].Value.ToString();
+								Caducida.Cantidad = nuevo;
+								using (caducidad)
+								{
+									Caducida.createCaducidad();
 
+								}
 							}
 							kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
 							kardex.Id_producto = prod[0].Id;
@@ -573,12 +568,8 @@ namespace Cremeria.Forms
 								{
 									afecta.Agrega(numeracion[0].Id);
 								}
-
 							}
-
-
 						}
-
 					}
 				}
 			}

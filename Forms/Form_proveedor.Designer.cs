@@ -55,11 +55,13 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
 			this.SuspendLayout();
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(197, 380);
+			this.button2.Location = new System.Drawing.Point(197, 419);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(75, 23);
 			this.button2.TabIndex = 78;
@@ -69,7 +71,7 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(46, 380);
+			this.button1.Location = new System.Drawing.Point(46, 419);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 77;
@@ -271,11 +273,36 @@
 			this.label1.TabIndex = 53;
 			this.label1.Text = "Nombre";
 			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(31, 367);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(56, 13);
+			this.label13.TabIndex = 79;
+			this.label13.Text = "Dias Pago";
+			// 
+			// checkedListBox1
+			// 
+			this.checkedListBox1.FormattingEnabled = true;
+			this.checkedListBox1.Items.AddRange(new object[] {
+            "Lunes",
+            "Martes",
+            "Miercoles",
+            "Jueves",
+            "Viernes"});
+			this.checkedListBox1.Location = new System.Drawing.Point(93, 367);
+			this.checkedListBox1.Name = "checkedListBox1";
+			this.checkedListBox1.Size = new System.Drawing.Size(129, 49);
+			this.checkedListBox1.TabIndex = 80;
+			// 
 			// Form_proveedor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(420, 421);
+			this.ClientSize = new System.Drawing.Size(420, 454);
+			this.Controls.Add(this.checkedListBox1);
+			this.Controls.Add(this.label13);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.txtTelefono);
@@ -341,5 +368,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.CheckedListBox checkedListBox1;
 	}
 }

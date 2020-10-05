@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -111,6 +112,22 @@ namespace Cremeria.Models
 			}
 			return result;
 		}
+		public List<Compras> GetComprasporvencer(string fecha, int _proveedor)
+		{
+			string query = "select tbacompras.id, tbacompras.fecha,tbacompras.documento ,  tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			query += " where tbacompras.id_proveedor='" + _proveedor + "' and tbacompras.fecha_credito like '" + fecha + "'";
+			MySqlDataReader data = runQuery(query);
+			List<Compras> result = new List<Compras>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Compras item = buildCompra(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 		public List<Compras> GetlastCompras(string fecha, string fecha_doc, string proveedor,double total)
 		{
 			string query = "select tbacompras.id, tbacompras.documento, tbacompras.fecha, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
@@ -146,6 +163,7 @@ namespace Cremeria.Models
 			}
 			return result;
 		}
+		
 		public List<Compras> getCompra_sin_pagar(string proveedor)
 		{
 			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
@@ -180,5 +198,6 @@ namespace Cremeria.Models
 			}
 			return result;
 		}
+
 	}
 }

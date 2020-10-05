@@ -18,7 +18,7 @@ namespace Cremeria.Models
         public string Tel { get; set; }
         public string Note { get; set; }
         public string Email { get; set; }
-
+        public string Pago { get; set; }
         public Providers(
             int id, 
             string name,
@@ -32,7 +32,8 @@ namespace Cremeria.Models
             string muni, 
             string tel, 
             string note, 
-            string email
+            string email,
+            string pago
             ) {
             Id = id;
             Name = name;
@@ -47,6 +48,7 @@ namespace Cremeria.Models
             Tel = tel;
             Note = note;
             Email = email;
+            Pago = pago;
         }
 
         public Providers() { }
@@ -65,13 +67,14 @@ namespace Cremeria.Models
                 data.GetString("municipio"),
                 data.GetString("telefono"),
                 data.GetString("notas"),
-                data.GetString("email")
+                data.GetString("email"),
+                data.GetString("dias_pago")
                 );
             return item;
         }
 
         public void createProvider() {
-            string query = "insert tbaproveedores (nombre, RFC, calle, num_ext, num_int, colonia,cp, estado, municipio, telefono, notas, email)";
+            string query = "insert tbaproveedores (nombre, RFC, calle, num_ext, num_int, colonia,cp, estado, municipio, telefono, notas, email,dias_pago)";
             query += " values (";
             query += "'" + this.Name + "', ";
             query += "'" + this.RFC + "', ";
@@ -84,7 +87,8 @@ namespace Cremeria.Models
             query += "'" + this.Muni + "', ";
             query += "'" + this.Tel + "', ";
             query += "'" + this.Note + "', ";
-            query += "'" + this.Email + "' ";
+            query += "'" + this.Email + "', ";
+            query += "'" + this.Pago + "'";
             query += ")";
             object result = runQuery(query)
 ;        }
@@ -101,11 +105,12 @@ namespace Cremeria.Models
             query += "municipio='" + this.Muni +"', ";
             query += "telefono='" + this.Tel +"', ";
             query += "notas='" + this.Note +"', ";
-            query += "email='" +this.Email +"' ";
+            query += "email='" +this.Email +"', ";
+            query += "dias_pago='" + this.Pago + "' ";
             query += " where id='" + this.Id + "'";
             object rseult = runQuery(query);
         }
-        private string maq_query = "select id, nombre, RFC, calle, num_ext, num_int, colonia,cp, estado,municipio, telefono, notas, email from tbaproveedores";
+        private string maq_query = "select id, nombre, RFC, calle, num_ext, num_int, colonia,cp, estado,municipio, telefono, notas, email,dias_pago from tbaproveedores";
         public List<Providers> getProviders() {
             string query = maq_query;
             MySqlDataReader data = runQuery(query);
@@ -115,6 +120,22 @@ namespace Cremeria.Models
                     Providers item = buildProvideer(data);
                     result.Add(item)
 ;                }
+            }
+            return result;
+        }
+        public List<Providers> getProvidersbypago(string dia)
+        {
+            string query = maq_query + " where dias_pago like '%" + dia + "%'";
+            MySqlDataReader data = runQuery(query);
+            List<Providers> result = new List<Providers>();
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    Providers item = buildProvideer(data);
+                    result.Add(item)
+;
+                }
             }
             return result;
         }

@@ -1,6 +1,7 @@
 ﻿using Cremeria.Forms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 namespace Cremeria
 {
@@ -86,10 +87,9 @@ namespace Cremeria
 		private void Inicial_Load(object sender, EventArgs e)
 		{
 			timer1.Start();
-			
-			
-			
 
+
+			
 			if (System.IO.File.Exists(@"nueva.txt"))
 			{
 				nueva_tarea();

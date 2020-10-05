@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,15 +60,33 @@ namespace Cremeria.Forms
 						txtTelefono.Text = item.Tel;
 						txtNotas.Text = item.Note;
 						txtEmail.Text = item.Email;
+						char delimitar = ',';
+						string[] dias = item.Pago.Split(delimitar);
+						int cuantos = dias.Count();
+
+
+						
+							
+						for (int i = 0; i < cuantos; i++)
+						{
+							if (dias[i] != "")
+							{
+								checkedListBox1.SetItemChecked(checkedListBox1.Items.IndexOf(dias[i]), true);
+							}
+						}
 					}
 				}
-
-
 			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			string s = "";
+			for (int x = 0; x < checkedListBox1.CheckedItems.Count; x++)
+			{
+				s = s +  checkedListBox1.CheckedItems[x].ToString() + ",";
+			}
+			
 			Models.Providers prov = new Models.Providers(
 				Convert.ToInt16(id),
 				txtNombre.Text,
@@ -81,7 +100,8 @@ namespace Cremeria.Forms
 				txtMunicipio.Text,
 				txtTelefono.Text,
 				txtNotas.Text,
-				txtEmail.Text
+				txtEmail.Text,
+				s
 				);
 			using (prov)
 			{
@@ -96,6 +116,7 @@ namespace Cremeria.Forms
 			}
 
 			this.Close();
+			
 		}
 	}
 }

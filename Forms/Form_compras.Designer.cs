@@ -52,15 +52,6 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.dtProductos = new System.Windows.Forms.DataGridView();
-			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.caducidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -82,6 +73,15 @@
 			this.button5 = new System.Windows.Forms.Button();
 			this.dtDocumentos = new System.Windows.Forms.DataGridView();
 			this.documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.lote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.caducidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -328,58 +328,6 @@
 			this.dtProductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
 			// 
-			// id_producto
-			// 
-			this.id_producto.HeaderText = "id";
-			this.id_producto.Name = "id_producto";
-			this.id_producto.Visible = false;
-			// 
-			// codigo
-			// 
-			this.codigo.HeaderText = "Codigo";
-			this.codigo.Name = "codigo";
-			this.codigo.ReadOnly = true;
-			// 
-			// cantidad
-			// 
-			this.cantidad.HeaderText = "Cantidad";
-			this.cantidad.Name = "cantidad";
-			// 
-			// descripcion
-			// 
-			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.descripcion.HeaderText = "Descripcion";
-			this.descripcion.Name = "descripcion";
-			this.descripcion.ReadOnly = true;
-			// 
-			// p_u
-			// 
-			this.p_u.HeaderText = "P/U";
-			this.p_u.Name = "p_u";
-			// 
-			// total
-			// 
-			this.total.HeaderText = "Total";
-			this.total.Name = "total";
-			this.total.ReadOnly = true;
-			// 
-			// lote
-			// 
-			this.lote.HeaderText = "Lote";
-			this.lote.Name = "lote";
-			this.lote.ReadOnly = true;
-			// 
-			// caducidad
-			// 
-			this.caducidad.HeaderText = "Caducidad";
-			this.caducidad.Name = "caducidad";
-			// 
-			// impuesto
-			// 
-			this.impuesto.HeaderText = "impuesto";
-			this.impuesto.Name = "impuesto";
-			this.impuesto.Visible = false;
-			// 
 			// groupBox1
 			// 
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -589,6 +537,60 @@
 			this.documento.Name = "documento";
 			this.documento.ReadOnly = true;
 			// 
+			// id_producto
+			// 
+			this.id_producto.HeaderText = "id";
+			this.id_producto.Name = "id_producto";
+			this.id_producto.Visible = false;
+			// 
+			// codigo
+			// 
+			this.codigo.HeaderText = "Codigo";
+			this.codigo.Name = "codigo";
+			this.codigo.ReadOnly = true;
+			// 
+			// cantidad
+			// 
+			this.cantidad.HeaderText = "Cantidad";
+			this.cantidad.Name = "cantidad";
+			// 
+			// descripcion
+			// 
+			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.descripcion.HeaderText = "Descripcion";
+			this.descripcion.Name = "descripcion";
+			this.descripcion.ReadOnly = true;
+			// 
+			// p_u
+			// 
+			this.p_u.HeaderText = "P/U";
+			this.p_u.Name = "p_u";
+			// 
+			// total
+			// 
+			this.total.HeaderText = "Total";
+			this.total.Name = "total";
+			this.total.ReadOnly = true;
+			// 
+			// lote
+			// 
+			this.lote.HeaderText = "Lote";
+			this.lote.Name = "lote";
+			this.lote.ReadOnly = true;
+			this.lote.Visible = false;
+			// 
+			// caducidad
+			// 
+			this.caducidad.HeaderText = "Caducidad";
+			this.caducidad.Name = "caducidad";
+			this.caducidad.Visible = false;
+			// 
+			// impuesto
+			// 
+			this.impuesto.HeaderText = "impuesto";
+			this.impuesto.Name = "impuesto";
+			this.impuesto.Visible = false;
+			// 
 			// Form_compras
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -666,15 +668,6 @@
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.DataGridView dtProductos;
-		private System.Windows.Forms.DataGridViewTextBoxColumn id_producto;
-		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
-		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-		private System.Windows.Forms.DataGridViewTextBoxColumn p_u;
-		private System.Windows.Forms.DataGridViewTextBoxColumn total;
-		private System.Windows.Forms.DataGridViewTextBoxColumn lote;
-		private System.Windows.Forms.DataGridViewTextBoxColumn caducidad;
-		private System.Windows.Forms.DataGridViewTextBoxColumn impuesto;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripButton toolStripButton1;
@@ -696,5 +689,14 @@
 		private System.Windows.Forms.Button button5;
 		public System.Windows.Forms.DataGridView dtDocumentos;
 		private System.Windows.Forms.DataGridViewTextBoxColumn documento;
+		private System.Windows.Forms.DataGridViewTextBoxColumn id_producto;
+		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
+		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+		private System.Windows.Forms.DataGridViewTextBoxColumn p_u;
+		private System.Windows.Forms.DataGridViewTextBoxColumn total;
+		private System.Windows.Forms.DataGridViewTextBoxColumn lote;
+		private System.Windows.Forms.DataGridViewTextBoxColumn caducidad;
+		private System.Windows.Forms.DataGridViewTextBoxColumn impuesto;
 	}
 }

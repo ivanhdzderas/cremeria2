@@ -45,7 +45,7 @@ namespace Cremeria.Models
 		}
 		public void update_from_compra()
 		{
-			string query = "update tbaprov_prod set cantidad='" + this.Cantidad + ", costo='" + this.Costo + "' where id_producto='" + this.Id_producto + "' and id_proveedor='" + this.Id_proveedor + "'";
+			string query = "update tbaprov_prod set cantidad='" + this.Cantidad + "', costo='" + this.Costo + "' where id_producto='" + this.Id_producto + "' and id_proveedor='" + this.Id_proveedor + "'";
 			object result = runQuery(query);
 		}
 		public void delete()
