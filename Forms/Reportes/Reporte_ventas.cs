@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using iTextSharp.text.html;
+using Cremeria.Models;
 
 namespace Cremeria.Forms.Reportes
 {
@@ -18,11 +23,13 @@ namespace Cremeria.Forms.Reportes
 		{
 			InitializeComponent();
 		}
-
+		
 		private void button1_Click(object sender, EventArgs e)
 		{
 			ventas vent = new ventas();
 			vent.Show();
+
+			
 		}
 
 		private void button2_Click(object sender, EventArgs e)

@@ -17,6 +17,8 @@ namespace Cremeria.Forms
 		public static string Codigo;
 		public static string SubProducto;
 		public static string SubSubProducto;
+
+        private static double precio1, precio2, precio3, precio4, precio5;
 		public Producto()
 		{
 			InitializeComponent();
@@ -630,6 +632,13 @@ namespace Cremeria.Forms
                         txtPrice3.Text = item.Price3.ToString();
                         txtPrice4.Text = item.Price4.ToString();
                         txtPrice5.Text = item.Price5.ToString();
+                        precio1 = item.Price1;
+                        precio2 = item.Price2;
+                        precio3 = item.Price3;
+                        precio4 = item.Price4;
+                        precio5 = item.Price5;
+
+
                         txtExistencia.Text = item.Existencia.ToString();
                         txtDevoluciones.Text = item.Devoluciones.ToString();
                         cboMarca.SelectedValue = item.Brand;
@@ -965,6 +974,42 @@ namespace Cremeria.Forms
                     {
 
                         product.createProduct();
+                        if (precio1 != Convert.ToDouble(txtPrice1.Text) || precio2 != Convert.ToDouble(txtPrice2.Text) || precio3 != Convert.ToDouble(txtPrice3.Text) || precio4 != Convert.ToDouble(txtPrice4.Text)  || precio5 != Convert.ToDouble(txtPrice5.Text))
+						{
+                            Models.Log historia = new Models.Log();
+                            using (historia)
+                            {
+
+                                historia.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+                                if (precio1 != Convert.ToDouble(txtPrice1.Text))
+                                {
+                                    historia.Descripcion = "cambio de precio en el producto " + txtDescripcion.Text + " con clave " + txtCodigo1.Text + ",  de $" + precio1 +" a $"+txtPrice1.Text;
+                                    historia.createLog();
+                                }
+                                if (precio2 != Convert.ToDouble(txtPrice2.Text))
+                                {
+                                    historia.Descripcion = "cambio de precio en el producto " + txtDescripcion.Text + " con clave " + txtCodigo1.Text + ",  de $" + precio2 + " a $" + txtPrice2.Text;
+                                    historia.createLog();
+                                }
+                                if (precio3 != Convert.ToDouble(txtPrice3.Text))
+                                {
+                                    historia.Descripcion = "cambio de precio en el producto " + txtDescripcion.Text + " con clave " + txtCodigo1.Text + ",  de $" + precio3 + " a $" + txtPrice3.Text;
+                                    historia.createLog();
+                                }
+                                if (precio4 != Convert.ToDouble(txtPrice4.Text))
+                                {
+                                    historia.Descripcion = "cambio de precio en el producto " + txtDescripcion.Text + " con clave " + txtCodigo1.Text + ",  de $" + precio4 + " a $" + txtPrice4.Text;
+                                    historia.createLog();
+                                }
+                                if (precio5 != Convert.ToDouble(txtPrice5.Text))
+                                {
+                                    historia.Descripcion = "cambio de precio en el producto " + txtDescripcion.Text + " con clave " + txtCodigo1.Text + ",  de $" + precio5 + " a $" + txtPrice5.Text;
+                                    historia.createLog();
+                                }
+                            }
+                        }
+                       
+
                         List<Models.Product> result = product.getProductByCode(txtCodigo1.Text);
                         foreach (Models.Product item in result)
                         {

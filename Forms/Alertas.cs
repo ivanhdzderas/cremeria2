@@ -30,7 +30,7 @@ namespace Cremeria.Forms
 				List<Models.Providers> proveedor = proveedores.getProvidersbypago(dia11);
 				using (compras)
 				{
-					List<Models.Compras> compra = compras.GetComprasporvencer(today.ToString("yyyy-MM-dd"),proveedor[0].Id);
+					//List<Models.Compras> compra = compras.GetComprasporvencer(today.ToString("yyyy-MM-dd"),proveedor[0].Id);
 					
 				}
 			}

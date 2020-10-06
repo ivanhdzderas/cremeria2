@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using MySql.Data.MySqlClient;
 
 namespace Cremeria.Models
@@ -74,7 +75,16 @@ namespace Cremeria.Models
             query += ")";
             object result = runQuery(query);
         }
-
+        public void update_email()
+		{
+            string query = "update tbaclientes set email='" + this.Email + "' where id='" + this.Id + "'";
+            object result = runQuery(query);
+		}
+        public void update_uso()
+		{
+            string query = "update tbaclientes set uso_cfdi='" + this.Uso_cfdi + "' where id='" + this.Id + "'";
+            object result = runQuery(query);
+		}
         public void saveClient() {
             string query = "update tbaclientes set ";
             query += "nombre='" + this.Name + "',";

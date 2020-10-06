@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.Reporting.Map.WebForms.BingMaps;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,7 @@ namespace Cremeria.Forms
 		public static bool autorizado;
 		public static int Quien_autorizo;
 		public static bool Facturar = false;
+		public static int id_cliente;
 		public Caja()
 		{
 			InitializeComponent();
@@ -46,7 +48,6 @@ namespace Cremeria.Forms
 			Models.Users usuarios = new Models.Users();
 			using (tickets)
 			{
-
 				List<Models.Tickets> tic = tickets.getTicketsbyFolio(folio);
 				if (tic.Count > 0)
 				{
@@ -68,14 +69,12 @@ namespace Cremeria.Forms
 							txtVendedor.Text = usuario[0].Id.ToString();
 							lbAtiende.Text = usuario[0].Nombre;
 						}
-
 					}
 				}
 				else
 				{
 					encontrado = false;
 				}
-				
 			}
 			Recuperada = "SI";
 			if (encontrado == true)
@@ -97,7 +96,6 @@ namespace Cremeria.Forms
 							}
 						}
 					}
-
 				}
 				txtFolio.Text = Folio_guardado.ToString();
 				calcula();
@@ -113,7 +111,6 @@ namespace Cremeria.Forms
 		private void get_folio()
 		{
 			txtFolio.Text = folio().ToString();
-			
 		}
 		private void cancelar()
 		{
@@ -134,7 +131,6 @@ namespace Cremeria.Forms
 						{
 							tickets.Folio = Convert.ToInt16(folio);
 							tickets.CancelTicket();
-
 							Models.Dettickets detalle_ticket = new Models.Dettickets();
 							using (detalle_ticket)
 							{
@@ -171,6 +167,14 @@ namespace Cremeria.Forms
 									}
 								}
 							}
+							Models.Log historial = new Models.Log();
+							using (historial)
+							{
+								historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+								historial.Descripcion = "se cancelo el ticket "+ folio ;
+								historial.createLog();
+							}
+
 							MessageBox.Show("Ticket cancelado satisfactoriamente");
 						}
 					}
@@ -179,6 +183,8 @@ namespace Cremeria.Forms
 						MessageBox.Show("No se encontro Ticket");
 					}
 				}
+
+
 			}
 		}
 		public int folio()
@@ -305,7 +311,6 @@ namespace Cremeria.Forms
 								{
 									txtCantidad.Text = item.Max_p1.ToString();
 								}
-
 							}
 							else
 							{
@@ -352,7 +357,6 @@ namespace Cremeria.Forms
 			get_folio();
 			Listar();
 			txtCodigo.Focus();
-
 		}
 		private void calcula()
 		{
@@ -365,10 +369,7 @@ namespace Cremeria.Forms
 			double cero = 0;
 			double grabado = 0;
 			double sin_grabar = 0;
-
-
 			//double descuento = Convert.ToDouble(txtTdescuento.Text);
-
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
 				cuantos = cuantos + Convert.ToDouble(row.Cells["Cantidad"].Value.ToString());
@@ -377,7 +378,6 @@ namespace Cremeria.Forms
 				switch (row.Cells["grabado"].Value.ToString())
 				{
 					case "EXENTO IMPUESTOS":
-
 						break;
 					case "11":
 						once = once + ((importe) * 0.11);
@@ -386,11 +386,8 @@ namespace Cremeria.Forms
 						diezyseis = diezyseis + ((importe) * 0.16);
 						break;
 					case "TASA CERO":
-
 						break;
 				}
-
-
 				if (row.Cells["grabado"].Value.ToString() == "16" || row.Cells["grabado"].Value.ToString() == "11")
 				{
 					grabado = grabado + Convert.ToDouble(row.Cells["total_i"].Value.ToString());
@@ -400,16 +397,12 @@ namespace Cremeria.Forms
 					sin_grabar = sin_grabar + Convert.ToDouble(row.Cells["total_i"].Value.ToString());
 				}
 				txtArticulos.Text = dtProductos.Rows.Count.ToString();
-
-
 			}
 			double descuento = (totales / 100) * Convert.ToDouble(txtDescuento.Text);
 			double productos = cuantos;
 			double subtotal = totales;
-
 			double iva = excento + once + diezyseis + cero;
 			double total = (subtotal + iva) - descuento;
-
 			Siva = sin_grabar;
 			Civa = grabado;
 			Subtotal = subtotal;
@@ -431,7 +424,6 @@ namespace Cremeria.Forms
 				using (detalles)
 				{
 					detalles.delete_det(Folio_guardado);
-
 				}
 			}
 			foreach (DataGridViewRow row in dtProductos.Rows)
@@ -504,15 +496,8 @@ namespace Cremeria.Forms
 							}
 						}
 					}
-					
 				}
-				
 			}
-			
-			
-			
-			
-			
 		}
 		// fin de funciones no ancladas a eventos
 		private void Caja_Load(object sender, EventArgs e)
@@ -522,22 +507,15 @@ namespace Cremeria.Forms
 			dtFecha.CustomFormat = "yyyy-MM-dd";
 			get_folio();
 			cliente_default();
-
-
 			txtCodigo.AutoCompleteCustomSource = cargadatos();
 			txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
 			txtIdcliente.AutoCompleteCustomSource = carga_clientes();
 			txtIdcliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtIdcliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-
 			txtCliente.AutoCompleteCustomSource = carga_clientes2();
 			txtCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-
 			txtVendedor.AutoCompleteCustomSource = carga_atiende();
 			txtVendedor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtVendedor.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -555,10 +533,6 @@ namespace Cremeria.Forms
 					List<Models.Lista_precios> lista = listas.get_listabycliente_producto(Convert.ToInt32(txtIdcliente.Text), Convert.ToInt32(row.Cells["id"].Value.ToString()));
 					if (lista.Count > 0)
 					{
-
-						
-
-
 						row.Cells["descuento_i"].Value = lista[0].Descuento;
 						double p_u = Convert.ToDouble(row.Cells["p_u"].Value);
 						double cantidad = Convert.ToDouble(row.Cells["Cantidad"].Value);
@@ -570,7 +544,6 @@ namespace Cremeria.Forms
 					}
 				}
 			}
-			
 		}
 		private void txtIdcliente_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -587,7 +560,6 @@ namespace Cremeria.Forms
 							txtCliente.Text = cliente[0].Name;
 							txtRFC.Text = cliente[0].RFC;
 							checar_produtos();
-
 						}
 					}
 				}
@@ -637,13 +609,11 @@ namespace Cremeria.Forms
 					txtCodigo.Text = "";
 					txtCantidad.Text = "";
 					txtDescripcion.Text = "";
-					
 					txtUnitario.Text = "";
 					txtImporte.Text = "";
 					Id_producto = "";
 					txtCodigo.Focus();
 				}
-
 			}
 			if (e.KeyCode == Keys.F12)
 			{
@@ -683,13 +653,11 @@ namespace Cremeria.Forms
 									{
 										txtCantidad.Text = item.Max_p1.ToString();
 									}
-									
 								}
 								else
 								{
 									txtCantidad.Text = "1";
 								}
-								
 								Id_producto = item.Id.ToString();
 								txtCodigo.Text = item.Code1;
 								txtDescripcion.Text = item.Description;
@@ -705,7 +673,6 @@ namespace Cremeria.Forms
 
 		private void txtCantidad_TextChanged(object sender, EventArgs e)
 		{
-			
 			if (txtCantidad.Text.Trim() != "")
 			{
 				if (txtCantidad.Text != ".")
@@ -745,7 +712,6 @@ namespace Cremeria.Forms
 													{
 														precio = item.Price2;
 													}
-													
 												}
 												else
 												{
@@ -765,7 +731,6 @@ namespace Cremeria.Forms
 															{
 																precio = item.Price3;
 															}
-															
 														}
 														else
 														{
@@ -785,7 +750,6 @@ namespace Cremeria.Forms
 																	{
 																		precio = item.Price4;
 																	}
-																	
 																}
 																else
 																{
@@ -803,7 +767,6 @@ namespace Cremeria.Forms
 																		{
 																			precio = item.Price5;
 																		}
-																		
 																	}
 																}
 															}
@@ -883,10 +846,8 @@ namespace Cremeria.Forms
 						double costo = prod[0].Cost;
 						string grabado = prod[0].Sale_tax;
 						grabado = grabado.Replace("IVA ", "");
-						
 						dtProductos.Rows.Insert(0, Id_producto, Convert.ToDouble(txtCantidad.Text), txtCodigo.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(txtUnitario.Text)), string.Format("{0:#,0.00}" + "%", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo, "NO");
 						checar_produtos();
-						
 					}
 					txtCodigo.Text = "";
 					txtCantidad.Text = "";
@@ -924,7 +885,38 @@ namespace Cremeria.Forms
 				e.Handled = true;
 			}
 		}
+		private void facturar()
+		{
+			Models.Client clientes = new Models.Client();
+			using (clientes)
+			{
+				List<Models.Client> cliente = clientes.getClientbyId(Convert.ToInt32(txtIdcliente.Text));
+				string correo = Interaction.InputBox("Confirmar correo electronico", "Correo", cliente[0].Email);
+				clientes.Email = correo;
+				clientes.Id = cliente[0].Id;
+				clientes.update_email();
 
+				string uso = Interaction.InputBox("Confirmar uso de CFDI", "Uso CFDI", cliente[0].Uso_cfdi);
+				clientes.Uso_cfdi = uso;
+				clientes.Id = cliente[0].Id;
+				clientes.update_uso();
+
+
+
+				Form_factura factura = new Form_factura();
+				factura.txtIdCliente.Text = txtIdcliente.Text;
+				factura.txtIdCliente_KeyDown(this, new KeyEventArgs(Keys.Enter));
+				factura.txtUsoCfdi.Text = uso;
+				factura.dtdocumentos.Rows.Add(Folio_guardado, "Ticket");
+				factura.show_det_ticket();
+
+
+				factura.button1.PerformClick();
+				factura.ShowDialog();
+
+			}
+
+		}
 		private void txtCantidad_Leave(object sender, EventArgs e)
 		{
 			if (txtCantidad.Text != "" && txtCodigo.Text != "")
@@ -933,7 +925,7 @@ namespace Cremeria.Forms
 			}
 		}
 
-		private void btnCobrar_Click(object sender, EventArgs e)
+		private async void btnCobrar_Click(object sender, EventArgs e)
 		{
 			if (txtVendedor.Text == "")
 			{
@@ -960,11 +952,7 @@ namespace Cremeria.Forms
 				{
 					Guardar();
 					if (Facturar==true) {
-						Models.Client clientes = new Models.Client();
-						using (clientes)
-						{
-
-						}
+						facturar();
 					}
 					else
 					{
@@ -986,8 +974,6 @@ namespace Cremeria.Forms
 							printDocument1.Print();
 						}
 					}
-
-					
 					Folio_guardado = 0;
 					Recuperada = "NO";
 					limpiar();
@@ -1014,13 +1000,11 @@ namespace Cremeria.Forms
 					else
 					{
 						int temp = 0;
-
 						if (int.TryParse(txtVendedor.Text, out temp))
 						{
 							usuario = usuarios.getUserbyid(Convert.ToInt16(txtVendedor.Text)); ;
 							if (usuario.Count > 0)
 							{
-
 								lbAtiende.Text = usuario[0].Nombre;
 								txtCodigo.Focus();
 							}
@@ -1060,15 +1044,12 @@ namespace Cremeria.Forms
 			Models.Client clientes = new Models.Client();
 			using (configuracion)
 			{
-				
 				List<Models.Configuration> config = configuracion.getConfiguration();
 				Font font = new Font("Verdana", 8, FontStyle.Regular);
 				int y = 70;
 				var format = new StringFormat() { Alignment = StringAlignment.Center };
 				double cambio = 0;
 				double descuento = Convert.ToDouble(txtDescuento.Text);
-
-
 				if (config[0].Logo_ticket != "")
 				{
 					if (File.Exists(config[0].Logo_ticket))
@@ -1134,11 +1115,9 @@ namespace Cremeria.Forms
 							e.Graphics.DrawString(item.Descripcion, font, Brushes.Black, 10, y);
 							e.Graphics.DrawString(item.Cantidad.ToString(), font, Brushes.Black, 50, y + 10, format);
 							e.Graphics.DrawString(string.Format("{0:#,0.00}",item.Pu), font, Brushes.Black, 120, y + 10, format);
-
 							if (Convert.ToDouble(item.Descuento) != 0)
 							{
 								e.Graphics.DrawString(string.Format("{0:#,0.00}", item.Descuento), font, Brushes.Black, 150, y + 10, format);
-
 							}
 							e.Graphics.DrawString(string.Format("{0:#,0.00}", item.Total), font, Brushes.Black, 220, y + 10, format);
 							totali = totali + 1;
@@ -1174,12 +1153,10 @@ namespace Cremeria.Forms
 					e.Graphics.DrawString("Cambio", font, Brushes.Black, 150, y + 10, format);
 					cambio = tic[0].Recibido - Convert.ToDouble(tic[0].Total);
 					e.Graphics.DrawString(string.Format("{0:#,0.00}", Convert.ToDouble(cambio.ToString())), font, Brushes.Black, 220, y + 10, format);
-
 					y = y + 40;
 					intercambios inter = new intercambios();
 					e.Graphics.DrawString(inter.enletras(tic[0].Total.ToString()), font, Brushes.Black, 0, y);
 				}
-				
 				y = y + 20;
 				e.Graphics.DrawString(config[0].Pie_ticket, font, Brushes.Black, 0, y);
 				y = y + 30;
@@ -1220,13 +1197,11 @@ namespace Cremeria.Forms
 					dtProductos.Rows[e.RowIndex].Cells["id"].Value = producto[0].Id.ToString();
 					dtProductos.Rows[e.RowIndex].Cells["descripcion"].Value = producto[0].Description;
 					dtProductos.Rows[e.RowIndex].Cells["p_u"].Value = producto[0].Price1.ToString();
-
 					double p_u = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["p_u"].Value);
 					double cantidad = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["Cantidad"].Value);
 					double cantidad_pre = producto[0].Cost * cantidad;
 					double semitotal = (p_u * cantidad);
 					double porcentaje = (semitotal / 100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento_i"].Value.ToString().Remove(dtProductos.Rows[e.RowIndex].Cells["descuento_i"].Value.ToString().Length - 1));
-
 					dtProductos.Rows[e.RowIndex].Cells["total_i"].Value = (semitotal - porcentaje).ToString();
 					calcula();
 					porcentaje_anterior = 0;
@@ -1259,7 +1234,6 @@ namespace Cremeria.Forms
 			dtProductos.Rows.Clear();
 			Listar();
 			MessageBox.Show("Ticket Guardado satisfactoriamente", "Ticket Guardado"); ;
-
 		}
 
 		private void listGuardados_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -1281,30 +1255,21 @@ namespace Cremeria.Forms
 			if (folio != "")
 			{
 				Folio_guardado = Convert.ToInt16(folio);
-				
-
 				printDocument1 = new PrintDocument();
-
 				Models.Configuration configuracion = new Models.Configuration();
 				int cuantos = dtProductos.RowCount;
 				int faltantes = 0;
 				int valor;
-
-
 				using (configuracion)
 				{
 					faltantes = cuantos - 1;
-
 					valor = 110 * faltantes;
-
 					valor = valor + 1150;
 					PaperSize ps = new PaperSize("Custom", 300, valor);
 					List<Models.Configuration> config = configuracion.getConfiguration();
-
 					printDocument1.DefaultPageSettings.PaperSize = ps;
 					printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
 					printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-
 					printDocument1.Print();
 				}
 				limpiar();
@@ -1334,7 +1299,6 @@ namespace Cremeria.Forms
 			autentifi.ShowDialog();
 			if (autorizado == true)
 			{
-
 				Models.Product productos = new Models.Product();
 				using (productos)
 				{
@@ -1349,28 +1313,21 @@ namespace Cremeria.Forms
 						}
 					}
 				}
-
-
 				form_transfer.id_transfer = 0;
 				form_transfer Transfer = new form_transfer();
-
 				//Sucursal sucu = new Sucursal();
 				//sucu.ShowDialog();
-
-
 				//Transfer.cbOficinas.SelectedValue = sucursal;
 				foreach (DataGridViewRow row in dtProductos.Rows)
 				{
 					Transfer.dtProductos.Rows.Insert(0,row.Cells["id"].Value, row.Cells["cantidad"].Value, row.Cells["codigo"].Value, row.Cells["descripcion"].Value, row.Cells["p_u"].Value, row.Cells["total_i"].Value);
 				}
-
 				Transfer.calcula();
 				Models.Folios folio = new Models.Folios();
 				using (folio)
 				{
 					List<Models.Folios> transfer = folio.getFolios();
 					Transfer.txtFolios.Text = transfer[0].Transferencia.ToString();
-
 				}
 				Transfer.ShowDialog();
 				limpiar();
@@ -1386,6 +1343,7 @@ namespace Cremeria.Forms
 			if (autorizado == true)
 			{
 				cancelar();
+				
 			}
 		}
 
@@ -1407,16 +1365,12 @@ namespace Cremeria.Forms
 
 		private void btnPrimero_Click(object sender, EventArgs e)
 		{
-
 			DialogResult dialogResult = MessageBox.Show("Desea ir al ticket 1", "Ticket", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
 			{
 				ver_ticket(1);
 			}
-
-				
 		}
-
 		private void btnUltimo_Click(object sender, EventArgs e)
 		{
 			limpiar();
@@ -1432,7 +1386,6 @@ namespace Cremeria.Forms
 			{
 				ver_ticket((Convert.ToInt16(txtFolio.Text) + 1));
 			}
-			
 		}
 
 		private void btnAtras_Click(object sender, EventArgs e)
@@ -1542,6 +1495,43 @@ namespace Cremeria.Forms
 						Image logo = Image.FromFile(config[0].Logo_ticket);
 						e.Graphics.DrawImage(logo, new Rectangle(0, 00, 250, 70));
 					}
+				}
+			}
+		}
+		private void default_cliente()
+		{
+			Models.Client cliente = new Models.Client();
+			using (cliente)
+			{
+				List<Models.Client> clien = cliente.getClientbyRFC("XAXX010101000");
+				if (clien.Count > 0)
+				{
+					txtCliente.Text = "Cliente: " + clien[0].Name;
+					txtRFC.Text = clien[0].RFC;
+					txtIdcliente.Text = clien[0].Id.ToString() ;
+				}
+			}
+
+
+
+		}
+		private void btnClientes_Click(object sender, EventArgs e)
+		{
+			Busca_cliente busca = new Busca_cliente();
+			busca.ShowDialog();
+			txtIdcliente.Text = id_cliente.ToString();
+			if (txtIdcliente.Text == "" || txtIdcliente.Text == "0")
+			{
+				default_cliente();
+			}
+			Models.Client clientes = new Models.Client();
+			using (clientes)
+			{
+				List<Models.Client> cliente = clientes.getClientbyId(id_cliente);
+				if (cliente.Count > 0)
+				{
+					txtCliente.Text = "Cliente: " + cliente[0].Name;
+					txtRFC.Text = cliente[0].RFC;
 				}
 			}
 		}

@@ -418,9 +418,7 @@
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.TextBox txtFpago;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.TextBox txtUsoCfdi;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.DataGridView dtProductos;
 		private System.Windows.Forms.DataGridViewTextBoxColumn id_producto;
 		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
@@ -438,8 +436,10 @@
 		private System.Windows.Forms.TextBox txtFolio;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.DateTimePicker dtFecha;
-		private System.Windows.Forms.ComboBox cbTipo;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
+		public System.Windows.Forms.TextBox txtUsoCfdi;
+		public System.Windows.Forms.ComboBox cbTipo;
+		public System.Windows.Forms.Button button1;
 	}
 }

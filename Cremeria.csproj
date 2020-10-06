@@ -55,9 +55,8 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
@@ -183,6 +182,12 @@
     </Compile>
     <Compile Include="Forms\Busca_clave_SAT.Designer.cs">
       <DependentUpon>Busca_clave_SAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Busca_cliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Busca_cliente.Designer.cs">
+      <DependentUpon>Busca_cliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\busca_orden.cs">
       <SubType>Form</SubType>
@@ -568,6 +573,8 @@
     <Compile Include="Models\Kardex.cs" />
     <Compile Include="Models\Kardex_suc.cs" />
     <Compile Include="Models\Lista_precios.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Marcas.cs" />
     <Compile Include="Models\Offices.cs" />
     <Compile Include="Models\Ordenes_compra.cs" />
@@ -630,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Busca_clave_SAT.resx">
       <DependentUpon>Busca_clave_SAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Busca_cliente.resx">
+      <DependentUpon>Busca_cliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\busca_orden.resx">
       <DependentUpon>busca_orden.cs</DependentUpon>

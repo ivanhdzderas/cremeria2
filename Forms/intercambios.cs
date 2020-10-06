@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
@@ -148,6 +149,8 @@ namespace Cremeria.Forms
             return Num2Text;
 
         }
+
+
         public bool test_red()
         {
             try
@@ -165,5 +168,7 @@ namespace Cremeria.Forms
                 return false;
             }
         }
+
+      
     }
 }

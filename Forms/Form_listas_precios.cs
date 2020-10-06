@@ -146,12 +146,26 @@ namespace Cremeria.Forms
 				listas.Descuento = Convert.ToDouble(nmDescuento.Value);
 				if (Id_lista == 0)
 				{
+					Models.Log historial = new Models.Log();
+					using (historial)
+					{
+						historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+						historial.Descripcion = "se genero un descuento al cliente " + txtCliente.Text + " de " + nmDescuento.Value + "% al producto " + txtDescripcion.Text;
+						historial.createLog();
+					}
 					listas.create_lista();
 				}
 				else
 				{
 					listas.Id = Id_lista;
 					listas.update_lista();
+					Models.Log historial = new Models.Log();
+					using (historial)
+					{
+						historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+						historial.Descripcion = "se modifico un descuento al cliente " + txtCliente.Text + " de " + nmDescuento.Value + "% al producto " + txtDescripcion.Text;
+						historial.createLog();
+					}
 
 				}
 				

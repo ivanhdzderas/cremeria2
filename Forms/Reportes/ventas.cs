@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WinForms;
+﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,16 +9,154 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Mail;
 
 namespace Cremeria.Forms.Reportes
 {
 	public partial class ventas : Form
 	{
+
 		public ventas()
 		{
 			InitializeComponent();
 		}
+		private void generar()
+		{
+			System.Data.DataTable tabla1 = new System.Data.DataTable();
 
+			tabla1.Columns.Add("Usuario");
+			tabla1.Columns.Add("Fecha");
+			tabla1.Columns.Add("Descripcion");
+
+			Models.Log historia = new Models.Log();
+			Models.Users usuarios = new Models.Users();
+			using (historia)
+			{
+				using (usuarios)
+				{
+					List<Models.Log> logs = historia.get_logbydate(DateTime.Now.ToString("yyyy-MM-dd"));
+					if (logs.Count > 0)
+					{
+						foreach (Models.Log item in logs)
+						{
+							List<Models.Users> usuario = usuarios.getUserbyid(item.Id_usuario);
+							tabla1.Rows.Add(usuario[0].Nombre, item.Fecha, item.Descripcion);
+						}
+					}
+				}
+
+			}
+
+
+			System.Data.DataTable tabla2 = new System.Data.DataTable();
+
+			tabla2.Columns.Add("Folio");
+			tabla2.Columns.Add("Sucursal");
+			tabla2.Columns.Add("Total");
+
+			Models.Reports.Transferencias transferencias = new Models.Reports.Transferencias();
+			Models.Offices sucursales = new Models.Offices();
+			using (transferencias)
+			{
+				using (sucursales)
+				{
+					List<Models.Reports.Transferencias> transfer = transferencias.getTransferbyDate(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), "E");
+					if (transfer.Count > 0)
+					{
+						foreach (Models.Reports.Transferencias item in transfer)
+						{
+							List<Models.Offices> oficina = sucursales.GetOfficesbyid(Convert.ToInt32(item.Sucursal));
+							tabla2.Rows.Add(item.Folio, oficina[0].Name, item.Monto);
+						}
+					}
+				}
+			}
+
+			System.Data.DataTable tabla3 = new System.Data.DataTable();
+			tabla3.Columns.Add("Monto");
+			System.Data.DataTable tabla4 = new System.Data.DataTable();
+			tabla4.Columns.Add("Proveedor");
+			tabla4.Columns.Add("Monto");
+
+			double Total_proveedor = 0;
+
+			Models.retiro_efectivo retiros = new Models.retiro_efectivo();
+			Models.Providers proveedores = new Models.Providers();
+			using (retiros)
+			{
+				List<Models.retiro_efectivo> retiro = retiros.get_retiro_fecha(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+				if (retiro.Count > 0)
+				{
+					foreach (Models.retiro_efectivo item in retiro)
+					{
+						if (item.Id_proveedor == 0)
+						{
+
+							if (item.Monto != 0)
+							{
+								tabla3.Rows.Add(item.Monto);
+							}
+							else
+							{
+								tabla3.Rows.Add(item.Monto_proveedor);
+							}
+
+
+						}
+						else
+						{
+							using (proveedores)
+							{
+								Total_proveedor = Total_proveedor + item.Monto_proveedor;
+								List<Models.Providers> proveedor = proveedores.getProviderbyId(item.Id_proveedor);
+								tabla4.Rows.Add(proveedor[0].Name, item.Monto_proveedor);
+							}
+						}
+					}
+				}
+			}
+			double total_tickets = 0;
+			System.Data.DataTable tabla5 = new System.Data.DataTable();
+			tabla5.Columns.Add("Tickets");
+			tabla5.Columns.Add("Traspasos");
+			tabla5.Columns.Add("Total del dia");
+			Models.Reports.Tickets tickets = new Models.Reports.Tickets();
+			using (tickets)
+			{
+				List<Models.Reports.Tickets> listado = tickets.get_tickets(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+				if (listado.Count > 0)
+				{
+					foreach (Models.Reports.Tickets item in listado)
+					{
+						total_tickets = total_tickets + item.Total;
+					}
+				}
+			}
+			tabla5.Rows.Add(total_tickets, Total_proveedor, (total_tickets + Total_proveedor));
+			Models.Export_pdf pdf = new Models.Export_pdf();
+			pdf.genera_reporte(tabla1, tabla2, tabla3, tabla4, tabla5, "reporte.pdf", "Reporte diario");
+
+
+
+			string origen = "contabilidad@cremeria-martinez.com"; //de quien procede, puede ser un alias
+			string destino = "arturo.huerta@cremeria-martinez.com; rosa.martinez@cremeria-martinez.com";  //a quien vamos a enviar el mail
+			string Message="Envio anexo reporte diario";  //mensaje
+			string Subject="reporte diario"; //asunto
+			
+			string PASS = "Cremeria2020."; //nuestro password de smtp
+
+			MailMessage oMailmessage = new MailMessage(origen, destino, Subject,Message);
+			oMailmessage.Attachments.Add(new Attachment("reporte.pdf"));
+			oMailmessage.IsBodyHtml = true;
+			SmtpClient oSmtpclient = new SmtpClient("mail.cremeria-martinez.com");
+			oSmtpclient.EnableSsl = true;
+			oSmtpclient.UseDefaultCredentials = false;
+			oSmtpclient.Port = 587;
+			oSmtpclient.Credentials = new System.Net.NetworkCredential(origen,PASS);
+			oSmtpclient.Send(oMailmessage);
+			oSmtpclient.Dispose();
+
+		}
 		private void ventas_Load(object sender, EventArgs e)
 		{
 
@@ -25,6 +164,9 @@ namespace Cremeria.Forms.Reportes
 			Finicial.CustomFormat = "yyyy-MM-dd";
 			Ffinal.Format = DateTimePickerFormat.Custom;
 			Ffinal.CustomFormat = "yyyy-MM-dd";
+			generar();
+
+
 		}
 
 		private void button1_Click(object sender, EventArgs e)

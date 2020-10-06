@@ -1,12 +1,6 @@
-﻿using Org.BouncyCastle.Asn1.Cms;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -46,9 +40,6 @@ namespace Cremeria.Forms
 					table.Rows.Add(row);
 				}
 			}
-
-
-
 			cbProveedor.BindingContext = new BindingContext();
 			cbProveedor.DataSource = table;
 			cbProveedor.DisplayMember = "Text";
@@ -94,10 +85,7 @@ namespace Cremeria.Forms
 			double cero = 0;
 			double grabado = 0;
 			double sin_grabar = 0;
-
-
 			//double descuento = Convert.ToDouble(txtTdescuento.Text);
-
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
 				cuantos = cuantos + Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
@@ -106,7 +94,6 @@ namespace Cremeria.Forms
 				switch (row.Cells["impuesto"].Value.ToString())
 				{
 					case "EXENTO IMPUESTOS":
-
 						break;
 					case "11":
 						once = once + ((importe) * 0.11);
@@ -115,11 +102,8 @@ namespace Cremeria.Forms
 						diezyseis = diezyseis + ((importe) * 0.16);
 						break;
 					case "TASA CERO":
-
 						break;
 				}
-
-
 				if (row.Cells["impuesto"].Value.ToString() == "16" || row.Cells["impuesto"].Value.ToString() == "11")
 				{
 					grabado = grabado + Convert.ToDouble(row.Cells["total"].Value.ToString());
@@ -128,24 +112,15 @@ namespace Cremeria.Forms
 				{
 					sin_grabar = sin_grabar + Convert.ToDouble(row.Cells["total"].Value.ToString());
 				}
-
-
-
 			}
 			//double descuento = (importe / 100) * Convert.ToDouble(txtdescuento.Text);
 			double descuento = Convert.ToDouble(txtdescuento.Text);
 			double productos = cuantos;
 			double subtotal = totales;
-
 			double iva = excento + once + diezyseis + cero;
 			double total = (subtotal + iva) - descuento;
-
-
-
 			txtiva.Text = string.Format("{0:#,0.00}", grabado);
 			txtSubtotal.Text = string.Format("{0:#,0.00}", subtotal);
-
-
 			txttotal.Text = string.Format("{0:#,0.00}", total);
 		}
 		private void Form_compras_Load(object sender, EventArgs e)
@@ -153,11 +128,9 @@ namespace Cremeria.Forms
 			txtCodigo.AutoCompleteCustomSource = cargadatos();
 			txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
 			txtDescripcion.AutoCompleteCustomSource = cargadatos2();
 			txtDescripcion.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtDescripcion.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
 			dtFecha.Format = DateTimePickerFormat.Custom;
 			dtFecha.CustomFormat = "yyyy-MM-dd";
 			dtFechaDoc.Format = DateTimePickerFormat.Custom;
@@ -225,15 +198,9 @@ namespace Cremeria.Forms
 								dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad);
 
 							}
-
 						}
-
-
 					}
 				}
-
-
-
 				txtFolio.Enabled = false;
 				button1.Enabled = false;
 				toolStripButton2.Enabled = false;
@@ -397,7 +364,6 @@ namespace Cremeria.Forms
 				List<Models.Product> item = producto.getProductById(Convert.ToInt16(id));
 				if (Convert.ToBoolean(item[0].Lote) == true)
 				{
-
 					while (pasa == false)
 					{
 						Caducidad caduci = new Caducidad();
@@ -409,21 +375,14 @@ namespace Cremeria.Forms
 							pasa = true;
 						}
 					}
-
 				}
 			}
-
-
 			double total1 = (Convert.ToDouble(txtCantidad.Text) * Convert.ToDouble(txtpu.Text));
-
 			using (producto)
 			{
 				List<Models.Product> item = producto.getProductById(Convert.ToInt16(id));
-
 				dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, txtpu.Text, total1.ToString(), Lote, Cadu, item[0].Buy_tax);
-
 			}
-
 			id = "";
 			txtCodigo.Text = "";
 			txtCantidad.Text = "";
@@ -490,6 +449,16 @@ namespace Cremeria.Forms
 			using (compra)
 			{
 				compra.crateCompra();
+
+				Models.Log historial = new Models.Log();
+				using (historial)
+				{
+					historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+					historial.Descripcion = "agrego la compra " + txtFolio.Text + "del proveedor " + cbProveedor.Text + " por $ "+txttotal.Text;
+					historial.createLog();
+				}
+
+
 				List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text, dtFechaDoc.Text, txtNumero.Text, Convert.ToDouble(txttotal.Text));
 				Models.Purchases detalles = new Models.Purchases();
 				detalles.Id = 0;
@@ -654,10 +623,7 @@ namespace Cremeria.Forms
 				txtdescuento.Text = nodo.Attributes.GetNamedItem("Descuento").Value.ToString();
 				XmlNode emisor = CFDI.GetElementsByTagName("cfdi:Emisor").Item(0);
 				string RFC = emisor.Attributes.GetNamedItem("Rfc").Value;
-
-
 				Models.Product prod = new Models.Product();
-
 				string clave = "";
 				double sumatoria = 0;
 				Models.Providers proveedor = new Models.Providers();
@@ -683,7 +649,6 @@ namespace Cremeria.Forms
 				}
 				foreach (XmlNode conceptos in CFDI.GetElementsByTagName("cfdi:Conceptos").Item(0).ChildNodes)
 				{
-
 					clave = conceptos.Attributes.GetNamedItem("NoIdentificacion").Value;
 					using (prod)
 					{
@@ -698,10 +663,8 @@ namespace Cremeria.Forms
 							DialogResult is_new = MessageBox.Show("El producto no fue encontrado, ¿Es nuevo?", "Producto no encontrado", MessageBoxButtons.YesNo);
 							if (is_new == DialogResult.Yes)
 							{
-
 								Forms.Producto.Codigo = "";
 								Forms.Producto Producto = new Forms.Producto();
-
 								Producto.txtCodigo1.Text = clave;
 								Producto.txtDescripcion.Text = conceptos.Attributes.GetNamedItem("Descripcion").Value;
 								Producto.txtCosto.Text = conceptos.Attributes.GetNamedItem("ValorUnitario").Value;
@@ -709,7 +672,6 @@ namespace Cremeria.Forms
 								Producto.txtSAT.Text = conceptos.Attributes.GetNamedItem("ClaveProdServ").Value;
 								Producto.Owner = this;
 								Producto.ShowDialog();
-
 								bucador = prod.getProductByigualCode(clave);
 								sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
 								dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria);
@@ -722,7 +684,6 @@ namespace Cremeria.Forms
 					}
 				}
 				calcula();
-
 			}
 		}
 
