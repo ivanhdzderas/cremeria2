@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -128,24 +129,32 @@ namespace Cremeria.Forms
 				Models.Kardex kardex = new Models.Kardex();
 				Models.Product producto = new Models.Product();
 				Models.Afecta_inv afecta = new Models.Afecta_inv();
-				int nuevo = 0;
+				double nuevo = 0;
 				folio = general[0].Id.ToString();
 				foreach (DataGridViewRow row in dtProductos.Rows)
 				{
 					detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
 					detalle.P_u = Convert.ToDouble(row.Cells["costo"].Value.ToString());
-					detalle.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+					detalle.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 					detalle.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
 					using (detalle)
 					{
 						detalle.craeteDet_ajuste();
 						using (producto)
 						{
+							Models.Log historia = new Models.Log();
+							using (historia)
+							{
+								historia.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+								historia.Descripcion = "se ajusto el inventario del producto "+ row.Cells["descripcion"].Value.ToString();
+								historia.createLog();
+							}
+
 							List<Models.Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
-							nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+							nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 							while (prod[0].Parent != "0")
 							{
-								nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+								nuevo = nuevo * Convert.ToDouble(prod[0].C_unidad);
 								prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
 							}
 							kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();

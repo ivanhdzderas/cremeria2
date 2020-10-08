@@ -8,11 +8,11 @@ namespace Cremeria.Models
 		public void Agrega(int id_kardex) {
 			Kardex kardex = new Kardex();
 			Product producto = new Product();
-			int nuevo = 0;
+			double nuevo = 0;
 			using (kardex)
 			{
 				List<Kardex> Generales = kardex.getkardexbyid(id_kardex);
-				nuevo = Convert.ToInt32(Generales[0].Antes) + Convert.ToInt32(Generales[0].Cantidad);
+				nuevo = Convert.ToDouble(Generales[0].Antes) + Convert.ToDouble(Generales[0].Cantidad);
 				
 				using (producto)
 				{
@@ -27,13 +27,13 @@ namespace Cremeria.Models
 		{
 			Kardex kardex = new Kardex();
 			Product producto = new Product();
-			int nuevo = 0;
+			double nuevo = 0;
 			using (kardex)
 			{
 				List<Kardex> Generales = kardex.getkardexbyid(id_kardex);
 				using (producto)
 				{
-					nuevo = Convert.ToInt32(Generales[0].Antes) - Convert.ToInt32(Generales[0].Cantidad);
+					nuevo = Convert.ToDouble(Generales[0].Antes) - Convert.ToDouble(Generales[0].Cantidad);
 					producto.Id = Generales[0].Id_producto;
 					producto.Existencia = nuevo;
 
@@ -47,13 +47,13 @@ namespace Cremeria.Models
 		{
 			Kardex kardex = new Kardex();
 			Product producto = new Product();
-			int nuevo = 0;
+			double nuevo = 0;
 			using (kardex)
 			{
 				List<Kardex> Generales = kardex.getkardexbyid(id_kardex);
 				using (producto)
 				{
-					nuevo = Convert.ToInt32(Generales[0].Cantidad);
+					nuevo = Convert.ToDouble(Generales[0].Cantidad);
 					producto.Id = Generales[0].Id_producto;
 					producto.Existencia = nuevo;
 

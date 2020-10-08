@@ -152,10 +152,10 @@ namespace Cremeria.Forms
 						double antes_inventario = prod[0].Existencia;
 
 
-						nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 						while (prod[0].Parent != "0")
 						{
-							nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+							nuevo = nuevo * Convert.ToDouble(prod[0].C_unidad);
 							prod = productos.getProductById(Convert.ToInt16(prod[0].Parent));
 						}
 						double nuevo_inventario = antes_inventario + nuevo;

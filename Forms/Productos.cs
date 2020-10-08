@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -277,7 +278,13 @@ namespace Cremeria.Forms
 
             Producto.Show(this);
         }
-
+        static void OpenMicrosoftExcel(string f)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "EXCEL.EXE";
+            startInfo.Arguments = f;
+            Process.Start(startInfo);
+        }
         private void button4_Click(object sender, EventArgs e)
         {
             Models.Configuration config = new Models.Configuration();
@@ -286,8 +293,10 @@ namespace Cremeria.Forms
                 List<Models.Configuration> configuracion = config.getConfiguration();
                 DataTable dtbl = inventario_para();
                 Models.Export_excel excel = new Models.Export_excel();
-                excel.ExportToExcel(dtbl, configuracion[0].Ruta_reportes + "inventario");
+                excel.ExportToExcel(dtbl, configuracion[0].Ruta_reportes + "inv");
                 MessageBox.Show("Terminado");
+                OpenMicrosoftExcel(configuracion[0].Ruta_reportes +"inv.xlsx");
+
             }
         }
 

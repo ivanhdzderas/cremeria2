@@ -195,7 +195,15 @@ namespace Cremeria.Forms
 							using (caducidades)
 							{
 								List<Models.Caducidades> cadu = caducidades.GetCaducidadesbyCompra(Convert.ToInt16(folio), id_prod);
-								dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad);
+								if (cadu.Count > 0)
+								{
+									dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad);
+								}
+								else
+								{
+									dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, "", "");
+								}
+								
 
 							}
 						}
@@ -422,6 +430,7 @@ namespace Cremeria.Forms
 
 		private void button2_Click(object sender, EventArgs e)
 		{
+			
 			int dias = 0;
 			string fecha_credito = "0000-00-00";
 			string pagado = "SI";

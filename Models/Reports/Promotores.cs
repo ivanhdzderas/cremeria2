@@ -34,7 +34,7 @@ namespace Cremeria.Models.Reports
 		public List<Promotores> get_listado( string Fecha1, string Fecha2)
 		{
 			
-			string query = "select tbausuario.nombre, sum(tbatickets.total) as total from tbausuario inner join tbatickets";
+			string query = "select tbausuario.nombre, sum(tbatickets.total) as total from tbausuario inner join tbatickets on tbatickets.atendio=tbausuario.id_usuario";
 			if (Fecha1 == Fecha2)
 			{
 				query = query + " where  DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d')='" + Fecha1 + "' and tbausuario.tipo='Promotor' group by tbausuario.nombre order by total";

@@ -40,7 +40,8 @@ namespace Cremeria.Forms
 			Form_ajustes.folio = "0";
 			Form_ajustes new_ajuste = new Form_ajustes();
 			new_ajuste.Owner = this;
-			new_ajuste.Show();
+			new_ajuste.ShowDialog();
+			carga();
 		}
 
 		private void dtAjustes_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
