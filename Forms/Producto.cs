@@ -78,7 +78,7 @@ namespace Cremeria.Forms
                                 tipo = "Ticket";
                                 break;
                         }
-                        dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
+                        dtKardex.Rows.Insert(0, id, fecha, tipo, folio_documento, antes, cantidad);
                     }
                 }
 			}

@@ -197,11 +197,11 @@ namespace Cremeria.Forms
 								List<Models.Caducidades> cadu = caducidades.GetCaducidadesbyCompra(Convert.ToInt16(folio), id_prod);
 								if (cadu.Count > 0)
 								{
-									dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad);
+									dtProductos.Rows.Add(va.Id_producto, prod[0].Code1, va.Cantidad, prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad);
 								}
 								else
 								{
-									dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, "", "");
+									dtProductos.Rows.Add(va.Id_producto, prod[0].Code1, va.Cantidad, prod[0].Description, va.P_u, va.Total, "", "");
 								}
 								
 
@@ -386,18 +386,28 @@ namespace Cremeria.Forms
 				}
 			}
 			double total1 = (Convert.ToDouble(txtCantidad.Text) * Convert.ToDouble(txtpu.Text));
+			Models.prov_prod costos = new Models.prov_prod();
 			using (producto)
 			{
-				List<Models.Product> item = producto.getProductById(Convert.ToInt16(id));
-				dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, txtpu.Text, total1.ToString(), Lote, Cadu, item[0].Buy_tax);
+				using (costos)
+				{
+					List<Models.prov_prod> cos = costos.get_costobyproveedorandprodu(Convert.ToInt16(id),Convert.ToInt32(txtNumero.Text));
+					if (cos.Count > 0)
+					{
+						List<Models.Product> item = producto.getProductById(Convert.ToInt16(id));
+						dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, txtpu.Text, total1.ToString(), Lote, Cadu, item[0].Buy_tax);
+						id = "";
+						txtCodigo.Text = "";
+						txtCantidad.Text = "";
+						txtDescripcion.Text = "";
+						txtpu.Text = "";
+						calcula();
+						txtCantidad.Focus();
+					}
+				}
+				
 			}
-			id = "";
-			txtCodigo.Text = "";
-			txtCantidad.Text = "";
-			txtDescripcion.Text = "";
-			txtpu.Text = "";
-			calcula();
-			txtCantidad.Focus();
+			
 		}
 
 		private void txtdescuento_Leave(object sender, EventArgs e)
@@ -500,7 +510,7 @@ namespace Cremeria.Forms
 						{
 							using (costos)
 							{
-								List<Models.prov_prod> cost = costos.get_costobyproveedor(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()),Convert.ToInt32(txtNumero.Text));
+								List<Models.prov_prod> cost = costos.get_costobyproveedorandprodu(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()),Convert.ToInt32(txtNumero.Text));
 								if (cost.Count>0)
 								{
 									costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
@@ -665,11 +675,11 @@ namespace Cremeria.Forms
 						if (bucador.Count > 0)
 						{
 							sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
-							dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria);
+							dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria,"","",bucador[0].Buy_tax);
 						}
 						else
 						{
-							DialogResult is_new = MessageBox.Show("El producto no fue encontrado, ¿Es nuevo?", "Producto no encontrado", MessageBoxButtons.YesNo);
+							DialogResult is_new = MessageBox.Show("El producto " + conceptos.Attributes.GetNamedItem("Descripcion").Value + " no fue encontrado, ¿Es nuevo?", "Producto no encontrado", MessageBoxButtons.YesNo);
 							if (is_new == DialogResult.Yes)
 							{
 								Forms.Producto.Codigo = "";
@@ -683,11 +693,56 @@ namespace Cremeria.Forms
 								Producto.ShowDialog();
 								bucador = prod.getProductByigualCode(clave);
 								sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
-								dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria);
+								dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria, "", "", bucador[0].Buy_tax);
 							}
 							else if (is_new == DialogResult.No)
 							{
-								MessageBox.Show("No se agregara el producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+								Buscar_producto buscar = new Buscar_producto();
+								buscar.ShowDialog();
+								if (intercambios.Id_producto != 0)
+								{
+									bucador = prod.getProductById(Convert.ToInt32(intercambios.Id_producto));
+
+									bool encontrado = false;
+									if (bucador[0].Code2.Trim() == "" && encontrado==false)
+									{
+										prod.Id = Convert.ToInt32(intercambios.Id_producto);
+										prod.Code2 = clave;
+										prod.update_code2();
+										encontrado = true;
+									}
+
+									if (bucador[0].Code3.Trim() == "" && encontrado == false)
+									{
+										prod.Id = Convert.ToInt32(intercambios.Id_producto);
+										prod.Code3 = clave;
+										prod.update_code3();
+										encontrado = true;
+									}
+									if (bucador[0].Code4.Trim() == "" && encontrado == false)
+									{
+										prod.Id = Convert.ToInt32(intercambios.Id_producto);
+										prod.Code4 = clave;
+										prod.update_code4();
+										encontrado = true;
+									}
+
+									if (bucador[0].Code5.Trim() == "" && encontrado == false)
+									{
+										prod.Id = Convert.ToInt32(intercambios.Id_producto);
+										prod.Code5 = clave;
+										prod.update_code5();
+										encontrado = true;
+									}
+									sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
+									dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria, "", "", bucador[0].Buy_tax);
+								}
+								else
+								{
+									MessageBox.Show("No se agregara el producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+								}
+								
+								
 							}
 						}
 					}

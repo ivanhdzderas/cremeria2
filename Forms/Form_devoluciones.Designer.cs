@@ -34,6 +34,14 @@
 			this.txtId_proveedor = new System.Windows.Forms.TextBox();
 			this.txtProveedor = new System.Windows.Forms.TextBox();
 			this.dtProductos = new System.Windows.Forms.DataGridView();
+			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.desripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.unidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.folios = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -47,14 +55,6 @@
 			this.txtMotivo = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.desripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.unidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.folios = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -113,11 +113,55 @@
 			this.dtProductos.Size = new System.Drawing.Size(777, 205);
 			this.dtProductos.TabIndex = 4;
 			// 
+			// id
+			// 
+			this.id.HeaderText = "id";
+			this.id.Name = "id";
+			this.id.Visible = false;
+			// 
+			// cantidad
+			// 
+			this.cantidad.HeaderText = "Cantidad";
+			this.cantidad.Name = "cantidad";
+			// 
+			// codigo
+			// 
+			this.codigo.HeaderText = "Codigo";
+			this.codigo.Name = "codigo";
+			// 
+			// desripcion
+			// 
+			this.desripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.desripcion.HeaderText = "Descripcion";
+			this.desripcion.Name = "desripcion";
+			// 
+			// unidad
+			// 
+			this.unidad.HeaderText = "Unidad";
+			this.unidad.Name = "unidad";
+			// 
+			// p_u
+			// 
+			this.p_u.HeaderText = "P.U.";
+			this.p_u.Name = "p_u";
+			// 
+			// importe
+			// 
+			this.importe.HeaderText = "Importe";
+			this.importe.Name = "importe";
+			// 
+			// folios
+			// 
+			this.folios.HeaderText = "folios";
+			this.folios.Name = "folios";
+			this.folios.Visible = false;
+			// 
 			// txtTotal
 			// 
 			this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtTotal.Location = new System.Drawing.Point(688, 387);
 			this.txtTotal.Name = "txtTotal";
+			this.txtTotal.ReadOnly = true;
 			this.txtTotal.Size = new System.Drawing.Size(100, 20);
 			this.txtTotal.TabIndex = 5;
 			// 
@@ -173,6 +217,7 @@
 			this.txtCantidad.Name = "txtCantidad";
 			this.txtCantidad.Size = new System.Drawing.Size(85, 20);
 			this.txtCantidad.TabIndex = 11;
+			this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
 			// 
 			// txtCodigo
 			// 
@@ -222,49 +267,6 @@
 			this.button1.Text = "Guardar";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// id
-			// 
-			this.id.HeaderText = "id";
-			this.id.Name = "id";
-			this.id.Visible = false;
-			// 
-			// cantidad
-			// 
-			this.cantidad.HeaderText = "Cantidad";
-			this.cantidad.Name = "cantidad";
-			// 
-			// codigo
-			// 
-			this.codigo.HeaderText = "Codigo";
-			this.codigo.Name = "codigo";
-			// 
-			// desripcion
-			// 
-			this.desripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.desripcion.HeaderText = "Descripcion";
-			this.desripcion.Name = "desripcion";
-			// 
-			// unidad
-			// 
-			this.unidad.HeaderText = "Unidad";
-			this.unidad.Name = "unidad";
-			// 
-			// p_u
-			// 
-			this.p_u.HeaderText = "P.U.";
-			this.p_u.Name = "p_u";
-			// 
-			// importe
-			// 
-			this.importe.HeaderText = "Importe";
-			this.importe.Name = "importe";
-			// 
-			// folios
-			// 
-			this.folios.HeaderText = "folios";
-			this.folios.Name = "folios";
-			this.folios.Visible = false;
 			// 
 			// Form_devoluciones
 			// 

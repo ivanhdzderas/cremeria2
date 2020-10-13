@@ -190,7 +190,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(115, 188);
+			this.label2.Location = new System.Drawing.Point(187, 188);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(73, 20);
 			this.label2.TabIndex = 2;
@@ -199,7 +199,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(221, 188);
+			this.label3.Location = new System.Drawing.Point(266, 188);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(73, 20);
 			this.label3.TabIndex = 3;
@@ -248,13 +248,13 @@
 			// 
 			this.txtCodigo.Location = new System.Drawing.Point(13, 211);
 			this.txtCodigo.Name = "txtCodigo";
-			this.txtCodigo.Size = new System.Drawing.Size(100, 26);
+			this.txtCodigo.Size = new System.Drawing.Size(145, 26);
 			this.txtCodigo.TabIndex = 8;
 			this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
 			// 
 			// txtCantidad
 			// 
-			this.txtCantidad.Location = new System.Drawing.Point(119, 211);
+			this.txtCantidad.Location = new System.Drawing.Point(164, 211);
 			this.txtCantidad.Name = "txtCantidad";
 			this.txtCantidad.Size = new System.Drawing.Size(100, 26);
 			this.txtCantidad.TabIndex = 9;
@@ -268,9 +268,9 @@
 			this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescripcion.Enabled = false;
-			this.txtDescripcion.Location = new System.Drawing.Point(225, 211);
+			this.txtDescripcion.Location = new System.Drawing.Point(270, 211);
 			this.txtDescripcion.Name = "txtDescripcion";
-			this.txtDescripcion.Size = new System.Drawing.Size(398, 26);
+			this.txtDescripcion.Size = new System.Drawing.Size(353, 26);
 			this.txtDescripcion.TabIndex = 10;
 			// 
 			// txtUnitario

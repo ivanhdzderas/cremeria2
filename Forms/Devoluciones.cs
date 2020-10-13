@@ -40,6 +40,7 @@ namespace Cremeria.Forms
 		private void devolucion()
 		{
 			Models.Devolutions devolucion = new Models.Devolutions();
+			Models.Log historial = new Models.Log();
 			using (devolucion)
 			{
 				devolucion.Fecha = dtFecha.Text + " 00:00:00";
@@ -61,7 +62,13 @@ namespace Cremeria.Forms
 						detalles.Pu = Convert.ToDouble(row.Cells["pu"].Value.ToString());
 						detalles.Almacen = row.Cells["almacen"].Value.ToString();
 						detalles.create_det();
-						
+
+						using (historial)
+						{
+							historial.Id_usuario=Convert.ToInt32(Inicial.id_usario);
+							historial.Descripcion = "el usuairo "+ id_usuario+" autorizo la devolucion de " + row.Cells["cantidad"].Value.ToString()+" " + row.Cells["descripcion"].Value.ToString();
+							historial.createLog();
+						}
 						
 						using (productos)
 						{

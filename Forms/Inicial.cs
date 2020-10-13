@@ -459,5 +459,12 @@ namespace Cremeria
 			alertas.MdiParent = this;
 			alertas.Show();
 		}
+
+		private void modificacionesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Modifica modifica = new Modifica();
+			modifica.MdiParent = this;
+			modifica.Show();
+		}
 	}
 }

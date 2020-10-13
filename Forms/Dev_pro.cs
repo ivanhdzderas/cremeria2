@@ -21,10 +21,8 @@ namespace Cremeria.Forms
 			dtDevoluciones.Rows.Clear();
 			Models.Dev_prov devo = new Models.Dev_prov();
 			Models.Providers proveedores = new Models.Providers();
-
 			using (devo)
 			{
-				
 				List<Models.Dev_prov> dev = devo.get_devoluciones();
 				if (dev.Count > 0)
 				{
@@ -35,7 +33,6 @@ namespace Cremeria.Forms
 							List<Models.Providers> prov = proveedores.getProviderbyId(item.Id_proveedor);
 							dtDevoluciones.Rows.Add(item.Id, item.Fecha,prov[0].Name, item.Estado);
 						}
-						
 					}
 				}
 			}

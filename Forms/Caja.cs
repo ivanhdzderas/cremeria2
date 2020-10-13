@@ -588,6 +588,7 @@ namespace Cremeria.Forms
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{
+			
 			if (e.KeyCode == Keys.F10)
 			{
 				btnTransfer.PerformClick();

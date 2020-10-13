@@ -44,8 +44,8 @@ namespace Cremeria.Models
         public string Buy_tax { get; set; }
         public int Discount { get; set; }
         public int Mount_discount { get; set; }
-        public int Min { get; set; }
-        public int Max { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
 
         public string Parent { get; set; }
         public string C_unidad { get; set; }
@@ -93,8 +93,8 @@ namespace Cremeria.Models
             string buy_tax,
             int discount,
             int mount_discount,
-            int min,
-            int max,
+            double min,
+            double max,
             string parent,
             string c_unidad,
             int dias_alerta,
@@ -168,6 +168,28 @@ namespace Cremeria.Models
            
             
         }
+        public void update_code2()
+		{
+            string query = "update tbaproductos set codigo2='" + this.Code2 + "' where id='" + this.Id + "'  ";
+            runQuery(query);
+        }
+
+
+        public void update_code3()
+        {
+            string query = "update tbaproductos set codigo3='" + this.Code3 + "' where id='" + this.Id + "'  ";
+            runQuery(query);
+        }
+        public void update_code4()
+        {
+            string query = "update tbaproductos set codigo4='" + this.Code4 + "' where id='" + this.Id + "'  ";
+            runQuery(query);
+        }
+        public void update_code5()
+        {
+            string query = "update tbaproductos set codigo5='" + this.Code5 + "' where id='" + this.Id + "'  ";
+            runQuery(query);
+        }
         public void update_devoluciones()
         {
             string query = "update tbaproductos set devolucion='" + this.Devoluciones + "' where id='" + this.Id + "'  ";
@@ -230,6 +252,11 @@ namespace Cremeria.Models
 
 
         }
+        public void update_max_min()
+		{
+            string query = "update tbaproductos set maximo='" + this.Max +"', minimo='" + this.Min + "', precio1='" + this.Price1 + "', precio2='" + this.Price2 + "', precio3='" + this.Price3 + "' where id='" + this.Id + "'";
+            object result = runQuery(query);
+		}
         public void saveProduct()
         {
             string query = "update tbaproductos set ";
@@ -315,8 +342,8 @@ namespace Cremeria.Models
                 data.GetString("impuesto_compra"),
                 data.GetInt32("descuento"),
                 data.GetInt32("monto_descuento"),
-                data.GetInt32("minimo"),
-                data.GetInt32("maximo"),
+                data.GetDouble("minimo"),
+                data.GetDouble("maximo"),
                 data.GetString("id_parent"),
                 data.GetString("c_unidad"),
                 data.GetInt32("dias_alerta"),

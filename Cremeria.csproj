@@ -64,6 +64,9 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=7.5.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+      <HintPath>packages\FirebirdSql.Data.FirebirdClient.7.5.0\lib\net452\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.13.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>packages\Google.Protobuf.3.13.0\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -412,6 +415,12 @@
     <Compile Include="Forms\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Modifica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Modifica.Designer.cs">
+      <DependentUpon>Modifica.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Ordenes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -751,6 +760,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Modifica.resx">
+      <DependentUpon>Modifica.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Ordenes.resx">
       <DependentUpon>Ordenes.cs</DependentUpon>

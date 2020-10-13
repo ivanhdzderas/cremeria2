@@ -1,8 +1,10 @@
-﻿using System;
+﻿using iTextSharp.text.pdf.security;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.EnterpriseServices.Internal;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ namespace Cremeria.Forms
 	public partial class Form_ordenes : Form
 	{
 		public static int Id;
+		private static int Id_producto;
 		public Form_ordenes()
 		{
 			InitializeComponent();
@@ -93,6 +96,15 @@ namespace Cremeria.Forms
 			txtProveedor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtProveedor.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
+			txtCodigo.AutoCompleteCustomSource = carga_producto1();
+			txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
+			txtDescripcion.AutoCompleteCustomSource = carga_producto2();
+			txtDescripcion.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			txtDescripcion.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
 			if (Id!=0) {
 				Models.Ordenes_compra ordenes = new Models.Ordenes_compra();
 				
@@ -115,7 +127,34 @@ namespace Cremeria.Forms
 				}
 			}
 		}
-
+		private AutoCompleteStringCollection carga_producto1()
+		{
+			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			Models.Product productos = new Models.Product();
+			using (productos)
+			{
+				List<Models.Product> result = productos.getProducts();
+				foreach (Models.Product item in result)
+				{
+					datos.Add(item.Code1);
+				}
+				return datos;
+			}
+		}
+		private AutoCompleteStringCollection carga_producto2()
+		{
+			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			Models.Product productos = new Models.Product();
+			using (productos)
+			{
+				List<Models.Product> result = productos.getProducts();
+				foreach (Models.Product item in result)
+				{
+					datos.Add(item.Description);
+				}
+				return datos;
+			}
+		}
 		private AutoCompleteStringCollection carga_proveedor()
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
@@ -169,6 +208,133 @@ namespace Cremeria.Forms
 				}
 			}
 			this.Close();
+		}
+
+		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Models.Product productos = new Models.Product();
+				using (productos)
+				{
+					List<Models.Product> producto = productos.getProductByCodeAbsolute(txtCodigo.Text);
+					Id_producto = producto[0].Id;
+					txtDescripcion.Text = producto[0].Description;
+					if (txtCantidad.Text == "")
+					{
+						txtCantidad.Focus();
+					}
+					else
+					{
+						button2.Focus();
+					}
+				}
+			}
+			if (e.KeyCode == Keys.F2)
+			{
+				Forms.Buscar_producto busca = new Forms.Buscar_producto();
+				busca.ShowDialog();
+				if (intercambios.Id_producto != 0)
+				{
+					Models.Product productos = new Models.Product();
+					using (productos)
+					{
+						
+						List<Models.Product> producto = productos.getProductById(intercambios.Id_producto);
+						Id_producto = producto[0].Id;
+						txtCodigo.Text = producto[0].Code1;
+						txtDescripcion.Text= producto[0].Description;
+						if (txtCantidad.Text == "")
+						{
+							txtCantidad.Focus();
+						}
+						else
+						{
+							button2.Focus();
+						}
+						
+
+					}
+				}
+			}
+		}
+
+		private void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Models.Product productos = new Models.Product();
+				using (productos)
+				{
+					List<Models.Product> producto = productos.getProductByDescription(txtDescripcion.Text);
+
+					txtCodigo.Text = producto[0].Code1;
+					if (txtCantidad.Text == "")
+					{
+						txtCantidad.Focus();
+					}
+					else
+					{
+						button2.Focus();
+					}
+				}
+			}
+			if (e.KeyCode == Keys.F2)
+			{
+				Forms.Buscar_producto busca = new Forms.Buscar_producto();
+				busca.ShowDialog();
+				if (intercambios.Id_producto != 0)
+				{
+					Models.Product productos = new Models.Product();
+					using (productos)
+					{
+
+						List<Models.Product> producto = productos.getProductById(intercambios.Id_producto);
+
+						txtCodigo.Text = producto[0].Code1;
+						txtDescripcion.Text = producto[0].Description;
+						if (txtCantidad.Text == "")
+						{
+							txtCantidad.Focus();
+						}
+						else
+						{
+							button2.Focus();
+						}
+
+					}
+				}
+			}
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			Models.prov_prod costos = new Models.prov_prod();
+			using (costos)
+			{
+				List<Models.prov_prod> cot = costos.get_costobyproveedorandprodu(Convert.ToInt32(txtNumero.Text), Id_producto);
+				if (cot.Count > 0)
+				{
+					dtProductos.Rows.Add(Id_producto,txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text);
+					Id_producto = 0;
+					txtDescripcion.Text = "";
+					txtCodigo.Text = "";
+					txtCantidad.Text = "";
+					txtCodigo.Focus();
+				}
+			}
+		}
+
+		private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (txtDescripcion.Text == "")
+			{
+				txtDescripcion.Focus();
+			}
+			else
+			{
+				button2.Focus();
+			}
 		}
 	}
 }

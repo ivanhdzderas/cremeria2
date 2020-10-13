@@ -53,6 +53,16 @@ namespace Cremeria.Models
 			string query = "delete from tbaprov_prod where id_producto='" + this.Id_producto + "'";
 			object result = runQuery(query);
 		}
+		public void delete_all()
+		{
+			string query = "delete from tbaprov_prod where id_proveedor='" + this.Id_proveedor + "'";
+			object result = runQuery(query);
+		}
+		public void delete_()
+		{
+			string query = "delete from tbaprov_prod where id='" + this.Id + "'";
+			object result = runQuery(query);
+		}
 
 		public List<prov_prod> get_costo(int id_prod)
 		{
@@ -70,9 +80,24 @@ namespace Cremeria.Models
 			return result;
 		}
 
-		public List<prov_prod> get_costobyproveedor(int id_prod, int proveedor)
+		public List<prov_prod> get_costobyproveedorandprodu(int id_prod, int proveedor)
 		{
 			string query = "select id,id_producto, id_proveedor, costo, cantidad  from tbaprov_prod where id_producto='" + id_prod + "' and id_proveedor='" + proveedor + "'";
+			MySqlDataReader data = runQuery(query);
+			List<prov_prod> result = new List<prov_prod>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					prov_prod item = build_enlace(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
+		public List<prov_prod> get_costobyproveedor(int proveedor)
+		{
+			string query = "select id,id_producto, id_proveedor, costo, cantidad  from tbaprov_prod where  id_proveedor='" + proveedor + "'";
 			MySqlDataReader data = runQuery(query);
 			List<prov_prod> result = new List<prov_prod>();
 			if (data.HasRows)

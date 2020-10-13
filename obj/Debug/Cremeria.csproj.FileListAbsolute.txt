@@ -166,3 +166,5 @@ C:\Users\anton\source\repos\Cremeria\obj\Debug\Cremeria.Forms.Form_listas_precio
 C:\Users\anton\source\repos\Cremeria\obj\Debug\Cremeria.Forms.Listas_precios.resources
 C:\Users\anton\source\repos\Cremeria\obj\Debug\Cremeria.Forms.Alertas.resources
 C:\Users\anton\source\repos\Cremeria\obj\Debug\Cremeria.Forms.Busca_cliente.resources
+C:\Users\anton\source\repos\Cremeria\obj\Debug\Cremeria.Forms.Modifica.resources
+C:\Users\anton\source\repos\Cremeria\bin\Debug\FirebirdSql.Data.FirebirdClient.dll

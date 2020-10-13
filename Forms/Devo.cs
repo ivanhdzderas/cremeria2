@@ -45,7 +45,7 @@ namespace Cremeria.Forms
 						Cuantos = Cuantos + 1;
 						using (productos)
 						{
-							List<Models.Product> producto = productos.getProductById(item.Id);
+							List<Models.Product> producto = productos.getProductById(item.Id_producto);
 						
 							dtDevoluciones.Rows.Add(item.Id, item.Cantidad,producto[0].Code1, producto[0].Description, item.Pu, (item.Pu*item.Cantidad), item.Estado);
 							if (item.Estado == true)
@@ -67,6 +67,7 @@ namespace Cremeria.Forms
 			int llegaron = 0;
 			Models.det_dev_prov detallado = new Models.det_dev_prov();
 			Models.Product productos = new Models.Product();
+			Models.Log historial = new Models.Log();
 			using (detallado)
 			{
 				foreach (DataGridViewRow row in dtDevoluciones.Rows)
@@ -79,10 +80,25 @@ namespace Cremeria.Forms
 							{
 								using (productos)
 								{
-									List<Models.Product> producto = productos.getProductBycode1(row.Cells["codigo"].Value.ToString());
-									productos.Existencia = producto[0].Existencia + Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-									productos.Id = producto[0].Id;
-									productos.update_inventary();
+									if (row.Cells["recibido"].ReadOnly == true)
+									{
+
+									}
+									else
+									{
+										List<Models.Product> producto = productos.getProductBycode1(row.Cells["codigo"].Value.ToString());
+										productos.Existencia = producto[0].Existencia + Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+										productos.Id = producto[0].Id;
+										productos.update_inventary();
+
+										using (historial)
+										{
+											historial.Id_usuario=Convert.ToInt32(Inicial.id_usario);
+											historial.Descripcion = "se regreso " + row.Cells["cantidad"].Value.ToString() + " del producto " + row.Cells["descripcion"].Value.ToString();
+											historial.createLog();
+										}
+									}
+									
 								}
 							}
 						}
@@ -97,7 +113,7 @@ namespace Cremeria.Forms
 			{
 				if (llegaron == Cuantos)
 				{
-					devolu.Estado = false;
+					devolu.Estado = true;
 					devolu.Id = Folio;
 					devolu.termina_dev();
 				}

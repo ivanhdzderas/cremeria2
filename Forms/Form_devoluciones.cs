@@ -102,12 +102,22 @@ namespace Cremeria.Forms
 		}
 		private void agregar()
 		{
-			dtProductos.Rows.Insert(0,Id_producto, txtCantidad.Text, txtCodigo.Text,txtDescripcion.Text,"",txtPu.Text, (Convert.ToDouble(txtPu.Text)*Convert.ToDouble(txtCantidad.Text)));
-			Id_producto = 0;
-			txtCantidad.Text = "";
-			txtPu.Text = "";
-			txtDescripcion.Text = "";
-			txtCantidad.Focus();
+			Models.prov_prod costos = new Models.prov_prod();
+			using (costos)
+			{
+				List<Models.prov_prod> costo = costos.get_costobyproveedorandprodu(Id_producto,Convert.ToInt32(txtId_proveedor.Text));
+				if (costo.Count > 0)
+				{
+					dtProductos.Rows.Insert(0, Id_producto, txtCantidad.Text, txtCodigo.Text, txtDescripcion.Text, "", txtPu.Text, (Convert.ToDouble(txtPu.Text) * Convert.ToDouble(txtCantidad.Text)));
+					Id_producto = 0;
+					txtCantidad.Text = "";
+					txtCodigo.Text = "";
+					txtPu.Text = "";
+					txtDescripcion.Text = "";
+					txtCantidad.Focus();
+					calcula();
+				}
+			}
 		}
 		private void calcula()
 		{
@@ -198,12 +208,33 @@ namespace Cremeria.Forms
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.F2)
+			{
+				Buscar_producto busca = new Buscar_producto();
+				busca.ShowDialog();
+				if (intercambios.Id_producto != 0)
+				{
+					Models.Product productos = new Models.Product();
+					using (productos)
+					{
+						List<Models.Product> producto = productos.getProductById(intercambios.Id_producto);
+						if (producto.Count > 0)
+						{
+							txtCodigo.Text = producto[0].Code1;
+							txtDescripcion.Text = producto[0].Description;
+							txtPu.Text = string.Format("{0:#,0.00}", producto[0].Cost);
+							txtDescripcion.Focus();
+							Id_producto = producto[0].Id;
+						}
+					}
+				}
+			}
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Product productos = new Models.Product();
 				using (productos)
 				{
-					List<Models.Product> producto = productos.getProductBycode1(txtCodigo.Text);
+					List<Models.Product> producto = productos.getProductByCodeAbsolute(txtCodigo.Text);
 					if (producto.Count > 0)
 					{
 						txtDescripcion.Text = producto[0].Description;
@@ -217,6 +248,27 @@ namespace Cremeria.Forms
 
 		private void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.F2)
+			{
+				Buscar_producto busca = new Buscar_producto();
+				busca.ShowDialog();
+				if (intercambios.Id_producto != 0)
+				{
+					Models.Product productos = new Models.Product();
+					using (productos)
+					{
+						List<Models.Product> producto = productos.getProductById(intercambios.Id_producto);
+						if (producto.Count > 0)
+						{
+							txtCodigo.Text = producto[0].Code1;
+							txtDescripcion.Text = producto[0].Description;
+							txtPu.Text = string.Format("{0:#,0.00}", producto[0].Cost);
+							txtDescripcion.Focus();
+							Id_producto = producto[0].Id;
+						}
+					}
+				}
+			}
 			if (e.KeyCode == Keys.Enter)
 			{
 				if (txtDescripcion.Text!="" && txtCodigo.Text!="" && txtPu.Text != "")
@@ -248,12 +300,13 @@ namespace Cremeria.Forms
 			Models.det_dev_prov detalles = new Models.det_dev_prov();
 			Models.Product productos = new Models.Product();
 			Models.det_devolution det_devolu = new Models.det_devolution();
+			Models.Log historial = new Models.Log();
 			using (devo)
 			{
 				
 				devo.Id_proveedor = Convert.ToInt32(txtId_proveedor.Text);
 				devo.Total = Convert.ToDouble(txtTotal.Text);
-				devo.Estado = true;
+				devo.Estado = false;
 				devo.Motivo = txtMotivo.Text;
 				devo.create_dev();
 				
@@ -268,17 +321,30 @@ namespace Cremeria.Forms
 						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 
 						detalles.Pu = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
-						detalles.Estado = true;
+						detalles.Estado = false;
 						detalles.create_det();
-
-
-
-						
-
-						
-						if (row.Cells["folios"].Value.ToString() != "")
+						using (historial)
 						{
+							historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+							historial.Descripcion="se envio "+ row.Cells["cantidad"].Value.ToString()+" del producto " + row.Cells["desripcion"].Value.ToString() + " como devolucion al proveedor " + txtProveedor.Text;
+							historial.createLog();
+						}
+						
+						if (row.Cells["folios"].Value is null) {
 
+							using (productos)
+							{
+								List<Models.Product> producto = productos.getProductById(Convert.ToInt32(row.Cells["id"].Value.ToString()));
+								productos.Existencia = producto[0].Existencia - Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+								productos.Id = Convert.ToInt32(row.Cells["id"].Value.ToString());
+								productos.update_inventary();
+							}
+							
+
+
+						}
+						else
+						{
 							using (productos)
 							{
 								productos.Id = Convert.ToInt32(row.Cells["id"].Value.ToString());
@@ -291,7 +357,7 @@ namespace Cremeria.Forms
 							char delimitar = ',';
 							string[] folios = row.Cells["folios"].Value.ToString().Split(delimitar);
 							int cuantos = folios.Count();
-							for(int i = 0; i < cuantos; i++)
+							for (int i = 0; i < cuantos; i++)
 							{
 								using (det_devolu)
 								{
@@ -299,25 +365,25 @@ namespace Cremeria.Forms
 									det_devolu.Id_devolucion = Convert.ToInt32(folios[i]);
 									det_devolu.enviar();
 								}
-								
-							}
 
-
-						}
-						else
-						{
-							using (productos)
-							{
-								List<Models.Product> producto = productos.getProductById(Convert.ToInt32(row.Cells["id"].Value.ToString()));
-								productos.Existencia = producto[0].Existencia - Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-								productos.Id = Convert.ToInt32(row.Cells["id"].Value.ToString());
-								productos.update_inventary();
 							}
 						}
 					}
 				}
 			}
 			this.Close();
+		}
+
+		private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				if (txtCantidad.Text == "")
+				{
+					txtCantidad.Text = "1";
+				}
+				txtCodigo.Focus();
+			}
 		}
 	}
 }

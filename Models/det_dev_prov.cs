@@ -59,7 +59,7 @@ namespace Cremeria.Models
 		}
 		public void recibir()
 		{
-			string query = "update det_dev_pro set estado='" + Convert.ToInt32(false) + "' where id='" + this.Id + "'";
+			string query = "update det_dev_pro set estado='" + Convert.ToInt32(true) + "' where id='" + this.Id + "'";
 			runQuery(query);
 		}
 		public void delete_det()
