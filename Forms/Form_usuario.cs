@@ -93,6 +93,8 @@ namespace Cremeria.Forms
                     checkBox21.Checked = Convert.ToBoolean(lista[0].Ganancias);
                     checkBox22.Checked = Convert.ToBoolean(lista[0].Reporte_ganancias);
                     checkBox23.Checked = Convert.ToBoolean(lista[0].Retiro_efectivo);
+                    chkDevoluciones.Checked = Convert.ToBoolean(lista[0].Devoluciones);
+                    chkPrecio.Checked = Convert.ToBoolean(lista[0].Cam_precio);
                     id_permiso = lista[0].Id;
 
                 }
@@ -184,6 +186,9 @@ namespace Cremeria.Forms
                             permiso.Ganancias = Convert.ToInt16(checkBox21.Checked);
                             permiso.Reporte_ganancias = Convert.ToInt16(checkBox22.Checked);
                             permiso.Retiro_efectivo = Convert.ToInt16(checkBox23.Checked);
+                            
+                            permiso.Devoluciones = Convert.ToInt16(chkDevoluciones.Checked);
+                            permiso.Cam_precio = Convert.ToInt32(chkPrecio.Checked);
                             permiso.createPermisos();
                         }
 
@@ -243,6 +248,8 @@ namespace Cremeria.Forms
                             permiso.Reporte_ganancias = Convert.ToInt16(checkBox22.Checked);
                             permiso.Retiro_efectivo = Convert.ToInt16(checkBox23.Checked);
                             permiso.Id = id_permiso;
+                            permiso.Devoluciones = Convert.ToInt16(chkDevoluciones.Checked);
+                            permiso.Cam_precio = Convert.ToInt32(chkPrecio.Checked);
                             permiso.savePermisos();
                         }
 

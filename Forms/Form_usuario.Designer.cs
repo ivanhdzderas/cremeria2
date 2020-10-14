@@ -68,6 +68,8 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.chkDevoluciones = new System.Windows.Forms.CheckBox();
+			this.chkPrecio = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -242,6 +244,7 @@
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.chkPrecio);
 			this.tabPage3.Controls.Add(this.checkBox14);
 			this.tabPage3.Controls.Add(this.checkBox13);
 			this.tabPage3.Controls.Add(this.checkBox12);
@@ -307,6 +310,7 @@
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.chkDevoluciones);
 			this.tabPage4.Controls.Add(this.checkBox18);
 			this.tabPage4.Controls.Add(this.checkBox17);
 			this.tabPage4.Controls.Add(this.checkBox16);
@@ -478,6 +482,26 @@
 			this.label1.TabIndex = 11;
 			this.label1.Text = "Nombre";
 			// 
+			// chkDevoluciones
+			// 
+			this.chkDevoluciones.AutoSize = true;
+			this.chkDevoluciones.Location = new System.Drawing.Point(6, 98);
+			this.chkDevoluciones.Name = "chkDevoluciones";
+			this.chkDevoluciones.Size = new System.Drawing.Size(91, 17);
+			this.chkDevoluciones.TabIndex = 4;
+			this.chkDevoluciones.Text = "Devoluciones";
+			this.chkDevoluciones.UseVisualStyleBackColor = true;
+			// 
+			// chkPrecio
+			// 
+			this.chkPrecio.AutoSize = true;
+			this.chkPrecio.Location = new System.Drawing.Point(6, 121);
+			this.chkPrecio.Name = "chkPrecio";
+			this.chkPrecio.Size = new System.Drawing.Size(102, 17);
+			this.chkPrecio.TabIndex = 5;
+			this.chkPrecio.Text = "Cambiar Precios";
+			this.chkPrecio.UseVisualStyleBackColor = true;
+			// 
 			// Form_usuario
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -557,5 +581,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.CheckBox chkDevoluciones;
+		private System.Windows.Forms.CheckBox chkPrecio;
 	}
 }

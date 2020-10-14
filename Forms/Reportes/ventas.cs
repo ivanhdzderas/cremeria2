@@ -15,7 +15,6 @@ namespace Cremeria.Forms.Reportes
 {
 	public partial class ventas : Form
 	{
-
 		public ventas()
 		{
 			InitializeComponent();
@@ -23,11 +22,9 @@ namespace Cremeria.Forms.Reportes
 		private void generar()
 		{
 			System.Data.DataTable tabla1 = new System.Data.DataTable();
-
 			tabla1.Columns.Add("Usuario");
 			tabla1.Columns.Add("Fecha");
 			tabla1.Columns.Add("Descripcion");
-
 			Models.Log historia = new Models.Log();
 			Models.Users usuarios = new Models.Users();
 			using (historia)
@@ -44,16 +41,11 @@ namespace Cremeria.Forms.Reportes
 						}
 					}
 				}
-
 			}
-
-
 			System.Data.DataTable tabla2 = new System.Data.DataTable();
-
 			tabla2.Columns.Add("Folio");
 			tabla2.Columns.Add("Sucursal");
 			tabla2.Columns.Add("Total");
-
 			Models.Reports.Transferencias transferencias = new Models.Reports.Transferencias();
 			Models.Offices sucursales = new Models.Offices();
 			using (transferencias)
@@ -71,15 +63,12 @@ namespace Cremeria.Forms.Reportes
 					}
 				}
 			}
-
 			System.Data.DataTable tabla3 = new System.Data.DataTable();
 			tabla3.Columns.Add("Monto");
 			System.Data.DataTable tabla4 = new System.Data.DataTable();
 			tabla4.Columns.Add("Proveedor");
 			tabla4.Columns.Add("Monto");
-
 			double Total_proveedor = 0;
-
 			Models.retiro_efectivo retiros = new Models.retiro_efectivo();
 			Models.Providers proveedores = new Models.Providers();
 			using (retiros)
@@ -91,7 +80,6 @@ namespace Cremeria.Forms.Reportes
 					{
 						if (item.Id_proveedor == 0)
 						{
-
 							if (item.Monto != 0)
 							{
 								tabla3.Rows.Add(item.Monto);
@@ -100,8 +88,6 @@ namespace Cremeria.Forms.Reportes
 							{
 								tabla3.Rows.Add(item.Monto_proveedor);
 							}
-
-
 						}
 						else
 						{
@@ -135,16 +121,11 @@ namespace Cremeria.Forms.Reportes
 			tabla5.Rows.Add(total_tickets, Total_proveedor, (total_tickets + Total_proveedor));
 			Models.Export_pdf pdf = new Models.Export_pdf();
 			pdf.genera_reporte(tabla1, tabla2, tabla3, tabla4, tabla5, "reporte.pdf", "Reporte diario");
-
-
-
 			string origen = "contabilidad@cremeria-martinez.com"; //de quien procede, puede ser un alias
-			string destino = "arturo.huerta@cremeria-martinez.com; rosa.martinez@cremeria-martinez.com";  //a quien vamos a enviar el mail
+			string destino = "arturo.huerta@cremeria-martinez.com,rosa.martinez@cremeria-martinez.com,ihernandez@colegioherbart.edu.mx";  //a quien vamos a enviar el mail
 			string Message="Envio anexo reporte diario";  //mensaje
 			string Subject="reporte diario"; //asunto
-			
 			string PASS = "Cremeria2020."; //nuestro password de smtp
-
 			MailMessage oMailmessage = new MailMessage(origen, destino, Subject,Message);
 			oMailmessage.Attachments.Add(new Attachment("reporte.pdf"));
 			oMailmessage.IsBodyHtml = true;
@@ -155,18 +136,14 @@ namespace Cremeria.Forms.Reportes
 			oSmtpclient.Credentials = new System.Net.NetworkCredential(origen,PASS);
 			oSmtpclient.Send(oMailmessage);
 			oSmtpclient.Dispose();
-
 		}
 		private void ventas_Load(object sender, EventArgs e)
 		{
-
 			Finicial.Format = DateTimePickerFormat.Custom;
 			Finicial.CustomFormat = "yyyy-MM-dd";
 			Ffinal.Format = DateTimePickerFormat.Custom;
 			Ffinal.CustomFormat = "yyyy-MM-dd";
 			generar();
-
-
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -193,106 +170,77 @@ namespace Cremeria.Forms.Reportes
 							{
 								using (transferencias)
 								{
-									
-										this.reportViewer1.LocalReport.ReportEmbeddedResource = "Cremeria.Reports.corte.rdlc";
-										this.reportViewer1.LocalReport.DataSources.Clear();
-
-
-
-										List<Models.Reports.Tickets> reporte = diario.get_tickets(Finicial.Text, Ffinal.Text);
-
-										List<Models.Reports.Mas_vendidos> lista_vendidos = mas_vedidos.get_masvendidos(Finicial.Text, Ffinal.Text);
-										ReportDataSource datasource = new ReportDataSource("Mas_vendidos", lista_vendidos);
-
-
-										this.reportViewer1.LocalReport.DataSources.Add(datasource);
-
-										foreach (Models.Reports.Tickets item in reporte)
+									this.reportViewer1.LocalReport.ReportEmbeddedResource = "Cremeria.Reports.corte.rdlc";
+									this.reportViewer1.LocalReport.DataSources.Clear();
+									List<Models.Reports.Tickets> reporte = diario.get_tickets(Finicial.Text, Ffinal.Text);
+									List<Models.Reports.Mas_vendidos> lista_vendidos = mas_vedidos.get_masvendidos(Finicial.Text, Ffinal.Text);
+									ReportDataSource datasource = new ReportDataSource("Mas_vendidos", lista_vendidos);
+									this.reportViewer1.LocalReport.DataSources.Add(datasource);
+									foreach (Models.Reports.Tickets item in reporte)
+									{
+										if (item.Status == "A")
 										{
-											if (item.Status == "A")
-											{
-												totales.Total = totales.Total + item.Total;
-											}
-
+											totales.Total = totales.Total + item.Total;
 										}
-
-										
-										
-
-										List<Models.Cortes> no_cerrado = cortes.getnoclose(Convert.ToInt16(Inicial.id_usario));
-										if (no_cerrado.Count > 0)
+									}
+									List<Models.Cortes> no_cerrado = cortes.getnoclose(Convert.ToInt16(Inicial.id_usario));
+									if (no_cerrado.Count > 0)
+									{
+										encaja.Fondo = no_cerrado[0].Caja_inicial;
+									}
+									else
+									{
+										encaja.Fondo = 0;
+									}
+									List<Models.Reports.Transferencias> listad = transferencias.getTransferbyDate(Finicial.Text, Ffinal.Text, "E");
+									foreach(Models.Reports.Transferencias item in listad)
+									{
+									totales.Traspasos = totales.Traspasos + item.Monto;
+									}
+									totales.Gran_total = totales.Total + totales.Traspasos;
+									ReportDataSource tra = new ReportDataSource("transfer", listad);
+									this.reportViewer1.LocalReport.DataSources.Add(tra);
+									List<Models.retiro_efectivo> ret = retiros.get_retiro_fecha(Finicial.Text, Ffinal.Text);
+									List<Models.Reports.Retiro_proveedores> lista_retiro_proveedores = new List<Models.Reports.Retiro_proveedores>();
+									List<Models.Reports.Retiro_efectivo> reti = new List<Models.Reports.Retiro_efectivo>();
+									foreach (Models.retiro_efectivo item in ret)
+									{
+										if (item.Id_proveedor == 0)
 										{
-											encaja.Fondo = no_cerrado[0].Caja_inicial;
+											retiro_efectivo.Monto = item.Monto_proveedor;
+											if (item.Monto != 0)
+											{
+												encaja.Retiros = encaja.Retiros + item.Monto;
+											}
+											else {
+												encaja.Retiros = encaja.Retiros + item.Monto_proveedor;
+											}
+												
+											reti.Add(new Models.Reports.Retiro_efectivo(item.Monto));
 										}
 										else
 										{
-											encaja.Fondo = 0;
+											List<Models.Providers> proveedor = proveedores.getProviderbyId(item.Id_proveedor);
+											retiro_proveedores.Proveedor = proveedor[0].Name;
+											retiro_proveedores.Monto = item.Monto_proveedor;
+											lista_retiro_proveedores.Add(new Models.Reports.Retiro_proveedores(proveedor[0].Name, item.Monto_proveedor));
 										}
-										
-
-										List<Models.Reports.Transferencias> listad = transferencias.getTransferbyDate(Finicial.Text, Ffinal.Text, "E");
-										foreach(Models.Reports.Transferencias item in listad)
-										{
-										totales.Traspasos = totales.Traspasos + item.Monto;
-										}
-										totales.Gran_total = totales.Total + totales.Traspasos;
-										ReportDataSource tra = new ReportDataSource("transfer", listad);
-										this.reportViewer1.LocalReport.DataSources.Add(tra);
-
-										List<Models.retiro_efectivo> ret = retiros.get_retiro_fecha(Finicial.Text, Ffinal.Text);
-										List<Models.Reports.Retiro_proveedores> lista_retiro_proveedores = new List<Models.Reports.Retiro_proveedores>();
-										List<Models.Reports.Retiro_efectivo> reti = new List<Models.Reports.Retiro_efectivo>();
-										foreach (Models.retiro_efectivo item in ret)
-										{
-											if (item.Id_proveedor == 0)
-											{
-												retiro_efectivo.Monto = item.Monto_proveedor;
-												if (item.Monto != 0)
-												{
-													encaja.Retiros = encaja.Retiros + item.Monto;
-												}
-												else {
-													encaja.Retiros = encaja.Retiros + item.Monto_proveedor;
-												}
-												
-												reti.Add(new Models.Reports.Retiro_efectivo(item.Monto));
-											}
-											else
-											{
-												List<Models.Providers> proveedor = proveedores.getProviderbyId(item.Id_proveedor);
-												retiro_proveedores.Proveedor = proveedor[0].Name;
-												retiro_proveedores.Monto = item.Monto_proveedor;
-												lista_retiro_proveedores.Add(new Models.Reports.Retiro_proveedores(proveedor[0].Name, item.Monto_proveedor));
-											}
-										}
-
-
-
-										ReportDataSource prov = new ReportDataSource("Proveedores", lista_retiro_proveedores);
-										this.reportViewer1.LocalReport.DataSources.Add(prov);
-
-										ReportDataSource rettt = new ReportDataSource("retiro_efectivo", reti);
-										this.reportViewer1.LocalReport.DataSources.Add(rettt);
-
-										List<Models.Reports.Encaja> Lista_encaja = new List<Models.Reports.Encaja>();
-										Lista_encaja.Add(encaja);
-										ReportDataSource caj = new ReportDataSource("EnCaja", Lista_encaja);
-										this.reportViewer1.LocalReport.DataSources.Add(caj);
-
-
-										List<Models.Reports.Totales> tot = new List<Models.Reports.Totales>();
-										tot.Add(totales);
-										ReportDataSource ven = new ReportDataSource("Totales", tot);
-										this.reportViewer1.LocalReport.DataSources.Add(ven);
-
+									}
+									ReportDataSource prov = new ReportDataSource("Proveedores", lista_retiro_proveedores);
+									this.reportViewer1.LocalReport.DataSources.Add(prov);
+									ReportDataSource rettt = new ReportDataSource("retiro_efectivo", reti);
+									this.reportViewer1.LocalReport.DataSources.Add(rettt);
+									List<Models.Reports.Encaja> Lista_encaja = new List<Models.Reports.Encaja>();
+									Lista_encaja.Add(encaja);
+									ReportDataSource caj = new ReportDataSource("EnCaja", Lista_encaja);
+									this.reportViewer1.LocalReport.DataSources.Add(caj);
+									List<Models.Reports.Totales> tot = new List<Models.Reports.Totales>();
+									tot.Add(totales);
+									ReportDataSource ven = new ReportDataSource("Totales", tot);
+									this.reportViewer1.LocalReport.DataSources.Add(ven);
 									this.reportViewer1.RefreshReport();
-									
 								}
-
-
 							}
-
-
 						}
 					}
 				}

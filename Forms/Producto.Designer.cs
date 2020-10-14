@@ -35,6 +35,8 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.txtUbicacion = new System.Windows.Forms.TextBox();
+			this.label61 = new System.Windows.Forms.Label();
 			this.txtNotas = new System.Windows.Forms.TextBox();
 			this.label60 = new System.Windows.Forms.Label();
 			this.label56 = new System.Windows.Forms.Label();
@@ -189,15 +191,15 @@
 			this.descripcion_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.dtCostos = new System.Windows.Forms.DataGridView();
+			this.id_registro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cbproveedor = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			this.costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad_prod = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.butSave = new System.Windows.Forms.Button();
 			this.butCancel = new System.Windows.Forms.Button();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.chkGrupal = new System.Windows.Forms.CheckBox();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-			this.id_registro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cbproveedor = new System.Windows.Forms.DataGridViewComboBoxColumn();
-			this.costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad_prod = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -270,6 +272,8 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.txtUbicacion);
+			this.tabPage1.Controls.Add(this.label61);
 			this.tabPage1.Controls.Add(this.txtNotas);
 			this.tabPage1.Controls.Add(this.label60);
 			this.tabPage1.Controls.Add(this.label56);
@@ -320,6 +324,22 @@
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "General";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// txtUbicacion
+			// 
+			this.txtUbicacion.Location = new System.Drawing.Point(583, 251);
+			this.txtUbicacion.Name = "txtUbicacion";
+			this.txtUbicacion.Size = new System.Drawing.Size(121, 20);
+			this.txtUbicacion.TabIndex = 63;
+			// 
+			// label61
+			// 
+			this.label61.AutoSize = true;
+			this.label61.Location = new System.Drawing.Point(522, 254);
+			this.label61.Name = "label61";
+			this.label61.Size = new System.Drawing.Size(55, 13);
+			this.label61.TabIndex = 62;
+			this.label61.Text = "Ubicacion";
 			// 
 			// txtNotas
 			// 
@@ -1804,6 +1824,30 @@
 			this.dtCostos.Size = new System.Drawing.Size(750, 212);
 			this.dtCostos.TabIndex = 0;
 			// 
+			// id_registro
+			// 
+			this.id_registro.HeaderText = "id";
+			this.id_registro.Name = "id_registro";
+			this.id_registro.Visible = false;
+			// 
+			// cbproveedor
+			// 
+			this.cbproveedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.cbproveedor.DataPropertyName = "Name";
+			this.cbproveedor.HeaderText = "proveedor";
+			this.cbproveedor.Name = "cbproveedor";
+			// 
+			// costo
+			// 
+			this.costo.HeaderText = "Costo";
+			this.costo.Name = "costo";
+			// 
+			// cantidad_prod
+			// 
+			this.cantidad_prod.HeaderText = "Cantidad";
+			this.cantidad_prod.Name = "cantidad_prod";
+			this.cantidad_prod.ReadOnly = true;
+			// 
 			// butSave
 			// 
 			this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -1848,30 +1892,6 @@
 			// errorProvider1
 			// 
 			this.errorProvider1.ContainerControl = this;
-			// 
-			// id_registro
-			// 
-			this.id_registro.HeaderText = "id";
-			this.id_registro.Name = "id_registro";
-			this.id_registro.Visible = false;
-			// 
-			// cbproveedor
-			// 
-			this.cbproveedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.cbproveedor.DataPropertyName = "Name";
-			this.cbproveedor.HeaderText = "proveedor";
-			this.cbproveedor.Name = "cbproveedor";
-			// 
-			// costo
-			// 
-			this.costo.HeaderText = "Costo";
-			this.costo.Name = "costo";
-			// 
-			// cantidad_prod
-			// 
-			this.cantidad_prod.HeaderText = "Cantidad";
-			this.cantidad_prod.Name = "cantidad_prod";
-			this.cantidad_prod.ReadOnly = true;
 			// 
 			// Producto
 			// 
@@ -2097,5 +2117,7 @@
 		private System.Windows.Forms.DataGridViewComboBoxColumn cbproveedor;
 		private System.Windows.Forms.DataGridViewTextBoxColumn costo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_prod;
+		private System.Windows.Forms.TextBox txtUbicacion;
+		private System.Windows.Forms.Label label61;
 	}
 }

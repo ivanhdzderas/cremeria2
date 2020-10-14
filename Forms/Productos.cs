@@ -122,13 +122,30 @@ namespace Cremeria.Forms
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
-            DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-            string codigo = Convert.ToString(selectedRow.Cells["id"].Value);
-            Forms.Producto.Codigo = codigo;
-            Producto Producto = new Producto();
-            Forms.Producto.connectionstring2 = connectionstring2;
-            Producto.Show(this);
+            Models.Permisos permisos = new Models.Permisos();
+			using (permisos)
+			{
+                List<Models.Permisos> permiso = permisos.getPermiso(Convert.ToInt32(Inicial.id_usario));
+                if (permiso.Count > 0)
+				{
+                    if (Convert.ToBoolean(permiso[0].Mod_prod) == true)
+					{
+                        int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+                        string codigo = Convert.ToString(selectedRow.Cells["id"].Value);
+                        Forms.Producto.Codigo = codigo;
+                        Producto Producto = new Producto();
+                        Forms.Producto.connectionstring2 = connectionstring2;
+                        Producto.Show(this);
+					}
+					else
+					{
+                        MessageBox.Show("no tiene permisos para ingresar");
+					}
+				}
+			}
+            
+           
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

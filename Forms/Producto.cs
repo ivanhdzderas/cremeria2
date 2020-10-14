@@ -17,7 +17,7 @@ namespace Cremeria.Forms
 		public static string Codigo;
 		public static string SubProducto;
 		public static string SubSubProducto;
-
+        static bool cambio_precio = true;
         private static double precio1, precio2, precio3, precio4, precio5;
 		public Producto()
 		{
@@ -305,6 +305,11 @@ namespace Cremeria.Forms
         private bool validar()
         {
             bool validador = true;
+            if (txtUbicacion.Text == "")
+			{
+                validador = false;
+                errorProvider1.SetError(txtUbicacion, "Ingrese ubicacion del producto");
+            }
             if (txtDescripcion.Text == "")
             {
                 validador = false;
@@ -505,6 +510,19 @@ namespace Cremeria.Forms
         }
         private void Producto_Load(object sender, EventArgs e)
 		{
+
+            Models.Permisos permisos = new Models.Permisos();
+			using (permisos)
+			{
+                List<Models.Permisos> permiso = permisos.getPermiso(Convert.ToInt32(Inicial.id_usario));
+                if (Convert.ToBoolean(permiso[0].Cam_precio) == false)
+				{
+                    groupBox1.Enabled = false;
+                }
+			}
+            
+
+
             combobox_popular();
             txtCodigo.AutoCompleteCustomSource = cargadatos();
             txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -713,6 +731,7 @@ namespace Cremeria.Forms
                         carga_box();
                         carga_kardex();
                         carga_costos();
+                        txtUbicacion.Text = item.Ubicacion;
 
                         if (item.Grupal == true)
                         {
@@ -967,8 +986,9 @@ namespace Cremeria.Forms
                 Convert.ToDouble(max_p5.Value),
                 Convert.ToInt16(txtProveedor.Text),
                 chkGrupal.Checked,
-                txtNotas.Text
-                );
+                txtNotas.Text,
+                txtUbicacion.Text
+                ) ;
                     product.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
                     {
@@ -1119,7 +1139,8 @@ namespace Cremeria.Forms
                         0,
                         Convert.ToInt16(txtProveedor.Text),
                         false,
-                        ""
+                        "",
+                        txtUbicacion.Text
                         );
                         subproduct.Active = Convert.ToInt16(chkActivo.Checked);
                         if (Codigo == "")
@@ -1194,7 +1215,8 @@ namespace Cremeria.Forms
                            0,
                            Convert.ToInt16(txtProveedor.Text),
                            false,
-                           ""
+                           "",
+                           txtUbicacion.Text
                            );
                         subsub.Active = Convert.ToInt16(chkActivo.Checked);
                         if (Codigo == "")

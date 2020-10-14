@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
 
 namespace Cremeria.Models
@@ -35,6 +36,8 @@ namespace Cremeria.Models
 		public int Reporte_ganancias { get; set; }
 		public int Retiro_efectivo { get; set; }
 		public int Transferencias { get; set; }
+		public int Devoluciones { get; set; }
+		public int Cam_precio { get; set; }
 		
 		public Permisos(
 			int id,
@@ -62,7 +65,9 @@ namespace Cremeria.Models
 			int ganancias,
 			int reporte_ganancias,
 			int retiro_efectivo,
-			int trasnferencias
+			int trasnferencias,
+			int devoluciones,
+			int cam_precio
 		) {
 			Id = id;
 			Id_usuario = id_usuario;
@@ -90,6 +95,8 @@ namespace Cremeria.Models
 			Reporte_ganancias = reporte_ganancias;
 			Retiro_efectivo = retiro_efectivo;
 			Transferencias = trasnferencias;
+			Devoluciones = devoluciones;
+			Cam_precio = cam_precio;
 		}
 		public Permisos() { }
 
@@ -120,12 +127,14 @@ namespace Cremeria.Models
 				data.GetInt32("ganancias"),
 				data.GetInt32("reporte_ganancias"),
 				data.GetInt32("retiro_efectivo"),
-				data.GetInt32("transferencias")
+				data.GetInt32("transferencias"),
+				data.GetInt32("devoluciones"),
+				data.GetInt32("cambio_precio")
 				);
 			return item;
 		}
 		public void createPermisos() {
-			string query = "insert into tbapermisos ( id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo, transferencias)";
+			string query = "insert into tbapermisos ( id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo, transferencias, devoluciones, cambio_precio)";
 			query += "values (";
 			query += "'" + this.Id_usuario + "', ";
 			query += "'" + this.May_men + "', ";
@@ -151,7 +160,9 @@ namespace Cremeria.Models
 			query += "'" + this.Ganancias + "', ";
 			query += "'" + this.Reporte_ganancias + "', ";
 			query += "'" + this.Retiro_efectivo + "', ";
-			query += "'" + this.Transferencias + "'";
+			query += "'" + this.Transferencias + "', ";
+			query += "'" + this.Devoluciones + "', ";
+			query += "'" + this.Cam_precio + "'";
 			query += ")";
 			object result = runQuery(query);
 		}
@@ -182,11 +193,14 @@ namespace Cremeria.Models
 			query += "reporte_ganancias='" + this.Reporte_ganancias + "', ";
 			query += "ajus_inv='" + this.Ajus_inv + "', ";
 			query += "retiro_efectivo='" + this.Retiro_efectivo + "', ";
-			query += "transferencias='" + this.Transferencias + "' ";
+			query += "transferencias='" + this.Transferencias + "', ";
+			query += "devoluciones='" + this.Devoluciones + "', ";
+
+			query += "cambio_precio='" + this.Cam_precio + "'";
 			query += "where id='" + this.Id + "'";
 			object result = runQuery(query);
 		}
-		string mac_query = "select id,id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo, transferencias from tbapermisos";
+		string mac_query = "select id,id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo, transferencias, devoluciones,cambio_precio from tbapermisos";
 		public List<Permisos> getPermiso(int id_usuario) {
 			string query = mac_query + " where id_usuario = '" + id_usuario.ToString() + "'";
 			MySqlDataReader data = runQuery(query);

@@ -417,9 +417,22 @@ namespace Cremeria
 
 		private void devolucionesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Dev_pro devo = new Dev_pro();
-			devo.MdiParent = this;
-			devo.Show();
+			Models.Permisos permisos = new Models.Permisos();
+			using (permisos)
+			{
+				List<Models.Permisos> permiso = permisos.getPermiso(Convert.ToInt32(Inicial.id_usario));
+				if (Convert.ToBoolean(permiso[0].Devoluciones) == true)
+				{
+					Dev_pro devo = new Dev_pro();
+					devo.MdiParent = this;
+					devo.Show();
+				}
+				else
+				{
+					MessageBox.Show("No tienes permisos para entrar");
+				}
+			}
+			
 		}
 
 		private void ImportarToolStripMenuItem_Click(object sender, EventArgs e)
