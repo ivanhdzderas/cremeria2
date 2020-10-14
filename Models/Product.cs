@@ -6,7 +6,7 @@ namespace Cremeria.Models
 {
     public class Product : ConnectDB
     {
-        private string mac_query = "select id,id_parent,c_unidad,  descripcion,sku,medida_sat, codigo, codigo2, codigo3, codigo4, codigo5, cantidad,devolucion, grupo, marca, unidad, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, costo, activo, codigo_sat, impuesto_venta, impuesto_compra, descuento, monto_descuento, minimo, maximo,dias_alerta, lote, max_p1, max_p2, max_p3, max_p4, max_p5, proveedor, grupal, notas, ubicacion   from tbaproductos";
+        private string mac_query = "select id,id_parent,c_unidad,  descripcion,sku,medida_sat, codigo, codigo2, codigo3, codigo4, codigo5, cantidad,devolucion, grupo, marca, unidad, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, costo, activo, codigo_sat, impuesto_venta, impuesto_compra, descuento, monto_descuento, minimo, maximo,dias_alerta, lote, max_p1, max_p2, max_p3, max_p4, max_p5, proveedor, grupal, notas, ubicacion,iva_incluido   from tbaproductos";
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -61,7 +61,7 @@ namespace Cremeria.Models
         public bool Grupal { get; set; }
         public string Notas { get; set; }
         public string Ubicacion { get; set; }
-
+        public bool Iva_incluido { get; set; }
         public Product(
             int id,
             string description,
@@ -109,7 +109,8 @@ namespace Cremeria.Models
             int proveedor,
             bool grupal,
             string notas,
-            string ubicacion
+            string ubicacion,
+            bool iva_incluido
             )
         {
             Id = id;
@@ -161,6 +162,7 @@ namespace Cremeria.Models
             Grupal = grupal;
             Notas = notas;
             Ubicacion = ubicacion;
+            Iva_incluido = iva_incluido;
         }
 
         public Product() {
@@ -307,7 +309,8 @@ namespace Cremeria.Models
             query += "proveedor='" + this.Proveedor + "', ";
             query += "grupal='" + Convert.ToInt32(this.Grupal) + "', ";
             query += "notas='" + this.Notas + "', ";
-            query += "ubicacion='" + this.Ubicacion + "' ";
+            query += "ubicacion='" + this.Ubicacion + "', ";
+            query += "iva_incluido='" + Convert.ToInt32(this.Iva_incluido) + "'";
             query += "where id='" + this.Id + "'";
 
             runQuery(query);
@@ -362,7 +365,8 @@ namespace Cremeria.Models
                 data.GetInt32("proveedor"),
                 Convert.ToBoolean(data.GetInt32("grupal")),
                 data.GetString("notas"),
-                data.GetString("ubicacion")
+                data.GetString("ubicacion"),
+                Convert.ToBoolean(data.GetInt16("iva_incluido"))
             ) ;
             return item;
 
@@ -576,7 +580,7 @@ namespace Cremeria.Models
 
         public List<Product> getCaducProducts()
         {
-            string query = "select tbaproductos.id,tbaproductos.id_parent,tbaproductos.c_unidad,  tbaproductos.descripcion,tbaproductos.sku,tbaproductos.medida_sat, tbaproductos.codigo, tbaproductos.codigo2, tbaproductos.codigo3, tbaproductos.codigo4, tbaproductos.codigo5, tbaproductos.cantidad,tbaproductos.devolucion, tbaproductos.grupo, tbaproductos.marca, tbaproductos.unidad, tbaproductos.precio1, tbaproductos.precio2, tbaproductos.precio3, tbaproductos.precio4, tbaproductos.precio5, tbaproductos.utilidad1, tbaproductos.utilidad2, tbaproductos.utilidad3, tbaproductos.utilidad4, tbaproductos.utilidad5, tbaproductos.costo, tbaproductos.activo, tbaproductos.codigo_sat, tbaproductos.impuesto_venta, tbaproductos.impuesto_compra, tbaproductos.descuento, tbaproductos.monto_descuento, tbaproductos.minimo, tbaproductos.maximo,tbaproductos.dias_alerta, tbaproductos.lote,tbaproductos.max_p1,tbaproductos.max_p2,tbaproductos.max_p3, tbaproductos.max_p4, tbaproductos.max_p5 , tbaproductos.proveedor, tbaproductos.grupal, tbaproductos.notas, tbaproductos.ubicacion   from tbaproductos inner join tbacaducidad on tbaproductos.id=tbacaducidad.id_producto where TIMESTAMPDIFF(DAY, tbacaducidad.caducidad, NOW())<=tbaproductos.dias_alerta";
+            string query = "select tbaproductos.id,tbaproductos.id_parent,tbaproductos.c_unidad,  tbaproductos.descripcion,tbaproductos.sku,tbaproductos.medida_sat, tbaproductos.codigo, tbaproductos.codigo2, tbaproductos.codigo3, tbaproductos.codigo4, tbaproductos.codigo5, tbaproductos.cantidad,tbaproductos.devolucion, tbaproductos.grupo, tbaproductos.marca, tbaproductos.unidad, tbaproductos.precio1, tbaproductos.precio2, tbaproductos.precio3, tbaproductos.precio4, tbaproductos.precio5, tbaproductos.utilidad1, tbaproductos.utilidad2, tbaproductos.utilidad3, tbaproductos.utilidad4, tbaproductos.utilidad5, tbaproductos.costo, tbaproductos.activo, tbaproductos.codigo_sat, tbaproductos.impuesto_venta, tbaproductos.impuesto_compra, tbaproductos.descuento, tbaproductos.monto_descuento, tbaproductos.minimo, tbaproductos.maximo,tbaproductos.dias_alerta, tbaproductos.lote,tbaproductos.max_p1,tbaproductos.max_p2,tbaproductos.max_p3, tbaproductos.max_p4, tbaproductos.max_p5 , tbaproductos.proveedor, tbaproductos.grupal, tbaproductos.notas, tbaproductos.ubicacion,tbaproductos.iva_incluido   from tbaproductos inner join tbacaducidad on tbaproductos.id=tbacaducidad.id_producto where TIMESTAMPDIFF(DAY, tbacaducidad.caducidad, NOW())<=tbaproductos.dias_alerta";
             MySqlDataReader data = runQuery(query);
             
                 List<Product> result = new List<Product>();

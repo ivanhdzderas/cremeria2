@@ -46,6 +46,7 @@ namespace Cremeria.Models
 		public double Credito { get; set; }
 		public double Debito { get; set; }
 
+		public bool Iva_incluido { get; set; }
 		public Configuration(
 			int id,
 			string razon_social,
@@ -82,7 +83,8 @@ namespace Cremeria.Models
 			string pie_ticket,
 			string ruta_reportes,
 			double credito,
-			double debito
+			double debito,
+			bool iva_incluido
 			) {
 			Id = id;
 			Razon_social = razon_social;
@@ -120,6 +122,7 @@ namespace Cremeria.Models
 			Ruta_reportes = ruta_reportes;
 			Credito = credito;
 			Debito = debito;
+			Iva_incluido = iva_incluido;
 		}
 		public Configuration() { }
 
@@ -161,8 +164,9 @@ namespace Cremeria.Models
 				data.GetString("pie_ticket"),
 				data.GetString("ruta_reportes"),
 				data.GetDouble("credito"),
-				data.GetDouble("debito")
-				) ;
+				data.GetDouble("debito"),
+				Convert.ToBoolean(data.GetInt16("iva_incluido"))
+				);
 			return item;
 		}
 
@@ -202,8 +206,13 @@ namespace Cremeria.Models
 			query += "pie_ticket='" + this.Pie_ticket + "', ";
 			query += "ruta_reportes='" + this.Ruta_reportes + "', ";
 			query += "credito='" + this.Credito + "', ";
-			query += "debito='" + this.Debito + "' ";
+			query += "debito='" + this.Debito + "', ";
+			query += "iva_incluido='" + Convert.ToInt32(this.Iva_incluido) + "'";
 			query += "where id='" + this.Id + "'";
+			object result = runQuery(query);
+		}
+		public void update_iva() {
+			string query = "update tbaconfiguracion set iva_incluido='" + Convert.ToInt32(this.Iva_incluido) + "' where id='" + this.Id + "'";
 			object result = runQuery(query);
 		}
 		public void updateImpresoras()
@@ -299,7 +308,7 @@ namespace Cremeria.Models
 			object result = runQuery(query);
 		}
 		public List<Configuration> getConfiguration() {
-			string query = "SELECT id, razonsocial,nombrecomercial,rfc,telefono,calle,noext,noint,colonia,estado,municipio,pais,regimen,cp,logo,key_file,cer,pass,email,proveedor,smtpserv,contra,ssl_email,smtpport,cuerpoemail,rutafact,impresora,tipoimpre,logoticket,reportes_impresora,serie_factura, folio_factura, pie_ticket, ruta_reportes, credito, debito FROM tbaconfiguracion; ";
+			string query = "SELECT id, razonsocial,nombrecomercial,rfc,telefono,calle,noext,noint,colonia,estado,municipio,pais,regimen,cp,logo,key_file,cer,pass,email,proveedor,smtpserv,contra,ssl_email,smtpport,cuerpoemail,rutafact,impresora,tipoimpre,logoticket,reportes_impresora,serie_factura, folio_factura, pie_ticket, ruta_reportes, credito, debito,iva_incluido FROM tbaconfiguracion; ";
 			MySqlDataReader data = runQuery(query);
 			List<Configuration> result = new List<Configuration>();
 			if (data.HasRows)

@@ -732,6 +732,7 @@ namespace Cremeria.Forms
                         carga_kardex();
                         carga_costos();
                         txtUbicacion.Text = item.Ubicacion;
+                        chkIva.Checked = item.Iva_incluido;
 
                         if (item.Grupal == true)
                         {
@@ -987,7 +988,8 @@ namespace Cremeria.Forms
                 Convert.ToInt16(txtProveedor.Text),
                 chkGrupal.Checked,
                 txtNotas.Text,
-                txtUbicacion.Text
+                txtUbicacion.Text,
+                chkIva.Checked
                 ) ;
                     product.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
@@ -1140,7 +1142,8 @@ namespace Cremeria.Forms
                         Convert.ToInt16(txtProveedor.Text),
                         false,
                         "",
-                        txtUbicacion.Text
+                        txtUbicacion.Text,
+                        chkIva.Checked
                         );
                         subproduct.Active = Convert.ToInt16(chkActivo.Checked);
                         if (Codigo == "")
@@ -1216,7 +1219,8 @@ namespace Cremeria.Forms
                            Convert.ToInt16(txtProveedor.Text),
                            false,
                            "",
-                           txtUbicacion.Text
+                           txtUbicacion.Text,
+                           chkIva.Checked
                            );
                         subsub.Active = Convert.ToInt16(chkActivo.Checked);
                         if (Codigo == "")
@@ -1555,6 +1559,7 @@ namespace Cremeria.Forms
             {
                 e.Handled = true;
             }
+
         }
 
         private void txtPrice1_Leave(object sender, EventArgs e)
@@ -2456,6 +2461,197 @@ namespace Cremeria.Forms
             busca.Owner = this;
             busca.Show();
         }
+
+		private void txtPrice1_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (Convert.ToDouble(txtPrice1.Text) == 0.00)
+                {
+                    txtPrice1.Text = "0.00";
+                    txtPercentPrice1.Text = "0.00";
+                }
+                else
+                {
+
+                    /*double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice1.Text) / 100));
+                    txtPrice1.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                    */
+
+                    double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice1.Text))) * 100;
+                    txtPercentPrice1.Text = string.Format("{0:#,0.00}", diferencia);
+                }
+            }
+		}
+
+		private void txtPrice2_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (txtPrice2.Text == "")
+                {
+                    txtPrice2.Text = "0.00";
+                }
+                if (Convert.ToDouble(txtPrice2.Text) == 0.00)
+                {
+                    txtPrice2.Text = "0.00";
+                    txtPercentPrice2.Text = "0.00";
+                }
+                else
+                {
+                    double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice2.Text))) * 100;
+                    txtPercentPrice2.Text = string.Format("{0:#,0.00}", diferencia);
+                }
+            }
+		}
+
+		private void txtPrice3_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (txtPrice3.Text == "")
+                {
+                    txtPrice2.Text = "0.00";
+                }
+                if (Convert.ToDouble(txtPrice3.Text) == 0.00)
+                {
+                    txtPrice3.Text = "0.00";
+                    txtPercentPrice3.Text = "0.00";
+                }
+                else
+                {
+                    double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice3.Text))) * 100;
+                    txtPercentPrice3.Text = string.Format("{0:#,0.00}", diferencia);
+                }
+            }
+		}
+
+		private void txtPrice4_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (txtPrice4.Text == "")
+                {
+                    txtPrice4.Text = "0.00";
+                }
+                if (Convert.ToDouble(txtPrice4.Text) == 0.00)
+                {
+                    txtPrice4.Text = "0.00";
+                    txtPercentPrice4.Text = "0.00";
+                }
+                else
+                {
+                    double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice4.Text))) * 100;
+                    txtPercentPrice4.Text = string.Format("{0:#,0.00}", diferencia);
+                }
+            }
+		}
+
+		private void txtPrice5_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (txtPrice5.Text == "")
+                {
+                    txtPrice5.Text = "0.00";
+                }
+                if (Convert.ToDouble(txtPrice5.Text) == 0.00)
+                {
+                    txtPrice5.Text = "0.00";
+                    txtPercentPrice5.Text = "0.00";
+                }
+                else
+                {
+                    double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice5.Text))) * 100;
+                    txtPercentPrice5.Text = string.Format("{0:#,0.00}", diferencia);
+                }
+            }
+		}
+
+		private void txtPercentPrice1_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (Convert.ToDouble(txtPercentPrice1.Text) == 0.00)
+                {
+                    txtPrice1.Text = "0.00";
+                    txtPercentPrice1.Text = "0.00";
+                }
+                else
+                {
+                    double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice1.Text) / 100));
+                    txtPrice1.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                }
+            }
+		}
+
+		private void txtPercentPrice2_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (Convert.ToDouble(txtPercentPrice2.Text) == 0.00)
+                {
+                    txtPrice2.Text = "0.00";
+                    txtPercentPrice2.Text = "0.00";
+                }
+                else
+                {
+                    double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice2.Text) / 100));
+                    txtPrice2.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                }
+            }
+		}
+
+		private void txtPercentPrice3_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (Convert.ToDouble(txtPercentPrice3.Text) == 0.00)
+                {
+                    txtPrice3.Text = "0.00";
+                    txtPercentPrice3.Text = "0.00";
+                }
+                else
+                {
+                    double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice3.Text) / 100));
+                    txtPrice3.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                }
+            }
+		}
+
+		private void txtPercentPrice4_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (Convert.ToDouble(txtPercentPrice4.Text) == 0.00)
+                {
+                    txtPrice4.Text = "0.00";
+                    txtPercentPrice4.Text = "0.00";
+                }
+                else
+                {
+                    double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice4.Text) / 100));
+                    txtPrice4.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                }
+            }
+		}
+
+		private void txtPercentPrice5_KeyDown(object sender, KeyEventArgs e)
+		{
+            if (e.KeyCode == Keys.Enter)
+			{
+                if (Convert.ToDouble(txtPercentPrice5.Text) == 0.00)
+                {
+                    txtPrice5.Text = "0.00";
+                    txtPercentPrice5.Text = "0.00";
+                }
+                else
+                {
+                    double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice5.Text) / 100));
+                    txtPrice5.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                }
+            }
+		}
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{

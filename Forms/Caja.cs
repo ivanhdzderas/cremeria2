@@ -1,5 +1,6 @@
 ﻿using Microsoft.Reporting.Map.WebForms.BingMaps;
 using Microsoft.VisualBasic;
+using Renci.SshNet.Messages.Transport;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -369,6 +370,10 @@ namespace Cremeria.Forms
 			double cero = 0;
 			double grabado = 0;
 			double sin_grabar = 0;
+			Models.Product prod= new Models.Product();
+			Models.Configuration configuracion = new Models.Configuration();
+			bool iva_producto = false;
+			bool iva_venta = false;
 			//double descuento = Convert.ToDouble(txtTdescuento.Text);
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
@@ -383,7 +388,21 @@ namespace Cremeria.Forms
 						once = once + ((importe) * 0.11);
 						break;
 					case "16":
-						diezyseis = diezyseis + ((importe) * 0.16);
+						using (prod)
+						{
+							using (configuracion)
+							{
+								List<Models.Product> producto = prod.getProductById(Convert.ToInt32(row.Cells["id"].Value.ToString()));
+								List<Models.Configuration> config = configuracion.getConfiguration();
+								iva_producto = producto[0].Iva_incluido;
+								iva_venta = config[0].Iva_incluido;
+							}
+							
+
+						}
+							diezyseis = diezyseis + ((importe) * 0.16);
+						
+						
 						break;
 					case "TASA CERO":
 						break;
@@ -410,6 +429,7 @@ namespace Cremeria.Forms
 			Total = total;
 			txtSubtotal.Text = string.Format("{0:#,0.00}", subtotal);
 			txtTotal.Text = string.Format("{0:#,0.00}", total);
+			txtIva.Text = string.Format("{0:#,0.00}", iva);
 		}
 		public void Guardar()
 		{
@@ -847,7 +867,17 @@ namespace Cremeria.Forms
 						double costo = prod[0].Cost;
 						string grabado = prod[0].Sale_tax;
 						grabado = grabado.Replace("IVA ", "");
-						dtProductos.Rows.Insert(0, Id_producto, Convert.ToDouble(txtCantidad.Text), txtCodigo.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(txtUnitario.Text)), string.Format("{0:#,0.00}" + "%", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo, "NO");
+						if (prod[0].Iva_incluido == true)
+						{
+							double unit=Convert.ToDouble(txtUnitario.Text);
+							double real = (unit / 1.16);
+							dtProductos.Rows.Insert(0, Id_producto, Convert.ToDouble(txtCantidad.Text), txtCodigo.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", real), string.Format("{0:#,0.00}" + "%", Convert.ToDouble(0)), string.Format("{0:#,0.00}", (real*Convert.ToDouble(txtCantidad.Text))), grabado, costo, "NO");
+						}
+						else
+						{
+							dtProductos.Rows.Insert(0, Id_producto, Convert.ToDouble(txtCantidad.Text), txtCodigo.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(txtUnitario.Text)), string.Format("{0:#,0.00}" + "%", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo, "NO");
+						}
+						
 						checar_produtos();
 					}
 					txtCodigo.Text = "";

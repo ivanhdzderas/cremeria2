@@ -90,6 +90,8 @@
 			this.btnUltimo = new System.Windows.Forms.Button();
 			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.printDocument2 = new System.Drawing.Printing.PrintDocument();
+			this.txtIva = new System.Windows.Forms.TextBox();
+			this.label19 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -115,7 +117,7 @@
 			this.dtProductos.Location = new System.Drawing.Point(13, 245);
 			this.dtProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.dtProductos.Name = "dtProductos";
-			this.dtProductos.Size = new System.Drawing.Size(822, 132);
+			this.dtProductos.Size = new System.Drawing.Size(1046, 132);
 			this.dtProductos.TabIndex = 0;
 			this.dtProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellContentClick);
 			this.dtProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellContentDoubleClick);
@@ -209,7 +211,7 @@
 			// 
 			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(663, 188);
+			this.label4.Location = new System.Drawing.Point(887, 188);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(64, 20);
 			this.label4.TabIndex = 4;
@@ -219,7 +221,7 @@
 			// 
 			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(771, 188);
+			this.label5.Location = new System.Drawing.Point(995, 188);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(64, 20);
 			this.label5.TabIndex = 5;
@@ -229,7 +231,7 @@
 			// 
 			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(607, 17);
+			this.label6.Location = new System.Drawing.Point(831, 17);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(54, 20);
 			this.label6.TabIndex = 6;
@@ -239,7 +241,7 @@
 			// 
 			this.dtFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.dtFecha.Enabled = false;
-			this.dtFecha.Location = new System.Drawing.Point(667, 12);
+			this.dtFecha.Location = new System.Drawing.Point(891, 12);
 			this.dtFecha.Name = "dtFecha";
 			this.dtFecha.Size = new System.Drawing.Size(168, 26);
 			this.dtFecha.TabIndex = 7;
@@ -270,13 +272,13 @@
 			this.txtDescripcion.Enabled = false;
 			this.txtDescripcion.Location = new System.Drawing.Point(270, 211);
 			this.txtDescripcion.Name = "txtDescripcion";
-			this.txtDescripcion.Size = new System.Drawing.Size(353, 26);
+			this.txtDescripcion.Size = new System.Drawing.Size(577, 26);
 			this.txtDescripcion.TabIndex = 10;
 			// 
 			// txtUnitario
 			// 
 			this.txtUnitario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUnitario.Location = new System.Drawing.Point(629, 211);
+			this.txtUnitario.Location = new System.Drawing.Point(853, 211);
 			this.txtUnitario.Name = "txtUnitario";
 			this.txtUnitario.Size = new System.Drawing.Size(100, 26);
 			this.txtUnitario.TabIndex = 11;
@@ -285,7 +287,7 @@
 			// 
 			this.txtImporte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtImporte.Enabled = false;
-			this.txtImporte.Location = new System.Drawing.Point(735, 211);
+			this.txtImporte.Location = new System.Drawing.Point(959, 211);
 			this.txtImporte.Name = "txtImporte";
 			this.txtImporte.Size = new System.Drawing.Size(100, 26);
 			this.txtImporte.TabIndex = 12;
@@ -310,7 +312,7 @@
 			// txtDescuento
 			// 
 			this.txtDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescuento.Location = new System.Drawing.Point(735, 417);
+			this.txtDescuento.Location = new System.Drawing.Point(959, 420);
 			this.txtDescuento.Name = "txtDescuento";
 			this.txtDescuento.Size = new System.Drawing.Size(100, 26);
 			this.txtDescuento.TabIndex = 16;
@@ -322,7 +324,7 @@
 			// 
 			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(642, 420);
+			this.label8.Location = new System.Drawing.Point(866, 423);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(87, 20);
 			this.label8.TabIndex = 18;
@@ -333,7 +335,7 @@
 			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label9.AutoSize = true;
 			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label9.Location = new System.Drawing.Point(602, 452);
+			this.label9.Location = new System.Drawing.Point(826, 491);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(80, 31);
 			this.label9.TabIndex = 19;
@@ -427,7 +429,7 @@
 			this.listGuardados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.listGuardados.FormattingEnabled = true;
 			this.listGuardados.ItemHeight = 20;
-			this.listGuardados.Location = new System.Drawing.Point(611, 67);
+			this.listGuardados.Location = new System.Drawing.Point(835, 67);
 			this.listGuardados.Name = "listGuardados";
 			this.listGuardados.Size = new System.Drawing.Size(225, 104);
 			this.listGuardados.TabIndex = 23;
@@ -437,7 +439,7 @@
 			// 
 			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(607, 43);
+			this.label13.Location = new System.Drawing.Point(831, 43);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(143, 20);
 			this.label13.TabIndex = 24;
@@ -507,7 +509,7 @@
 			// 
 			this.txtSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSubtotal.Enabled = false;
-			this.txtSubtotal.Location = new System.Drawing.Point(735, 385);
+			this.txtSubtotal.Location = new System.Drawing.Point(959, 385);
 			this.txtSubtotal.Name = "txtSubtotal";
 			this.txtSubtotal.Size = new System.Drawing.Size(100, 26);
 			this.txtSubtotal.TabIndex = 30;
@@ -518,7 +520,7 @@
 			// 
 			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(660, 388);
+			this.label16.Location = new System.Drawing.Point(884, 388);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(69, 20);
 			this.label16.TabIndex = 31;
@@ -659,7 +661,7 @@
 			// 
 			this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtTotal.Location = new System.Drawing.Point(688, 449);
+			this.txtTotal.Location = new System.Drawing.Point(912, 488);
 			this.txtTotal.Name = "txtTotal";
 			this.txtTotal.ReadOnly = true;
 			this.txtTotal.Size = new System.Drawing.Size(147, 38);
@@ -671,11 +673,39 @@
 			// 
 			this.printDocument2.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument2_PrintPage);
 			// 
+			// txtIva
+			// 
+			this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtIva.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.txtIva.Enabled = false;
+			this.txtIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtIva.Location = new System.Drawing.Point(959, 454);
+			this.txtIva.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.txtIva.Name = "txtIva";
+			this.txtIva.Size = new System.Drawing.Size(100, 26);
+			this.txtIva.TabIndex = 46;
+			this.txtIva.Text = "0";
+			this.txtIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label19
+			// 
+			this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label19.AutoSize = true;
+			this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label19.Location = new System.Drawing.Point(915, 456);
+			this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(36, 20);
+			this.label19.TabIndex = 43;
+			this.label19.Text = "IVA";
+			// 
 			// Caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(848, 573);
+			this.ClientSize = new System.Drawing.Size(1072, 573);
+			this.Controls.Add(this.txtIva);
+			this.Controls.Add(this.label19);
 			this.Controls.Add(this.btnUltimo);
 			this.Controls.Add(this.btnAdelante);
 			this.Controls.Add(this.btnAtras);
@@ -796,5 +826,7 @@
 		internal System.Drawing.Printing.PrintDocument printDocument1;
 		private System.Windows.Forms.TextBox txtTotal;
 		private System.Drawing.Printing.PrintDocument printDocument2;
+		private System.Windows.Forms.TextBox txtIva;
+		private System.Windows.Forms.Label label19;
 	}
 }

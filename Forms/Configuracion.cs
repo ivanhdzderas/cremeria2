@@ -141,6 +141,7 @@ namespace Cremeria.Forms
 
                 txtCredito.Text = item[0].Credito.ToString();
                 txtDebito.Text = item[0].Debito.ToString();
+                chkIva.Checked = item[0].Iva_incluido;
             }
         }
 
@@ -261,7 +262,8 @@ namespace Cremeria.Forms
                 0,
                 "",
                 "",
-                0, 0
+                0, 0,
+                true
                 );
             using (config)
             {
@@ -489,5 +491,17 @@ namespace Cremeria.Forms
                 e.Handled = true;
             }
         }
-    }
+
+		private void button12_Click(object sender, EventArgs e)
+		{
+            Models.Configuration configuracion = new Models.Configuration();
+			using (configuracion)
+			{
+                configuracion.Id = Id;
+                configuracion.Iva_incluido = chkIva.Checked;
+                configuracion.update_iva();
+			}
+            MessageBox.Show("Actualizacion exitosa");
+        }
+	}
 }

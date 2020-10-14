@@ -67,6 +67,7 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.label14 = new System.Windows.Forms.Label();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.button5 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.pbLogoTicket = new System.Windows.Forms.PictureBox();
 			this.button2 = new System.Windows.Forms.Button();
@@ -76,11 +77,7 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.txtLogo = new System.Windows.Forms.TextBox();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.tabPage7 = new System.Windows.Forms.TabPage();
-			this.tabPage8 = new System.Windows.Forms.TabPage();
-			this.button5 = new System.Windows.Forms.Button();
+			this.button6 = new System.Windows.Forms.Button();
 			this.btnCer = new System.Windows.Forms.Button();
 			this.btnKey = new System.Windows.Forms.Button();
 			this.txtContra = new System.Windows.Forms.TextBox();
@@ -89,7 +86,8 @@
 			this.label19 = new System.Windows.Forms.Label();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
-			this.button6 = new System.Windows.Forms.Button();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.button7 = new System.Windows.Forms.Button();
 			this.chkSsl = new System.Windows.Forms.CheckBox();
 			this.cbProveedor = new System.Windows.Forms.ComboBox();
 			this.txtCuerpo = new System.Windows.Forms.TextBox();
@@ -103,7 +101,8 @@
 			this.label22 = new System.Windows.Forms.Label();
 			this.label21 = new System.Windows.Forms.Label();
 			this.label20 = new System.Windows.Forms.Label();
-			this.button7 = new System.Windows.Forms.Button();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.button8 = new System.Windows.Forms.Button();
 			this.txtPieTicket = new System.Windows.Forms.TextBox();
 			this.label28 = new System.Windows.Forms.Label();
 			this.cbImpreReportes = new System.Windows.Forms.ComboBox();
@@ -111,18 +110,22 @@
 			this.cbImpresora = new System.Windows.Forms.ComboBox();
 			this.label26 = new System.Windows.Forms.Label();
 			this.chkticket = new System.Windows.Forms.CheckBox();
-			this.button8 = new System.Windows.Forms.Button();
+			this.tabPage7 = new System.Windows.Forms.TabPage();
+			this.button10 = new System.Windows.Forms.Button();
 			this.button9 = new System.Windows.Forms.Button();
 			this.txtRutas = new System.Windows.Forms.TextBox();
 			this.label29 = new System.Windows.Forms.Label();
-			this.button10 = new System.Windows.Forms.Button();
+			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.button11 = new System.Windows.Forms.Button();
 			this.label33 = new System.Windows.Forms.Label();
 			this.label32 = new System.Windows.Forms.Label();
 			this.txtDebito = new System.Windows.Forms.TextBox();
 			this.txtCredito = new System.Windows.Forms.TextBox();
 			this.label31 = new System.Windows.Forms.Label();
 			this.label30 = new System.Windows.Forms.Label();
-			this.button11 = new System.Windows.Forms.Button();
+			this.tabPage9 = new System.Windows.Forms.TabPage();
+			this.chkIva = new System.Windows.Forms.CheckBox();
+			this.button12 = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -136,6 +139,7 @@
 			this.tabPage6.SuspendLayout();
 			this.tabPage7.SuspendLayout();
 			this.tabPage8.SuspendLayout();
+			this.tabPage9.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -148,6 +152,7 @@
 			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Controls.Add(this.tabPage7);
 			this.tabControl1.Controls.Add(this.tabPage8);
+			this.tabControl1.Controls.Add(this.tabPage9);
 			this.tabControl1.Location = new System.Drawing.Point(12, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -527,6 +532,16 @@
 			this.tabPage3.Text = "Logo";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(687, 394);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(75, 23);
+			this.button5.TabIndex = 12;
+			this.button5.Text = "Guardar";
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
 			// groupBox2
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -643,88 +658,16 @@
 			this.tabPage4.Text = "Sellos";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
-			// tabPage5
+			// button6
 			// 
-			this.tabPage5.Controls.Add(this.button7);
-			this.tabPage5.Controls.Add(this.chkSsl);
-			this.tabPage5.Controls.Add(this.cbProveedor);
-			this.tabPage5.Controls.Add(this.txtCuerpo);
-			this.tabPage5.Controls.Add(this.txtSmtpPort);
-			this.tabPage5.Controls.Add(this.txtSmtp);
-			this.tabPage5.Controls.Add(this.txtPassEmail);
-			this.tabPage5.Controls.Add(this.txtEmail);
-			this.tabPage5.Controls.Add(this.label25);
-			this.tabPage5.Controls.Add(this.label24);
-			this.tabPage5.Controls.Add(this.label23);
-			this.tabPage5.Controls.Add(this.label22);
-			this.tabPage5.Controls.Add(this.label21);
-			this.tabPage5.Controls.Add(this.label20);
-			this.tabPage5.Location = new System.Drawing.Point(4, 22);
-			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(768, 423);
-			this.tabPage5.TabIndex = 4;
-			this.tabPage5.Text = "Email";
-			this.tabPage5.UseVisualStyleBackColor = true;
-			// 
-			// tabPage6
-			// 
-			this.tabPage6.Controls.Add(this.button8);
-			this.tabPage6.Controls.Add(this.txtPieTicket);
-			this.tabPage6.Controls.Add(this.label28);
-			this.tabPage6.Controls.Add(this.cbImpreReportes);
-			this.tabPage6.Controls.Add(this.label27);
-			this.tabPage6.Controls.Add(this.cbImpresora);
-			this.tabPage6.Controls.Add(this.label26);
-			this.tabPage6.Controls.Add(this.chkticket);
-			this.tabPage6.Location = new System.Drawing.Point(4, 22);
-			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage6.Size = new System.Drawing.Size(768, 423);
-			this.tabPage6.TabIndex = 5;
-			this.tabPage6.Text = "Impresora";
-			this.tabPage6.UseVisualStyleBackColor = true;
-			// 
-			// tabPage7
-			// 
-			this.tabPage7.Controls.Add(this.button10);
-			this.tabPage7.Controls.Add(this.button9);
-			this.tabPage7.Controls.Add(this.txtRutas);
-			this.tabPage7.Controls.Add(this.label29);
-			this.tabPage7.Location = new System.Drawing.Point(4, 22);
-			this.tabPage7.Name = "tabPage7";
-			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(768, 423);
-			this.tabPage7.TabIndex = 6;
-			this.tabPage7.Text = "Reportes";
-			this.tabPage7.UseVisualStyleBackColor = true;
-			// 
-			// tabPage8
-			// 
-			this.tabPage8.Controls.Add(this.button11);
-			this.tabPage8.Controls.Add(this.label33);
-			this.tabPage8.Controls.Add(this.label32);
-			this.tabPage8.Controls.Add(this.txtDebito);
-			this.tabPage8.Controls.Add(this.txtCredito);
-			this.tabPage8.Controls.Add(this.label31);
-			this.tabPage8.Controls.Add(this.label30);
-			this.tabPage8.Location = new System.Drawing.Point(4, 22);
-			this.tabPage8.Name = "tabPage8";
-			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage8.Size = new System.Drawing.Size(768, 423);
-			this.tabPage8.TabIndex = 7;
-			this.tabPage8.Text = "Comisiones";
-			this.tabPage8.UseVisualStyleBackColor = true;
-			// 
-			// button5
-			// 
-			this.button5.Location = new System.Drawing.Point(687, 394);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(75, 23);
-			this.button5.TabIndex = 12;
-			this.button5.Text = "Guardar";
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
+			this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button6.Location = new System.Drawing.Point(687, 394);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(75, 23);
+			this.button6.TabIndex = 16;
+			this.button6.Text = "Guardar";
+			this.button6.UseVisualStyleBackColor = true;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
 			// 
 			// btnCer
 			// 
@@ -802,16 +745,40 @@
 			this.label17.TabIndex = 8;
 			this.label17.Text = "Archivo Key";
 			// 
-			// button6
+			// tabPage5
 			// 
-			this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button6.Location = new System.Drawing.Point(687, 394);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(75, 23);
-			this.button6.TabIndex = 16;
-			this.button6.Text = "Guardar";
-			this.button6.UseVisualStyleBackColor = true;
-			this.button6.Click += new System.EventHandler(this.button6_Click);
+			this.tabPage5.Controls.Add(this.button7);
+			this.tabPage5.Controls.Add(this.chkSsl);
+			this.tabPage5.Controls.Add(this.cbProveedor);
+			this.tabPage5.Controls.Add(this.txtCuerpo);
+			this.tabPage5.Controls.Add(this.txtSmtpPort);
+			this.tabPage5.Controls.Add(this.txtSmtp);
+			this.tabPage5.Controls.Add(this.txtPassEmail);
+			this.tabPage5.Controls.Add(this.txtEmail);
+			this.tabPage5.Controls.Add(this.label25);
+			this.tabPage5.Controls.Add(this.label24);
+			this.tabPage5.Controls.Add(this.label23);
+			this.tabPage5.Controls.Add(this.label22);
+			this.tabPage5.Controls.Add(this.label21);
+			this.tabPage5.Controls.Add(this.label20);
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage5.Size = new System.Drawing.Size(768, 423);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "Email";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// button7
+			// 
+			this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button7.Location = new System.Drawing.Point(687, 394);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(75, 23);
+			this.button7.TabIndex = 27;
+			this.button7.Text = "Guardar";
+			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
 			// 
 			// chkSsl
 			// 
@@ -936,16 +903,34 @@
 			this.label20.TabIndex = 14;
 			this.label20.Text = "Email";
 			// 
-			// button7
+			// tabPage6
 			// 
-			this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button7.Location = new System.Drawing.Point(687, 394);
-			this.button7.Name = "button7";
-			this.button7.Size = new System.Drawing.Size(75, 23);
-			this.button7.TabIndex = 27;
-			this.button7.Text = "Guardar";
-			this.button7.UseVisualStyleBackColor = true;
-			this.button7.Click += new System.EventHandler(this.button7_Click);
+			this.tabPage6.Controls.Add(this.button8);
+			this.tabPage6.Controls.Add(this.txtPieTicket);
+			this.tabPage6.Controls.Add(this.label28);
+			this.tabPage6.Controls.Add(this.cbImpreReportes);
+			this.tabPage6.Controls.Add(this.label27);
+			this.tabPage6.Controls.Add(this.cbImpresora);
+			this.tabPage6.Controls.Add(this.label26);
+			this.tabPage6.Controls.Add(this.chkticket);
+			this.tabPage6.Location = new System.Drawing.Point(4, 22);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage6.Size = new System.Drawing.Size(768, 423);
+			this.tabPage6.TabIndex = 5;
+			this.tabPage6.Text = "Impresora";
+			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// button8
+			// 
+			this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button8.Location = new System.Drawing.Point(687, 394);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(75, 23);
+			this.button8.TabIndex = 15;
+			this.button8.Text = "Guardar";
+			this.button8.UseVisualStyleBackColor = true;
+			this.button8.Click += new System.EventHandler(this.button8_Click);
 			// 
 			// txtPieTicket
 			// 
@@ -1012,16 +997,30 @@
 			this.chkticket.Text = "Imprimir Ticket";
 			this.chkticket.UseVisualStyleBackColor = true;
 			// 
-			// button8
+			// tabPage7
 			// 
-			this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button8.Location = new System.Drawing.Point(687, 394);
-			this.button8.Name = "button8";
-			this.button8.Size = new System.Drawing.Size(75, 23);
-			this.button8.TabIndex = 15;
-			this.button8.Text = "Guardar";
-			this.button8.UseVisualStyleBackColor = true;
-			this.button8.Click += new System.EventHandler(this.button8_Click);
+			this.tabPage7.Controls.Add(this.button10);
+			this.tabPage7.Controls.Add(this.button9);
+			this.tabPage7.Controls.Add(this.txtRutas);
+			this.tabPage7.Controls.Add(this.label29);
+			this.tabPage7.Location = new System.Drawing.Point(4, 22);
+			this.tabPage7.Name = "tabPage7";
+			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage7.Size = new System.Drawing.Size(768, 423);
+			this.tabPage7.TabIndex = 6;
+			this.tabPage7.Text = "Reportes";
+			this.tabPage7.UseVisualStyleBackColor = true;
+			// 
+			// button10
+			// 
+			this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button10.Location = new System.Drawing.Point(687, 394);
+			this.button10.Name = "button10";
+			this.button10.Size = new System.Drawing.Size(75, 23);
+			this.button10.TabIndex = 6;
+			this.button10.Text = "Guardar";
+			this.button10.UseVisualStyleBackColor = true;
+			this.button10.Click += new System.EventHandler(this.button10_Click);
 			// 
 			// button9
 			// 
@@ -1050,16 +1049,33 @@
 			this.label29.TabIndex = 3;
 			this.label29.Text = "Ruta de reportes";
 			// 
-			// button10
+			// tabPage8
 			// 
-			this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button10.Location = new System.Drawing.Point(687, 394);
-			this.button10.Name = "button10";
-			this.button10.Size = new System.Drawing.Size(75, 23);
-			this.button10.TabIndex = 6;
-			this.button10.Text = "Guardar";
-			this.button10.UseVisualStyleBackColor = true;
-			this.button10.Click += new System.EventHandler(this.button10_Click);
+			this.tabPage8.Controls.Add(this.button11);
+			this.tabPage8.Controls.Add(this.label33);
+			this.tabPage8.Controls.Add(this.label32);
+			this.tabPage8.Controls.Add(this.txtDebito);
+			this.tabPage8.Controls.Add(this.txtCredito);
+			this.tabPage8.Controls.Add(this.label31);
+			this.tabPage8.Controls.Add(this.label30);
+			this.tabPage8.Location = new System.Drawing.Point(4, 22);
+			this.tabPage8.Name = "tabPage8";
+			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage8.Size = new System.Drawing.Size(768, 423);
+			this.tabPage8.TabIndex = 7;
+			this.tabPage8.Text = "Comisiones";
+			this.tabPage8.UseVisualStyleBackColor = true;
+			// 
+			// button11
+			// 
+			this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button11.Location = new System.Drawing.Point(687, 394);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(75, 23);
+			this.button11.TabIndex = 13;
+			this.button11.Text = "Guardar";
+			this.button11.UseVisualStyleBackColor = true;
+			this.button11.Click += new System.EventHandler(this.button11_Click);
 			// 
 			// label33
 			// 
@@ -1113,16 +1129,37 @@
 			this.label30.TabIndex = 7;
 			this.label30.Text = "Tarjeta de Credito ";
 			// 
-			// button11
+			// tabPage9
 			// 
-			this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button11.Location = new System.Drawing.Point(687, 394);
-			this.button11.Name = "button11";
-			this.button11.Size = new System.Drawing.Size(75, 23);
-			this.button11.TabIndex = 13;
-			this.button11.Text = "Guardar";
-			this.button11.UseVisualStyleBackColor = true;
-			this.button11.Click += new System.EventHandler(this.button11_Click);
+			this.tabPage9.Controls.Add(this.button12);
+			this.tabPage9.Controls.Add(this.chkIva);
+			this.tabPage9.Location = new System.Drawing.Point(4, 22);
+			this.tabPage9.Name = "tabPage9";
+			this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage9.Size = new System.Drawing.Size(768, 423);
+			this.tabPage9.TabIndex = 8;
+			this.tabPage9.Text = "Venta";
+			this.tabPage9.UseVisualStyleBackColor = true;
+			// 
+			// chkIva
+			// 
+			this.chkIva.AutoSize = true;
+			this.chkIva.Location = new System.Drawing.Point(6, 6);
+			this.chkIva.Name = "chkIva";
+			this.chkIva.Size = new System.Drawing.Size(83, 17);
+			this.chkIva.TabIndex = 0;
+			this.chkIva.Text = "IVA Incluido";
+			this.chkIva.UseVisualStyleBackColor = true;
+			// 
+			// button12
+			// 
+			this.button12.Location = new System.Drawing.Point(687, 394);
+			this.button12.Name = "button12";
+			this.button12.Size = new System.Drawing.Size(75, 23);
+			this.button12.TabIndex = 1;
+			this.button12.Text = "Guardar";
+			this.button12.UseVisualStyleBackColor = true;
+			this.button12.Click += new System.EventHandler(this.button12_Click);
 			// 
 			// Configuracion
 			// 
@@ -1159,6 +1196,8 @@
 			this.tabPage7.PerformLayout();
 			this.tabPage8.ResumeLayout(false);
 			this.tabPage8.PerformLayout();
+			this.tabPage9.ResumeLayout(false);
+			this.tabPage9.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1259,5 +1298,8 @@
 		private System.Windows.Forms.TextBox txtCredito;
 		private System.Windows.Forms.Label label31;
 		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.TabPage tabPage9;
+		private System.Windows.Forms.Button button12;
+		private System.Windows.Forms.CheckBox chkIva;
 	}
 }

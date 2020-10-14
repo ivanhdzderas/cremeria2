@@ -200,6 +200,7 @@
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.chkGrupal = new System.Windows.Forms.CheckBox();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+			this.chkIva = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -272,6 +273,7 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.chkIva);
 			this.tabPage1.Controls.Add(this.txtUbicacion);
 			this.tabPage1.Controls.Add(this.label61);
 			this.tabPage1.Controls.Add(this.txtNotas);
@@ -695,6 +697,7 @@
 			this.txtPrice5.Size = new System.Drawing.Size(82, 20);
 			this.txtPrice5.TabIndex = 21;
 			this.txtPrice5.Text = "0.00";
+			this.txtPrice5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrice5_KeyDown);
 			this.txtPrice5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice5_KeyPress);
 			this.txtPrice5.Leave += new System.EventHandler(this.txtPrice5_Leave);
 			// 
@@ -705,6 +708,7 @@
 			this.txtPrice4.Size = new System.Drawing.Size(82, 20);
 			this.txtPrice4.TabIndex = 20;
 			this.txtPrice4.Text = "0.00";
+			this.txtPrice4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrice4_KeyDown);
 			this.txtPrice4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice4_KeyPress);
 			this.txtPrice4.Leave += new System.EventHandler(this.txtPrice4_Leave);
 			// 
@@ -715,6 +719,7 @@
 			this.txtPrice3.Size = new System.Drawing.Size(82, 20);
 			this.txtPrice3.TabIndex = 19;
 			this.txtPrice3.Text = "0.00";
+			this.txtPrice3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrice3_KeyDown);
 			this.txtPrice3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice3_KeyPress);
 			this.txtPrice3.Leave += new System.EventHandler(this.txtPrice3_Leave);
 			// 
@@ -725,6 +730,7 @@
 			this.txtPrice2.Size = new System.Drawing.Size(82, 20);
 			this.txtPrice2.TabIndex = 18;
 			this.txtPrice2.Text = "0.00";
+			this.txtPrice2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrice2_KeyDown);
 			this.txtPrice2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice2_KeyPress);
 			this.txtPrice2.Leave += new System.EventHandler(this.txtPrice2_Leave);
 			// 
@@ -735,6 +741,7 @@
 			this.txtPrice1.Size = new System.Drawing.Size(82, 20);
 			this.txtPrice1.TabIndex = 17;
 			this.txtPrice1.Text = "0.00";
+			this.txtPrice1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrice1_KeyDown);
 			this.txtPrice1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice1_KeyPress);
 			this.txtPrice1.Leave += new System.EventHandler(this.txtPrice1_Leave);
 			// 
@@ -790,6 +797,7 @@
 			this.txtPercentPrice5.Size = new System.Drawing.Size(43, 20);
 			this.txtPercentPrice5.TabIndex = 11;
 			this.txtPercentPrice5.Text = "0.00";
+			this.txtPercentPrice5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPercentPrice5_KeyDown);
 			this.txtPercentPrice5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPercentPrice5_KeyPress);
 			this.txtPercentPrice5.Leave += new System.EventHandler(this.txtPercentPrice5_Leave);
 			// 
@@ -800,6 +808,7 @@
 			this.txtPercentPrice4.Size = new System.Drawing.Size(43, 20);
 			this.txtPercentPrice4.TabIndex = 10;
 			this.txtPercentPrice4.Text = "0.00";
+			this.txtPercentPrice4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPercentPrice4_KeyDown);
 			this.txtPercentPrice4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPercentPrice4_KeyPress);
 			this.txtPercentPrice4.Leave += new System.EventHandler(this.txtPercentPrice4_Leave);
 			// 
@@ -810,6 +819,7 @@
 			this.txtPercentPrice3.Size = new System.Drawing.Size(43, 20);
 			this.txtPercentPrice3.TabIndex = 9;
 			this.txtPercentPrice3.Text = "0.00";
+			this.txtPercentPrice3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPercentPrice3_KeyDown);
 			this.txtPercentPrice3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPercentPrice3_KeyPress);
 			this.txtPercentPrice3.Leave += new System.EventHandler(this.txtPercentPrice3_Leave);
 			// 
@@ -820,6 +830,7 @@
 			this.txtPercentPrice2.Size = new System.Drawing.Size(43, 20);
 			this.txtPercentPrice2.TabIndex = 8;
 			this.txtPercentPrice2.Text = "0.00";
+			this.txtPercentPrice2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPercentPrice2_KeyDown);
 			this.txtPercentPrice2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPercentPrice2_KeyPress);
 			this.txtPercentPrice2.Leave += new System.EventHandler(this.txtPercentPrice2_Leave);
 			// 
@@ -830,6 +841,7 @@
 			this.txtPercentPrice1.Size = new System.Drawing.Size(43, 20);
 			this.txtPercentPrice1.TabIndex = 7;
 			this.txtPercentPrice1.Text = "0.00";
+			this.txtPercentPrice1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPercentPrice1_KeyDown);
 			this.txtPercentPrice1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPercentPrice1_KeyPress);
 			this.txtPercentPrice1.Leave += new System.EventHandler(this.txtPercentPrice1_Leave);
 			// 
@@ -1852,7 +1864,7 @@
 			// 
 			this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.butSave.Location = new System.Drawing.Point(15, 530);
+			this.butSave.Location = new System.Drawing.Point(553, 8);
 			this.butSave.Name = "butSave";
 			this.butSave.Size = new System.Drawing.Size(78, 21);
 			this.butSave.TabIndex = 34;
@@ -1864,7 +1876,7 @@
 			// 
 			this.butCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.butCancel.Location = new System.Drawing.Point(96, 530);
+			this.butCancel.Location = new System.Drawing.Point(634, 8);
 			this.butCancel.Name = "butCancel";
 			this.butCancel.Size = new System.Drawing.Size(78, 21);
 			this.butCancel.TabIndex = 35;
@@ -1892,6 +1904,16 @@
 			// errorProvider1
 			// 
 			this.errorProvider1.ContainerControl = this;
+			// 
+			// chkIva
+			// 
+			this.chkIva.AutoSize = true;
+			this.chkIva.Location = new System.Drawing.Point(321, 148);
+			this.chkIva.Name = "chkIva";
+			this.chkIva.Size = new System.Drawing.Size(82, 17);
+			this.chkIva.TabIndex = 64;
+			this.chkIva.Text = "IVA incluido";
+			this.chkIva.UseVisualStyleBackColor = true;
 			// 
 			// Producto
 			// 
@@ -2119,5 +2141,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad_prod;
 		private System.Windows.Forms.TextBox txtUbicacion;
 		private System.Windows.Forms.Label label61;
+		private System.Windows.Forms.CheckBox chkIva;
 	}
 }
