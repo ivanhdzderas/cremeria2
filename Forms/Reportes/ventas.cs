@@ -121,21 +121,8 @@ namespace Cremeria.Forms.Reportes
 			tabla5.Rows.Add(total_tickets, Total_proveedor, (total_tickets + Total_proveedor));
 			Models.Export_pdf pdf = new Models.Export_pdf();
 			pdf.genera_reporte(tabla1, tabla2, tabla3, tabla4, tabla5, "reporte.pdf", "Reporte diario");
-			string origen = "contabilidad@cremeria-martinez.com"; //de quien procede, puede ser un alias
-			string destino = "arturo.huerta@cremeria-martinez.com,rosa.martinez@cremeria-martinez.com,ihernandez@colegioherbart.edu.mx";  //a quien vamos a enviar el mail
-			string Message="Envio anexo reporte diario";  //mensaje
-			string Subject="reporte diario"; //asunto
-			string PASS = "Cremeria2020."; //nuestro password de smtp
-			MailMessage oMailmessage = new MailMessage(origen, destino, Subject,Message);
-			oMailmessage.Attachments.Add(new Attachment("reporte.pdf"));
-			oMailmessage.IsBodyHtml = true;
-			SmtpClient oSmtpclient = new SmtpClient("mail.cremeria-martinez.com");
-			oSmtpclient.EnableSsl = true;
-			oSmtpclient.UseDefaultCredentials = false;
-			oSmtpclient.Port = 587;
-			oSmtpclient.Credentials = new System.Net.NetworkCredential(origen,PASS);
-			oSmtpclient.Send(oMailmessage);
-			oSmtpclient.Dispose();
+			intercambios intercambios = new intercambios();
+			intercambios.enviar_correo("reporte.pdf","Envio reporte del dia","Reporte Diario");
 		}
 		private void ventas_Load(object sender, EventArgs e)
 		{

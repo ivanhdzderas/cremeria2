@@ -1,8 +1,18 @@
 ﻿using Cremeria.Forms;
+using FireSharp.Response;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+
+
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
+
+
+
+
 namespace Cremeria
 {
 	public partial class Inicial : Form
@@ -17,13 +27,26 @@ namespace Cremeria
 		public static string tipo_usuario;
 		public static Boolean cancelado = false;
 
-		private void nueva_tarea()
+		private  void nueva_tarea()
 		{
-			Models.Reports.nuevo_db nuevo = new Models.Reports.nuevo_db();
-			using (nuevo)
+			Models.facturas.Facturas facturas = new Models.facturas.Facturas();
+
+			facturas.Emp_no = 1;
+			facturas.First_name="ivan";
+			IFirebaseConfig config = new FirebaseConfig();
+
+			IFirebaseClient cliente;
+			config.AuthSecret = "b0XxnSJaXkbSpqaI9OTw7udzNOnUCacbEXSgSBvV";
+			config.BasePath = "https://prueba-c-64168.firebaseio.com/";
+			cliente = new FireSharp.FirebaseClient(config);
+
+
+			if (cliente != null)
 			{
-				//nuevo.ejecuta("ALTER TABLE `tbaproductos` ADD `grupal` TINYINT(1) NOT NULL DEFAULT '0' AFTER `proveedor`;");
+				MessageBox.Show("entrado");
 			}
+			var set = cliente.Set(@"Facturas/" + 1, facturas);
+
 		}
 		public void busca_minimo()
 		{
@@ -90,11 +113,11 @@ namespace Cremeria
 
 
 			
-			if (System.IO.File.Exists(@"nueva.txt"))
-			{
-				nueva_tarea();
-				System.IO.File.Delete(@"nueva.txt");
-			}
+			//if (System.IO.File.Exists(@"nueva.txt"))
+			//{
+				//nueva_tarea();
+				//System.IO.File.Delete(@"nueva.txt");
+			//}
 
 			Forms.Login login = new Forms.Login();
 			login.ShowDialog();

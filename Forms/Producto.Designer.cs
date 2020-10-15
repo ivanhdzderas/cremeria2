@@ -35,6 +35,7 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.chkIva = new System.Windows.Forms.CheckBox();
 			this.txtUbicacion = new System.Windows.Forms.TextBox();
 			this.label61 = new System.Windows.Forms.Label();
 			this.txtNotas = new System.Windows.Forms.TextBox();
@@ -200,7 +201,6 @@
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.chkGrupal = new System.Windows.Forms.CheckBox();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-			this.chkIva = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -256,8 +256,7 @@
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
@@ -326,6 +325,16 @@
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "General";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// chkIva
+			// 
+			this.chkIva.AutoSize = true;
+			this.chkIva.Location = new System.Drawing.Point(321, 148);
+			this.chkIva.Name = "chkIva";
+			this.chkIva.Size = new System.Drawing.Size(82, 17);
+			this.chkIva.TabIndex = 64;
+			this.chkIva.Text = "IVA incluido";
+			this.chkIva.UseVisualStyleBackColor = true;
 			// 
 			// txtUbicacion
 			// 
@@ -1862,8 +1871,7 @@
 			// 
 			// butSave
 			// 
-			this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.butSave.Location = new System.Drawing.Point(553, 8);
 			this.butSave.Name = "butSave";
 			this.butSave.Size = new System.Drawing.Size(78, 21);
@@ -1874,8 +1882,7 @@
 			// 
 			// butCancel
 			// 
-			this.butCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.butCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.butCancel.Location = new System.Drawing.Point(634, 8);
 			this.butCancel.Name = "butCancel";
 			this.butCancel.Size = new System.Drawing.Size(78, 21);
@@ -1905,21 +1912,11 @@
 			// 
 			this.errorProvider1.ContainerControl = this;
 			// 
-			// chkIva
-			// 
-			this.chkIva.AutoSize = true;
-			this.chkIva.Location = new System.Drawing.Point(321, 148);
-			this.chkIva.Name = "chkIva";
-			this.chkIva.Size = new System.Drawing.Size(82, 17);
-			this.chkIva.TabIndex = 64;
-			this.chkIva.Text = "IVA incluido";
-			this.chkIva.UseVisualStyleBackColor = true;
-			// 
 			// Producto
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 574);
+			this.ClientSize = new System.Drawing.Size(800, 536);
 			this.Controls.Add(this.chkGrupal);
 			this.Controls.Add(this.chkActivo);
 			this.Controls.Add(this.txtDescripcion);

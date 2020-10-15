@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
@@ -169,6 +170,28 @@ namespace Cremeria.Forms
             }
         }
 
-      
+        public void enviar_correo(string atach,string mensaje,string tema)
+		{
+            string origen = "reportes@cremeria-martinez.com"; //de quien procede, puede ser un alias
+            string destino = "arturo.huerta@cremeria-martinez.com,rosa.martinez@cremeria-martinez.com,ihernandez@colegioherbart.edu.mx";  //a quien vamos a enviar el mail
+            
+            string Message = mensaje;  //mensaje
+            string Subject = tema; //asunto
+            string PASS = "Reportes2020."; //nuestro password de smtp
+            MailMessage oMailmessage = new MailMessage(origen, destino, Subject, Message);
+            if (atach!="")
+			{
+                oMailmessage.Attachments.Add(new Attachment(atach));
+            }
+            
+            oMailmessage.IsBodyHtml = true;
+            SmtpClient oSmtpclient = new SmtpClient("mail.cremeria-martinez.com");
+            oSmtpclient.EnableSsl = true;
+            oSmtpclient.UseDefaultCredentials = false;
+            oSmtpclient.Port = 587;
+            oSmtpclient.Credentials = new System.Net.NetworkCredential(origen, PASS);
+            oSmtpclient.Send(oMailmessage);
+            oSmtpclient.Dispose();
+        }
     }
 }
