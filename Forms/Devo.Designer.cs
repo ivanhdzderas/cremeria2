@@ -32,10 +32,6 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtFolio = new System.Windows.Forms.TextBox();
 			this.dtDevoluciones = new System.Windows.Forms.DataGridView();
-			this.txtMotivo = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,7 +39,13 @@
 			this.costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.recibido = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.txtMotivo = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			((System.ComponentModel.ISupportInitialize)(this.dtDevoluciones)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -81,40 +83,6 @@
 			this.dtDevoluciones.Name = "dtDevoluciones";
 			this.dtDevoluciones.Size = new System.Drawing.Size(776, 149);
 			this.dtDevoluciones.TabIndex = 2;
-			// 
-			// txtMotivo
-			// 
-			this.txtMotivo.Location = new System.Drawing.Point(57, 209);
-			this.txtMotivo.Name = "txtMotivo";
-			this.txtMotivo.Size = new System.Drawing.Size(234, 20);
-			this.txtMotivo.TabIndex = 3;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 212);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(39, 13);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "Motivo";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(651, 216);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(31, 13);
-			this.label3.TabIndex = 5;
-			this.label3.Text = "Total";
-			// 
-			// txtTotal
-			// 
-			this.txtTotal.Location = new System.Drawing.Point(688, 212);
-			this.txtTotal.Name = "txtTotal";
-			this.txtTotal.ReadOnly = true;
-			this.txtTotal.Size = new System.Drawing.Size(100, 20);
-			this.txtTotal.TabIndex = 6;
-			this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// id
 			// 
@@ -158,6 +126,40 @@
 			this.recibido.HeaderText = "Recibido";
 			this.recibido.Name = "recibido";
 			// 
+			// txtMotivo
+			// 
+			this.txtMotivo.Location = new System.Drawing.Point(57, 209);
+			this.txtMotivo.Name = "txtMotivo";
+			this.txtMotivo.Size = new System.Drawing.Size(234, 20);
+			this.txtMotivo.TabIndex = 3;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(12, 212);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(39, 13);
+			this.label2.TabIndex = 4;
+			this.label2.Text = "Motivo";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(651, 216);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(31, 13);
+			this.label3.TabIndex = 5;
+			this.label3.Text = "Total";
+			// 
+			// txtTotal
+			// 
+			this.txtTotal.Location = new System.Drawing.Point(688, 212);
+			this.txtTotal.Name = "txtTotal";
+			this.txtTotal.ReadOnly = true;
+			this.txtTotal.Size = new System.Drawing.Size(100, 20);
+			this.txtTotal.TabIndex = 6;
+			this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
 			// button1
 			// 
 			this.button1.Location = new System.Drawing.Point(713, 238);
@@ -168,11 +170,26 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(632, 238);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.TabIndex = 8;
+			this.button2.Text = "Imprimir";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// printDocument1
+			// 
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			// 
 			// Devo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 270);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.txtTotal);
 			this.Controls.Add(this.label3);
@@ -208,5 +225,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn importe;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn recibido;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
+		private System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }

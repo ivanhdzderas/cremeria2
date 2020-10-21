@@ -130,6 +130,17 @@ namespace Cremeria.Forms
 												Devoluciones.cancelado = true;
 											}
 											break;
+										case "Compras":
+											if (Convert.ToBoolean(permiso[0].Cam_precio))
+											{
+												Form_compras.Autorizo = result[0].Id;
+
+											}
+											else
+											{
+												MessageBox.Show("El usuario no tiene permiso para autorizar la compra","Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+											}
+											break;
 									}
 									this.Close();
 								}

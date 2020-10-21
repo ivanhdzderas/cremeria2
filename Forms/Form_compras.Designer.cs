@@ -52,6 +52,16 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.dtProductos = new System.Windows.Forms.DataGridView();
+			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.lote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.caducidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.accion = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -73,15 +83,10 @@
 			this.button5 = new System.Windows.Forms.Button();
 			this.dtDocumentos = new System.Windows.Forms.DataGridView();
 			this.documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.caducidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.label16 = new System.Windows.Forms.Label();
+			this.dtRecepcion = new System.Windows.Forms.DateTimePicker();
+			this.txtPorcen = new System.Windows.Forms.TextBox();
+			this.label17 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -93,10 +98,11 @@
 			this.cbProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cbProveedor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.cbProveedor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cbProveedor.FormattingEnabled = true;
 			this.cbProveedor.Location = new System.Drawing.Point(74, 6);
 			this.cbProveedor.Name = "cbProveedor";
-			this.cbProveedor.Size = new System.Drawing.Size(401, 21);
+			this.cbProveedor.Size = new System.Drawing.Size(506, 21);
 			this.cbProveedor.TabIndex = 56;
 			this.cbProveedor.SelectedIndexChanged += new System.EventHandler(this.cbProveedor_SelectedIndexChanged);
 			this.cbProveedor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbProveedor_KeyDown);
@@ -155,7 +161,7 @@
 			// 
 			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(532, 35);
+			this.label13.Location = new System.Drawing.Point(631, 41);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(95, 13);
 			this.label13.TabIndex = 50;
@@ -164,7 +170,7 @@
 			// dtFechaDoc
 			// 
 			this.dtFechaDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.dtFechaDoc.Location = new System.Drawing.Point(633, 32);
+			this.dtFechaDoc.Location = new System.Drawing.Point(732, 38);
 			this.dtFechaDoc.Name = "dtFechaDoc";
 			this.dtFechaDoc.Size = new System.Drawing.Size(128, 20);
 			this.dtFechaDoc.TabIndex = 49;
@@ -198,7 +204,7 @@
 			// button4
 			// 
 			this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button4.Location = new System.Drawing.Point(667, 58);
+			this.button4.Location = new System.Drawing.Point(766, 64);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(94, 23);
 			this.button4.TabIndex = 45;
@@ -209,7 +215,7 @@
 			// txtdescuento
 			// 
 			this.txtdescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtdescuento.Location = new System.Drawing.Point(661, 383);
+			this.txtdescuento.Location = new System.Drawing.Point(766, 383);
 			this.txtdescuento.Name = "txtdescuento";
 			this.txtdescuento.Size = new System.Drawing.Size(100, 20);
 			this.txtdescuento.TabIndex = 44;
@@ -219,7 +225,7 @@
 			// 
 			this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(596, 386);
+			this.label10.Location = new System.Drawing.Point(619, 386);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(59, 13);
 			this.label10.TabIndex = 43;
@@ -251,7 +257,7 @@
 			// 
 			this.txttotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.txttotal.Enabled = false;
-			this.txttotal.Location = new System.Drawing.Point(661, 435);
+			this.txttotal.Location = new System.Drawing.Point(766, 435);
 			this.txttotal.Name = "txttotal";
 			this.txttotal.Size = new System.Drawing.Size(100, 20);
 			this.txttotal.TabIndex = 40;
@@ -260,7 +266,7 @@
 			// 
 			this.txtiva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtiva.Enabled = false;
-			this.txtiva.Location = new System.Drawing.Point(661, 409);
+			this.txtiva.Location = new System.Drawing.Point(766, 409);
 			this.txtiva.Name = "txtiva";
 			this.txtiva.Size = new System.Drawing.Size(100, 20);
 			this.txtiva.TabIndex = 39;
@@ -269,7 +275,7 @@
 			// 
 			this.txtSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSubtotal.Enabled = false;
-			this.txtSubtotal.Location = new System.Drawing.Point(661, 357);
+			this.txtSubtotal.Location = new System.Drawing.Point(766, 357);
 			this.txtSubtotal.Name = "txtSubtotal";
 			this.txtSubtotal.Size = new System.Drawing.Size(100, 20);
 			this.txtSubtotal.TabIndex = 38;
@@ -278,7 +284,7 @@
 			// 
 			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(624, 438);
+			this.label9.Location = new System.Drawing.Point(729, 438);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(31, 13);
 			this.label9.TabIndex = 37;
@@ -288,7 +294,7 @@
 			// 
 			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(631, 412);
+			this.label8.Location = new System.Drawing.Point(736, 412);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(24, 13);
 			this.label8.TabIndex = 36;
@@ -298,7 +304,7 @@
 			// 
 			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(609, 360);
+			this.label7.Location = new System.Drawing.Point(714, 360);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(46, 13);
 			this.label7.TabIndex = 35;
@@ -320,222 +326,15 @@
             this.total,
             this.lote,
             this.caducidad,
-            this.impuesto});
+            this.impuesto,
+            this.accion});
 			this.dtProductos.Location = new System.Drawing.Point(14, 205);
 			this.dtProductos.Name = "dtProductos";
-			this.dtProductos.Size = new System.Drawing.Size(747, 146);
+			this.dtProductos.Size = new System.Drawing.Size(852, 146);
 			this.dtProductos.TabIndex = 34;
+			this.dtProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellClick);
 			this.dtProductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.toolStrip1);
-			this.groupBox1.Controls.Add(this.button1);
-			this.groupBox1.Controls.Add(this.txtpu);
-			this.groupBox1.Controls.Add(this.txtDescripcion);
-			this.groupBox1.Controls.Add(this.txtCodigo);
-			this.groupBox1.Controls.Add(this.txtCantidad);
-			this.groupBox1.Controls.Add(this.label6);
-			this.groupBox1.Controls.Add(this.label5);
-			this.groupBox1.Controls.Add(this.label4);
-			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Location = new System.Drawing.Point(14, 110);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(747, 89);
-			this.groupBox1.TabIndex = 33;
-			this.groupBox1.TabStop = false;
-			// 
-			// toolStrip1
-			// 
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripSeparator1,
-            this.toolStripButton2});
-			this.toolStrip1.Location = new System.Drawing.Point(3, 16);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.toolStrip1.Size = new System.Drawing.Size(741, 25);
-			this.toolStrip1.TabIndex = 9;
-			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(93, 22);
-			this.toolStripButton1.Text = "Editar Producto";
-			this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripButton2
-			// 
-			this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(98, 22);
-			this.toolStripButton2.Text = "Nuevo producto";
-			this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.toolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.Location = new System.Drawing.Point(666, 54);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 8;
-			this.button1.Text = "Agregar";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// txtpu
-			// 
-			this.txtpu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtpu.Location = new System.Drawing.Point(560, 57);
-			this.txtpu.Name = "txtpu";
-			this.txtpu.Size = new System.Drawing.Size(100, 20);
-			this.txtpu.TabIndex = 7;
-			this.txtpu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtpu_KeyDown);
-			// 
-			// txtDescripcion
-			// 
-			this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescripcion.Location = new System.Drawing.Point(203, 57);
-			this.txtDescripcion.Name = "txtDescripcion";
-			this.txtDescripcion.Size = new System.Drawing.Size(346, 20);
-			this.txtDescripcion.TabIndex = 6;
-			this.txtDescripcion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescripcion_KeyDown);
-			// 
-			// txtCodigo
-			// 
-			this.txtCodigo.Location = new System.Drawing.Point(97, 57);
-			this.txtCodigo.Name = "txtCodigo";
-			this.txtCodigo.Size = new System.Drawing.Size(100, 20);
-			this.txtCodigo.TabIndex = 5;
-			this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
-			// 
-			// txtCantidad
-			// 
-			this.txtCantidad.Location = new System.Drawing.Point(11, 57);
-			this.txtCantidad.Name = "txtCantidad";
-			this.txtCantidad.Size = new System.Drawing.Size(80, 20);
-			this.txtCantidad.TabIndex = 4;
-			this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
-			// 
-			// label6
-			// 
-			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(557, 41);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(27, 13);
-			this.label6.TabIndex = 3;
-			this.label6.Text = "P/U";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(203, 41);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(63, 13);
-			this.label5.TabIndex = 2;
-			this.label5.Text = "Descripcion";
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(97, 41);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(40, 13);
-			this.label4.TabIndex = 1;
-			this.label4.Text = "Codigo";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(10, 41);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(49, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "Cantidad";
-			// 
-			// dtFecha
-			// 
-			this.dtFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.dtFecha.Enabled = false;
-			this.dtFecha.Location = new System.Drawing.Point(633, 6);
-			this.dtFecha.Name = "dtFecha";
-			this.dtFecha.Size = new System.Drawing.Size(128, 20);
-			this.dtFecha.TabIndex = 32;
-			// 
-			// txtFolio
-			// 
-			this.txtFolio.Location = new System.Drawing.Point(268, 32);
-			this.txtFolio.Name = "txtFolio";
-			this.txtFolio.Size = new System.Drawing.Size(100, 20);
-			this.txtFolio.TabIndex = 31;
-			// 
-			// label2
-			// 
-			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(590, 12);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(37, 13);
-			this.label2.TabIndex = 30;
-			this.label2.Text = "Fecha";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(233, 35);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(29, 13);
-			this.label1.TabIndex = 29;
-			this.label1.Text = "Folio";
-			// 
-			// button5
-			// 
-			this.button5.Location = new System.Drawing.Point(633, 84);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(128, 23);
-			this.button5.TabIndex = 57;
-			this.button5.Text = "Carga orden de compra";
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
-			// 
-			// dtDocumentos
-			// 
-			this.dtDocumentos.AllowUserToAddRows = false;
-			this.dtDocumentos.AllowUserToDeleteRows = false;
-			this.dtDocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dtDocumentos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.documento});
-			this.dtDocumentos.Location = new System.Drawing.Point(14, 386);
-			this.dtDocumentos.Name = "dtDocumentos";
-			this.dtDocumentos.ReadOnly = true;
-			this.dtDocumentos.Size = new System.Drawing.Size(156, 69);
-			this.dtDocumentos.TabIndex = 58;
-			this.dtDocumentos.Visible = false;
-			// 
-			// documento
-			// 
-			this.documento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.documento.HeaderText = "documento";
-			this.documento.Name = "documento";
-			this.documento.ReadOnly = true;
 			// 
 			// id_producto
 			// 
@@ -591,11 +390,263 @@
 			this.impuesto.Name = "impuesto";
 			this.impuesto.Visible = false;
 			// 
+			// accion
+			// 
+			this.accion.HeaderText = "";
+			this.accion.Name = "accion";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.toolStrip1);
+			this.groupBox1.Controls.Add(this.button1);
+			this.groupBox1.Controls.Add(this.txtpu);
+			this.groupBox1.Controls.Add(this.txtDescripcion);
+			this.groupBox1.Controls.Add(this.txtCodigo);
+			this.groupBox1.Controls.Add(this.txtCantidad);
+			this.groupBox1.Controls.Add(this.label6);
+			this.groupBox1.Controls.Add(this.label5);
+			this.groupBox1.Controls.Add(this.label4);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Location = new System.Drawing.Point(14, 110);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(852, 89);
+			this.groupBox1.TabIndex = 33;
+			this.groupBox1.TabStop = false;
+			// 
+			// toolStrip1
+			// 
+			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripSeparator1,
+            this.toolStripButton2});
+			this.toolStrip1.Location = new System.Drawing.Point(3, 16);
+			this.toolStrip1.Name = "toolStrip1";
+			this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.toolStrip1.Size = new System.Drawing.Size(846, 25);
+			this.toolStrip1.TabIndex = 9;
+			this.toolStrip1.Text = "toolStrip1";
+			// 
+			// toolStripButton1
+			// 
+			this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton1.Name = "toolStripButton1";
+			this.toolStripButton1.Size = new System.Drawing.Size(93, 22);
+			this.toolStripButton1.Text = "Editar Producto";
+			this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripButton2
+			// 
+			this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton2.Name = "toolStripButton2";
+			this.toolStripButton2.Size = new System.Drawing.Size(98, 22);
+			this.toolStripButton2.Text = "Nuevo producto";
+			this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+			// 
+			// button1
+			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.button1.Location = new System.Drawing.Point(771, 54);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 8;
+			this.button1.Text = "Agregar";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// txtpu
+			// 
+			this.txtpu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtpu.Location = new System.Drawing.Point(665, 57);
+			this.txtpu.Name = "txtpu";
+			this.txtpu.Size = new System.Drawing.Size(100, 20);
+			this.txtpu.TabIndex = 7;
+			this.txtpu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtpu_KeyDown);
+			// 
+			// txtDescripcion
+			// 
+			this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescripcion.Location = new System.Drawing.Point(203, 57);
+			this.txtDescripcion.Name = "txtDescripcion";
+			this.txtDescripcion.Size = new System.Drawing.Size(451, 20);
+			this.txtDescripcion.TabIndex = 6;
+			this.txtDescripcion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescripcion_KeyDown);
+			// 
+			// txtCodigo
+			// 
+			this.txtCodigo.Location = new System.Drawing.Point(97, 57);
+			this.txtCodigo.Name = "txtCodigo";
+			this.txtCodigo.Size = new System.Drawing.Size(100, 20);
+			this.txtCodigo.TabIndex = 5;
+			this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
+			// 
+			// txtCantidad
+			// 
+			this.txtCantidad.Location = new System.Drawing.Point(11, 57);
+			this.txtCantidad.Name = "txtCantidad";
+			this.txtCantidad.Size = new System.Drawing.Size(80, 20);
+			this.txtCantidad.TabIndex = 4;
+			this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(662, 41);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(27, 13);
+			this.label6.TabIndex = 3;
+			this.label6.Text = "P/U";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(203, 41);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(63, 13);
+			this.label5.TabIndex = 2;
+			this.label5.Text = "Descripcion";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(97, 41);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(40, 13);
+			this.label4.TabIndex = 1;
+			this.label4.Text = "Codigo";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(10, 41);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(49, 13);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "Cantidad";
+			// 
+			// dtFecha
+			// 
+			this.dtFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.dtFecha.Enabled = false;
+			this.dtFecha.Location = new System.Drawing.Point(732, 12);
+			this.dtFecha.Name = "dtFecha";
+			this.dtFecha.Size = new System.Drawing.Size(128, 20);
+			this.dtFecha.TabIndex = 32;
+			// 
+			// txtFolio
+			// 
+			this.txtFolio.Location = new System.Drawing.Point(220, 32);
+			this.txtFolio.Name = "txtFolio";
+			this.txtFolio.Size = new System.Drawing.Size(100, 20);
+			this.txtFolio.TabIndex = 31;
+			// 
+			// label2
+			// 
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(689, 18);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(37, 13);
+			this.label2.TabIndex = 30;
+			this.label2.Text = "Fecha";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(185, 35);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(29, 13);
+			this.label1.TabIndex = 29;
+			this.label1.Text = "Folio";
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(630, 64);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(128, 23);
+			this.button5.TabIndex = 57;
+			this.button5.Text = "Carga orden de compra";
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// dtDocumentos
+			// 
+			this.dtDocumentos.AllowUserToAddRows = false;
+			this.dtDocumentos.AllowUserToDeleteRows = false;
+			this.dtDocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dtDocumentos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.documento});
+			this.dtDocumentos.Location = new System.Drawing.Point(14, 386);
+			this.dtDocumentos.Name = "dtDocumentos";
+			this.dtDocumentos.ReadOnly = true;
+			this.dtDocumentos.Size = new System.Drawing.Size(156, 69);
+			this.dtDocumentos.TabIndex = 58;
+			this.dtDocumentos.Visible = false;
+			// 
+			// documento
+			// 
+			this.documento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.documento.HeaderText = "documento";
+			this.documento.Name = "documento";
+			this.documento.ReadOnly = true;
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(335, 35);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(107, 13);
+			this.label16.TabIndex = 59;
+			this.label16.Text = "Fecha de Recepcion";
+			// 
+			// dtRecepcion
+			// 
+			this.dtRecepcion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.dtRecepcion.Location = new System.Drawing.Point(452, 33);
+			this.dtRecepcion.Name = "dtRecepcion";
+			this.dtRecepcion.Size = new System.Drawing.Size(128, 20);
+			this.dtRecepcion.TabIndex = 60;
+			// 
+			// txtPorcen
+			// 
+			this.txtPorcen.Location = new System.Drawing.Point(684, 383);
+			this.txtPorcen.Name = "txtPorcen";
+			this.txtPorcen.Size = new System.Drawing.Size(55, 20);
+			this.txtPorcen.TabIndex = 61;
+			this.txtPorcen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+			// 
+			// label17
+			// 
+			this.label17.AutoSize = true;
+			this.label17.Location = new System.Drawing.Point(745, 386);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(15, 13);
+			this.label17.TabIndex = 62;
+			this.label17.Text = "%";
+			// 
 			// Form_compras
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 465);
+			this.ClientSize = new System.Drawing.Size(905, 465);
+			this.Controls.Add(this.label17);
+			this.Controls.Add(this.txtPorcen);
+			this.Controls.Add(this.dtRecepcion);
+			this.Controls.Add(this.label16);
 			this.Controls.Add(this.dtDocumentos);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.cbProveedor);
@@ -689,6 +740,8 @@
 		private System.Windows.Forms.Button button5;
 		public System.Windows.Forms.DataGridView dtDocumentos;
 		private System.Windows.Forms.DataGridViewTextBoxColumn documento;
+		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.DateTimePicker dtRecepcion;
 		private System.Windows.Forms.DataGridViewTextBoxColumn id_producto;
 		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
@@ -698,5 +751,8 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn lote;
 		private System.Windows.Forms.DataGridViewTextBoxColumn caducidad;
 		private System.Windows.Forms.DataGridViewTextBoxColumn impuesto;
+		private System.Windows.Forms.DataGridViewButtonColumn accion;
+		private System.Windows.Forms.TextBox txtPorcen;
+		private System.Windows.Forms.Label label17;
 	}
 }

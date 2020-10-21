@@ -185,3 +185,5 @@ C:\Users\anton\source\repos\Cremeria\bin\Debug\Newtonsoft.Json.xml
 C:\Users\anton\source\repos\Cremeria\bin\Debug\RestSharp.xml
 C:\Users\anton\source\repos\Cremeria\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\anton\source\repos\Cremeria\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\anton\source\repos\Cremeria\bin\Debug\Telegram.Bot.dll
+C:\Users\anton\source\repos\Cremeria\bin\Debug\Telegram.Bot.xml

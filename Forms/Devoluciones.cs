@@ -15,6 +15,7 @@ namespace Cremeria.Forms
 {
 	public partial class Devoluciones : Form
 	{
+		private int Folio_guardado;
 		public static Boolean cancelado;
 		private static string Id;
 		public static int id_usuario;
@@ -53,7 +54,7 @@ namespace Cremeria.Forms
 				using (detalles)
 				{
 					detalles.Id_devolucion = devo[0].Id;
-
+					Folio_guardado= devo[0].Id;
 					Models.Product productos = new Models.Product();
 					foreach (DataGridViewRow row in dtProductos.Rows)
 					{
@@ -188,6 +189,27 @@ namespace Cremeria.Forms
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.F2)
+			{
+				Forms.Buscar_producto buscar = new Forms.Buscar_producto();
+				buscar.ShowDialog();
+				if (intercambios.Id_producto != 0)
+				{
+					Models.Product productos = new Models.Product();
+					using (productos)
+					{
+						List<Models.Product> producto = productos.getProductById(intercambios.Id_producto);
+						if (producto.Count > 0)
+						{
+							txtCodigo.Text = producto[0].Code1;
+							txtCantidad.Text = "1";
+							txtCantidad.Focus();
+							txtCodigo_KeyDown(this, new KeyEventArgs(Keys.Enter));
+
+						}
+					}
+				}
+			}
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Product producto = new Models.Product();
@@ -209,6 +231,26 @@ namespace Cremeria.Forms
 
 		private void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.F2)
+			{
+				Forms.Buscar_producto buscar = new Forms.Buscar_producto();
+				buscar.ShowDialog();
+				if (intercambios.Id_producto != 0)
+				{
+					Models.Product productos = new Models.Product();
+					using (productos)
+					{
+						List<Models.Product> producto = productos.getProductById(intercambios.Id_producto);
+						if (producto.Count > 0)
+						{
+							txtDescripcion.Text = producto[0].Description;
+							txtCantidad.Text = "1";
+							txtCantidad.Focus();
+							txtDescripcion_KeyDown(this,new KeyEventArgs(Keys.Enter));
+						}
+					}
+				}
+			}
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Product producto = new Models.Product();
@@ -296,7 +338,7 @@ namespace Cremeria.Forms
 				y = y + 15;
 				using (devoluciones)
 				{
-					List<Models.Devolutions> devo = devoluciones.get_lastdevocion(dtFecha.Text, id_usuario, Convert.ToDouble(txtTotal.Text));
+					List<Models.Devolutions> devo = devoluciones.get_devolucionesbyid(Folio_guardado);
 					e.Graphics.DrawString("Folio: " + devo[0].Id, font, Brushes.Black, 0, y);
 					y = y + 20;
 					e.Graphics.DrawString("Cant.", font, Brushes.Black, 50, y, format);
@@ -307,12 +349,12 @@ namespace Cremeria.Forms
 					e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
 					using (detallado)
 					{
-						List<Models.det_devolution> det = detallado.get_detalle(devo[0].Id);
+						List<Models.det_devolution> det = detallado.get_detalle(Folio_guardado);
 						using (productos)
 						{
 							foreach(Models.det_devolution item in det)
 							{
-								List<Models.Product> producto = productos.getProductById(item.Id);
+								List<Models.Product> producto = productos.getProductById(item.Id_producto);
 								y = y + 30;
 								e.Graphics.DrawString(producto[0].Description, font, Brushes.Black, 10, y);
 								e.Graphics.DrawString(item.Cantidad.ToString(), font, Brushes.Black, 50, y + 10, format);

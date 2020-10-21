@@ -49,6 +49,7 @@ namespace Cremeria.Forms
 				{
 					foreach (Models.Product item in producto) {
 						dtProductos.Rows.Add(item.Id, item.Code1, item.Description, item.Max, item.Min, item.Price1, item.Price2, item.Price3);
+						dataGridView1.Rows.Add(item.Id, item.Code1, item.Description, item.Code_sat);
 					}
 				}
 			}
@@ -56,6 +57,21 @@ namespace Cremeria.Forms
 		private void Modifica_Load(object sender, EventArgs e)
 		{
 			carga();
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			Models.Product productos = new Models.Product();
+			foreach (DataGridViewRow row in dataGridView1.Rows)
+			{
+				using (productos)
+				{
+					productos.Id = Convert.ToInt32(row.Cells["id_reg"].Value.ToString());
+					productos.Code_sat = row.Cells["group_sat"].Value.ToString();
+					productos.upate_sat();
+				}
+			}
+			MessageBox.Show("Se actualizo satisfactoriamente");
 		}
 	}
 }

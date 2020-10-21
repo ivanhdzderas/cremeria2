@@ -29,7 +29,7 @@ namespace Cremeria
 
 		private  void nueva_tarea()
 		{
-			Models.facturas.Facturas facturas = new Models.facturas.Facturas();
+			/*Models.facturas.Facturas facturas = new Models.facturas.Facturas();
 
 			facturas.Emp_no = 1;
 			facturas.First_name="ivan";
@@ -46,7 +46,7 @@ namespace Cremeria
 				MessageBox.Show("entrado");
 			}
 			var set = cliente.Set(@"Facturas/" + 1, facturas);
-
+			*/
 		}
 		public void busca_minimo()
 		{
@@ -111,8 +111,9 @@ namespace Cremeria
 		{
 			timer1.Start();
 
-
-			
+			/*intercambios intercambio = new intercambios();
+			intercambio.send_telegram("","");
+			*/
 			//if (System.IO.File.Exists(@"nueva.txt"))
 			//{
 				//nueva_tarea();

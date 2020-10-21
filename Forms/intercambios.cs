@@ -5,10 +5,13 @@ using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 
+using Telegram.Bot;
+using Telegram.Bot.Args;
 namespace Cremeria.Forms
 {
 	public class intercambios
 	{
+        static ITelegramBotClient bootClient;
         public static string conector { get; set; }
 		public static string Codigo { get; set; }
 		public static int Id_producto { get; set; }
@@ -16,6 +19,48 @@ namespace Cremeria.Forms
 		public static string Lote { get; set; }
 		public static string Caducidad { get; set; }
       
+        public void send_telegram(string Message, string Phone)
+		{
+            bootClient = new TelegramBotClient("1337668982:AAFy4rwBH3VhwUCgnOZTBX2KZrQXRqUwnqs");
+            var me = bootClient.GetMeAsync().Result;
+            Console.WriteLine($"soy el usuario {me.Id} y mi nombre {me.FirstName}");
+            bootClient.OnMessage += Bot_OnMessage;
+            bootClient.StartReceiving();
+		}
+        public static bool my_checkInternet()
+		{
+			try {
+                var me = bootClient.GetMeAsync().Result;
+                return true;
+            } 
+            catch
+			{
+                System.Windows.Forms.MessageBox.Show("Sin coneccion a internet","Error");
+                return false;
+			}
+		}
+        public async void Bot_SendMessaeg(string id, string mensaje)
+		{
+            if (my_checkInternet())
+			{
+                /*await bootClient.SendTextMessageAsync(
+                 chatId: id,
+                    text: mensaje
+               );*/
+            }
+           
+		}
+        static async void Bot_OnMessage(object sender, MessageEventArgs e)
+		{
+            if (e.Message.Text != null)
+			{
+                Console.WriteLine($"texto recibido en chat {e.Message.Chat.Id}");
+                await bootClient.SendTextMessageAsync(
+                    chatId:e.Message.Chat,
+                    text: "enviaste "+ e.Message.Text
+                    );
+			}
+		}
         public static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
         {
             // Hash the input.
@@ -173,8 +218,8 @@ namespace Cremeria.Forms
         public void enviar_correo(string atach,string mensaje,string tema)
 		{
             string origen = "reportes@cremeria-martinez.com"; //de quien procede, puede ser un alias
-            string destino = "arturo.huerta@cremeria-martinez.com,rosa.martinez@cremeria-martinez.com,ihernandez@colegioherbart.edu.mx";  //a quien vamos a enviar el mail
-            
+            string destino = "arturo.huerta@cremeria-martinez.com,rosa.martinez@cremeria-martinez.com";  //a quien vamos a enviar el mail
+            //string destino = "ihernandez@colegioherbart.edu.mx";
             string Message = mensaje;  //mensaje
             string Subject = tema; //asunto
             string PASS = "Reportes2020."; //nuestro password de smtp

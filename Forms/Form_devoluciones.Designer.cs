@@ -55,6 +55,7 @@
 			this.txtMotivo = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -268,6 +269,10 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// printDocument1
+			// 
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			// 
 			// Form_devoluciones
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -329,5 +334,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn p_u;
 		private System.Windows.Forms.DataGridViewTextBoxColumn importe;
 		private System.Windows.Forms.DataGridViewTextBoxColumn folios;
+		private System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }

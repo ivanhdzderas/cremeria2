@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Org.BouncyCastle.Asn1.Cms;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -11,6 +13,7 @@ namespace Cremeria.Forms
 		public static string Entrada;
 		public static string folio;
 		public static string id;
+		public static int Autorizo;
 		public Form_compras()
 		{
 			InitializeComponent();
@@ -112,6 +115,8 @@ namespace Cremeria.Forms
 				{
 					sin_grabar = sin_grabar + Convert.ToDouble(row.Cells["total"].Value.ToString());
 				}
+
+				
 			}
 			//double descuento = (importe / 100) * Convert.ToDouble(txtdescuento.Text);
 			double descuento = Convert.ToDouble(txtdescuento.Text);
@@ -122,6 +127,44 @@ namespace Cremeria.Forms
 			txtiva.Text = string.Format("{0:#,0.00}", grabado);
 			txtSubtotal.Text = string.Format("{0:#,0.00}", subtotal);
 			txttotal.Text = string.Format("{0:#,0.00}", total);
+			buscar_precios();
+		}
+		private void buscar_precios()
+		{
+			Models.Product productos = new Models.Product();
+			using (productos)
+			{
+				foreach (DataGridViewRow row in dtProductos.Rows)
+				{
+					List<Models.Product> producto = productos.getProductById(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()));
+
+					
+					
+					if (Convert.ToDouble(row.Cells["p_u"].Value.ToString())> producto[0].Cost)
+					{
+						row.DefaultCellStyle.BackColor = Color.Red;
+						row.Cells["accion"].Value = "Accion";
+					}
+					
+
+					if (Convert.ToDouble(row.Cells["p_u"].Value.ToString()) < producto[0].Cost)
+					{
+						row.DefaultCellStyle.BackColor = Color.Yellow;
+						row.Cells["accion"].Value = "Accion";
+						//row.Cells["accion"].Visible = false;
+					}
+					if (Convert.ToDouble(row.Cells["p_u"].Value.ToString()) == producto[0].Cost)
+					{
+						row.DefaultCellStyle.BackColor = Color.White;
+						//row.Cells["accion"].Visible = false;
+					}
+				}
+			}
+		}
+		private void reportButton_Click(object sender, EventArgs e)
+		{
+			
+			
 		}
 		private void Form_compras_Load(object sender, EventArgs e)
 		{
@@ -131,6 +174,18 @@ namespace Cremeria.Forms
 			txtDescripcion.AutoCompleteCustomSource = cargadatos2();
 			txtDescripcion.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			txtDescripcion.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+			
+			
+			
+
+			/*txtCodigo.AutoCompleteCustomSource = cargadatos();
+			txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+			*/
+			dtRecepcion.Format = DateTimePickerFormat.Custom;
+			dtRecepcion.CustomFormat = "yyyy-MM-dd";
+
 			dtFecha.Format = DateTimePickerFormat.Custom;
 			dtFecha.CustomFormat = "yyyy-MM-dd";
 			dtFechaDoc.Format = DateTimePickerFormat.Custom;
@@ -416,6 +471,10 @@ namespace Cremeria.Forms
 			{
 				txtdescuento.Text = "0";
 			}
+
+			double subtotal = Convert.ToDouble(txtSubtotal.Text);
+			double porcentaje = (Convert.ToDouble(txtdescuento.Text) * 100) / Convert.ToDouble(subtotal);
+			txtPorcen.Text = porcentaje.ToString();
 			calcula();
 		}
 
@@ -440,140 +499,176 @@ namespace Cremeria.Forms
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			
-			int dias = 0;
-			string fecha_credito = "0000-00-00";
-			string pagado = "SI";
-			if (chkContado.Checked != true)
+			bool valido = true;
+			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
-				dias = Convert.ToInt16(txtdias.Text);
-				fecha_credito = dtVencimiento.Text;
-				pagado = "NO";
+				if (row.DefaultCellStyle.BackColor.Name.ToString()== "Red")
+				{
+					valido = false;
+				}
+				
 			}
-			Models.Compras compra = new Models.Compras(
-				0,
-				txtFolio.Text,
-				dtFecha.Text ,
-				dtFechaDoc.Text,
-				txtNumero.Text,
-				"A",
-				dias,
-				fecha_credito,
-				pagado,
-				Convert.ToDouble(txtSubtotal.Text),
-				Convert.ToDouble(txtiva.Text),
-				Convert.ToDouble(txttotal.Text),
-				Convert.ToDouble(txtdescuento.Text)
-				);
-			using (compra)
+			if (valido == false)
 			{
-				compra.crateCompra();
-
+				
+				Autenficiar auto = new Autenficiar();
+				Autenficiar.origen = "Compras";
+				auto.ShowDialog();
 				Models.Log historial = new Models.Log();
 				using (historial)
 				{
-					historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
-					historial.Descripcion = "agrego la compra " + txtFolio.Text + "del proveedor " + cbProveedor.Text + " por $ "+txttotal.Text;
-					historial.createLog();
+					foreach (DataGridViewRow row in dtProductos.Rows)
+					{
+						if (row.DefaultCellStyle.BackColor.Name.ToString() == "Red")
+						{
+							historial.Id_usuario = Autorizo;
+							historial.Descripcion = "autorizo el  ingreso de la compra de " + row.Cells["descripcion"].Value.ToString() + " que llego mas caro ";
+							historial.createLog();
+						}
+
+					}
 				}
 
-
-				List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text, dtFechaDoc.Text, txtNumero.Text, Convert.ToDouble(txttotal.Text));
-				Models.Purchases detalles = new Models.Purchases();
-				detalles.Id = 0;
-				detalles.Id_compra = resultado[0].Id;
-				Models.Kardex kardex = new Models.Kardex();
-				Models.Product producto = new Models.Product();
-				Models.Afecta_inv afecta = new Models.Afecta_inv();
-				Models.Caducidades Caducida = new Models.Caducidades();
-				Models.prov_prod costos = new Models.prov_prod();
-				Caducida.Id = 0;
-				Caducida.Id_compra = resultado[0].Id;
-				double nuevo = 0;
-				foreach (DataGridViewRow row in dtProductos.Rows)
+				valido = true;
+			}
+			if ( valido==true)
+			{
+				int dias = 0;
+				string fecha_credito = "0000-00-00";
+				string pagado = "SI";
+				if (chkContado.Checked != true)
 				{
-					using (producto)
+					dias = Convert.ToInt16(txtdias.Text);
+					fecha_credito = dtVencimiento.Text;
+					pagado = "NO";
+				}
+				Models.Compras compra = new Models.Compras(
+					0,
+					txtFolio.Text,
+					dtFecha.Text,
+					dtFechaDoc.Text,
+					txtNumero.Text,
+					"A",
+					dias,
+					fecha_credito,
+					pagado,
+					Convert.ToDouble(txtSubtotal.Text),
+					Convert.ToDouble(txtiva.Text),
+					Convert.ToDouble(txttotal.Text),
+					Convert.ToDouble(txtdescuento.Text),
+					dtRecepcion.Text,
+					Autorizo
+					);
+				using (compra)
+				{
+					compra.crateCompra();
+
+					Models.Log historial = new Models.Log();
+					using (historial)
 					{
-						List<Models.Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+						historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+						historial.Descripcion = "agrego la compra " + txtFolio.Text + "del proveedor " + cbProveedor.Text + " por $ " + txttotal.Text;
+						historial.createLog();
+					}
 
-						nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-						while (prod[0].Parent != "0")
-						{
-							nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-							prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
-						}
-						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-						detalles.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
-						detalles.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
-						detalles.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
-						using (detalles)
-						{
-							using (costos)
-							{
-								List<Models.prov_prod> cost = costos.get_costobyproveedorandprodu(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()),Convert.ToInt32(txtNumero.Text));
-								if (cost.Count>0)
-								{
-									costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
-									costos.Id_proveedor = Convert.ToInt32(txtNumero.Text);
-									costos.Cantidad = cost[0].Cantidad;
-									costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
-									costos.update_from_compra();
-								}
-								else
-								{
-									costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
-									costos.Id_proveedor = Convert.ToInt32(txtNumero.Text);
-									costos.Cantidad =Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-									costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
-									costos.create();
-								}
-							}
-							detalles.createPurchases();
-							if (row.Cells["lote"].Value.ToString() != "")
-							{
-								Caducida.Id_producto = prod[0].Id;
-								Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
-								Caducida.Lote = row.Cells["lote"].Value.ToString();
-								Caducida.Cantidad = nuevo;
-								using (caducidad)
-								{
-									Caducida.createCaducidad();
 
-								}
-							}
-							kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
-							kardex.Id_producto = prod[0].Id;
-							kardex.Tipo = "C";
-							kardex.Cantidad = nuevo;
-							kardex.Antes = prod[0].Existencia;
-							kardex.Id = 0;
-							kardex.Id_documento = Convert.ToInt16(resultado[0].Id);
-							using (kardex)
+					List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text, dtFechaDoc.Text, txtNumero.Text, Convert.ToDouble(txttotal.Text));
+					Models.Purchases detalles = new Models.Purchases();
+					detalles.Id = 0;
+					detalles.Id_compra = resultado[0].Id;
+					Models.Kardex kardex = new Models.Kardex();
+					Models.Product producto = new Models.Product();
+					Models.Afecta_inv afecta = new Models.Afecta_inv();
+					Models.Caducidades Caducida = new Models.Caducidades();
+					Models.prov_prod costos = new Models.prov_prod();
+					Caducida.Id = 0;
+					Caducida.Id_compra = resultado[0].Id;
+					double nuevo = 0;
+					foreach (DataGridViewRow row in dtProductos.Rows)
+					{
+						using (producto)
+						{
+							List<Models.Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+
+							nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+							while (prod[0].Parent != "0")
 							{
-								kardex.CreateKardex();
-								List<Models.Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(resultado[0].Id), "C");
-								using (afecta)
+								nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+								prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+							}
+							detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+							detalles.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+							detalles.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+							detalles.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
+							using (detalles)
+							{
+								using (costos)
 								{
-									afecta.Agrega(numeracion[0].Id);
+									List<Models.prov_prod> cost = costos.get_costobyproveedorandprodu(Convert.ToInt32(row.Cells["id_producto"].Value.ToString()), Convert.ToInt32(txtNumero.Text));
+									if (cost.Count > 0)
+									{
+										costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+										costos.Id_proveedor = Convert.ToInt32(txtNumero.Text);
+										costos.Cantidad = cost[0].Cantidad;
+										costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+										costos.update_from_compra();
+									}
+									else
+									{
+										costos.Id_producto = Convert.ToInt32(row.Cells["id_producto"].Value.ToString());
+										costos.Id_proveedor = Convert.ToInt32(txtNumero.Text);
+										costos.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+										costos.Costo = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+										costos.create();
+									}
+								}
+								detalles.createPurchases();
+								if (row.Cells["lote"].Value.ToString() != "")
+								{
+									Caducida.Id_producto = prod[0].Id;
+									Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
+									Caducida.Lote = row.Cells["lote"].Value.ToString();
+									Caducida.Cantidad = nuevo;
+									using (caducidad)
+									{
+										Caducida.createCaducidad();
+
+									}
+								}
+								kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
+								kardex.Id_producto = prod[0].Id;
+								kardex.Tipo = "C";
+								kardex.Cantidad = nuevo;
+								kardex.Antes = prod[0].Existencia;
+								kardex.Id = 0;
+								kardex.Id_documento = Convert.ToInt16(resultado[0].Id);
+								using (kardex)
+								{
+									kardex.CreateKardex();
+									List<Models.Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(resultado[0].Id), "C");
+									using (afecta)
+									{
+										afecta.Agrega(numeracion[0].Id);
+									}
 								}
 							}
 						}
 					}
 				}
-			}
 
 
-			foreach (DataGridViewRow row in dtDocumentos.Rows)
-			{
-				Models.Ordenes_compra ordenes = new Models.Ordenes_compra();
-				using (ordenes)
+				foreach (DataGridViewRow row in dtDocumentos.Rows)
 				{
-					ordenes.Id = Convert.ToInt32(row.Cells["documento"].Value.ToString());
-					ordenes.Terminado = true;
-					ordenes.termina_orden();
+					Models.Ordenes_compra ordenes = new Models.Ordenes_compra();
+					using (ordenes)
+					{
+						ordenes.Id = Convert.ToInt32(row.Cells["documento"].Value.ToString());
+						ordenes.Terminado = true;
+						ordenes.termina_orden();
+					}
 				}
+				this.Close();
 			}
-			this.Close();
 		}
 
 		private void cbProveedor_SelectedIndexChanged(object sender, EventArgs e)
@@ -629,6 +724,7 @@ namespace Cremeria.Forms
 
 		private void button4_Click(object sender, EventArgs e)
 		{
+			dtProductos.Rows.Clear();
 			OpenFileDialog open = new OpenFileDialog();
 			open.Filter = "txt files (*.xml)|*.xml";
 			if (open.ShowDialog() == DialogResult.OK && open.ToString() != " ")
@@ -639,7 +735,15 @@ namespace Cremeria.Forms
 				string valorAtributo = nodo.Attributes.GetNamedItem("Fecha").Value;
 				dtFechaDoc.Value = Convert.ToDateTime(valorAtributo);
 				txtFolio.Text = nodo.Attributes.GetNamedItem("Folio").Value;
-				txtdescuento.Text = nodo.Attributes.GetNamedItem("Descuento").Value.ToString();
+				if (nodo.Attributes.GetNamedItem("Descuento") != null)
+				{
+					txtdescuento.Text = nodo.Attributes.GetNamedItem("Descuento").Value.ToString();
+				}
+				else
+				{
+					txtdescuento.Text = "0.00";
+				}
+				
 				XmlNode emisor = CFDI.GetElementsByTagName("cfdi:Emisor").Item(0);
 				string RFC = emisor.Attributes.GetNamedItem("Rfc").Value;
 				Models.Product prod = new Models.Product();
@@ -816,7 +920,6 @@ namespace Cremeria.Forms
 							dtProductos.Rows.Insert(0, item.Id_producto, producto[0].Code1, item.Cantidad, producto[0].Description, producto[0].Cost,(producto[0].Cost* item.Cantidad),"", "0000-00-00 00:00:00", producto[0].Buy_tax);
 						}
 					}
-
 				}
 				calcula();
 			}
@@ -828,7 +931,31 @@ namespace Cremeria.Forms
 			{
 				txtCodigo.Focus();
 			}
+		}
 
+		private void dtProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == 9)
+			{
+				if (dtProductos.Rows[e.RowIndex].Cells["accion"].Value== "Accion")
+				{
+					Producto producto = new Producto();
+					Producto.Codigo = dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value.ToString();
+					producto.ShowDialog();
+					buscar_precios();
+				}
+			}
+		}
+
+		private void textBox1_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				double subtotal = Convert.ToDouble(txtSubtotal.Text);
+				double descuento = (subtotal / 100) * Convert.ToDouble(txtPorcen.Text);
+				txtdescuento.Text = descuento.ToString();
+				calcula();
+			}
 		}
 	}
 }

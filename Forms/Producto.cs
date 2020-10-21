@@ -510,7 +510,6 @@ namespace Cremeria.Forms
         }
         private void Producto_Load(object sender, EventArgs e)
 		{
-
             Models.Permisos permisos = new Models.Permisos();
 			using (permisos)
 			{

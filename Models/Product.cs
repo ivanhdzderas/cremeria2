@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using Telegram.Bot.Types;
 
 namespace Cremeria.Models
 {
@@ -262,6 +263,11 @@ namespace Cremeria.Models
         public void update_max_min()
 		{
             string query = "update tbaproductos set maximo='" + this.Max +"', minimo='" + this.Min + "', precio1='" + this.Price1 + "', precio2='" + this.Price2 + "', precio3='" + this.Price3 + "' where id='" + this.Id + "'";
+            object result = runQuery(query);
+		}
+        public void upate_sat()
+		{
+            string query = "update tbaproductos set codigo_sat='" + this.Code_sat + "' where id='" + this.Id + "'";
             object result = runQuery(query);
 		}
         public void saveProduct()

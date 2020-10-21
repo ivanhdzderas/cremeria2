@@ -1,16 +1,9 @@
-﻿using Microsoft.Reporting.Map.WebForms.BingMaps;
-using Microsoft.VisualBasic;
-using Renci.SshNet.Messages.Transport;
+﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cremeria.Forms
@@ -1128,10 +1121,10 @@ namespace Cremeria.Forms
 					e.Graphics.DrawString("Folio: " + Folio_guardado.ToString(), font, Brushes.Black, 0, y);
 					y = y + 20;
 					e.Graphics.DrawString("Cant.", font, Brushes.Black, 50, y, format);
-					e.Graphics.DrawString("P/U.", font, Brushes.Black, 120, y, format);
+					e.Graphics.DrawString("P/U.", font, Brushes.Black, 110, y, format);
 					if (Convert.ToDouble(tic[0].Descuento) != 0)
 					{
-						e.Graphics.DrawString("Desc.", font, Brushes.Black, 150, y, format);
+						e.Graphics.DrawString("Desc.", font, Brushes.Black, 160, y, format);
 					}
 					e.Graphics.DrawString("IMPTE.", font, Brushes.Black, 220, y, format);
 					y = y + 10;
@@ -1145,10 +1138,10 @@ namespace Cremeria.Forms
 							y = y + 30;
 							e.Graphics.DrawString(item.Descripcion, font, Brushes.Black, 10, y);
 							e.Graphics.DrawString(item.Cantidad.ToString(), font, Brushes.Black, 50, y + 10, format);
-							e.Graphics.DrawString(string.Format("{0:#,0.00}",item.Pu), font, Brushes.Black, 120, y + 10, format);
+							e.Graphics.DrawString(string.Format("{0:#,0.00}",item.Pu), font, Brushes.Black, 110, y + 10, format);
 							if (Convert.ToDouble(item.Descuento) != 0)
 							{
-								e.Graphics.DrawString(string.Format("{0:#,0.00}", item.Descuento), font, Brushes.Black, 150, y + 10, format);
+								e.Graphics.DrawString(string.Format("{0:#,0.00}", item.Descuento), font, Brushes.Black, 160, y + 10, format);
 							}
 							e.Graphics.DrawString(string.Format("{0:#,0.00}", item.Total), font, Brushes.Black, 220, y + 10, format);
 							totali = totali + 1;

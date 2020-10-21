@@ -52,6 +52,10 @@ namespace Cremeria.Forms
 			txtNotas.Text = "";
 			txtEmail.Text = "";
 
+			cbTiempo.Items.Add("Fecha recepcion");
+			cbTiempo.Items.Add("Fecha factura");
+			cbTiempo.Items.Add("Fecha alta");
+
 			if (id != "'0")
 			{
 				Models.Providers proveedor = new Models.Providers();
@@ -77,8 +81,6 @@ namespace Cremeria.Forms
 						string[] dias = item.Pago.Split(delimitar);
 						int cuantos = dias.Count();
 
-
-						
 							
 						for (int i = 0; i < cuantos; i++)
 						{
@@ -136,7 +138,9 @@ namespace Cremeria.Forms
 				txtTelefono.Text,
 				txtNotas.Text,
 				txtEmail.Text,
-				s
+				s,
+				cbTiempo.Text,
+				txtComercial.Text
 				);
 			using (prov)
 			{

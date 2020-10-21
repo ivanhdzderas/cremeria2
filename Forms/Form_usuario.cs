@@ -256,7 +256,16 @@ namespace Cremeria.Forms
                     }
 
                 }
-
+                Models.Log historial = new Models.Log();
+                string mensaje = "";
+				using (historial)
+				{
+                    mensaje= "se agrego nuevo usuario: " + txtNombre.Text;
+                    historial.Id_usuario = Convert.ToInt32(Inicial.id_usario);
+                    historial.Descripcion = mensaje;
+                    intercambios intercambio = new intercambios();
+                    intercambio.enviar_correo("",mensaje, "Nuevo usuario");
+				}
                 this.Close();
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,8 @@ namespace Cremeria.Models
 		public double Iva { get; set; }
 		public double Total { get; set; }
 		public double Descuento { get; set; }
-
+		public string F_recepcion { get; set; }
+		public int Autorizo { get; set;}
 		public Compras(
 			int id,
 			string folio_doc,
@@ -37,7 +39,9 @@ namespace Cremeria.Models
 			double subtotal,
 			double iva,
 			double total,
-			double descuento
+			double descuento,
+			string f_recepcion,
+			int autorizo
 			) {
 			Id = id;
 			Folio_doc = folio_doc;
@@ -52,11 +56,13 @@ namespace Cremeria.Models
 			Iva = iva;
 			Total = total;
 			Descuento = descuento;
+			F_recepcion = f_recepcion;
+			Autorizo = autorizo;
 		}
 		public Compras() { }
 
 		public void crateCompra() {
-			string query = "insert into tbacompras (fecha, fecha_doc, id_proveedor, status, dias, fecha_credito, pagado, subtotal, iva, total, descuento, documento) values (";
+			string query = "insert into tbacompras (fecha, fecha_doc, id_proveedor, status, dias, fecha_credito, pagado, subtotal, iva, total, descuento, documento, f_recepcion, autorizo) values (";
 			query += "'" + this.Fecha + "', ";
 			query += "'" + this.Fecha_doc + "', ";
 			query += "'" + this.Proveedor + "', ";
@@ -68,7 +74,9 @@ namespace Cremeria.Models
 			query += "'" + this.Iva	 + "', ";
 			query += "'" + this.Total + "', ";
 			query += "'" + this.Descuento + "', ";
-			query += "'" + this.Folio_doc + "') ";
+			query += "'" + this.Folio_doc + "', ";
+			query += "'" + this.F_recepcion + "',";
+			query += "'" + this.Autorizo + "')";
 			object result = runQuery(query);
 		}
 
@@ -92,14 +100,16 @@ namespace Cremeria.Models
 				data.GetDouble("subtotal"),
 				data.GetDouble("iva"),
 				data.GetDouble("total"),
-				data.GetDouble("descuento")
+				data.GetDouble("descuento"),
+				Convert.ToString(data.GetDateTime("f_recepcion")),
+				data.GetInt32("autorizo")
 				) ;
 			return item;
 		}
 
 		public List<Compras> GetCompras()
 		{
-			string query = "select tbacompras.id, tbacompras.fecha,tbacompras.documento ,  tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			string query = "select tbacompras.id, tbacompras.fecha,tbacompras.documento ,  tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento, tbacompras.f_recepcion, tbacompras.autorizo from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			MySqlDataReader data = runQuery(query);
 			List<Compras> result = new List<Compras>();
 			if (data.HasRows)
@@ -114,7 +124,7 @@ namespace Cremeria.Models
 		}
 		public List<Compras> GetComprasporvencer(string fecha, int _proveedor)
 		{
-			string query = "select tbacompras.id, tbacompras.fecha,tbacompras.documento ,  tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			string query = "select tbacompras.id, tbacompras.fecha,tbacompras.documento ,  tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento, tbacompras.f_recepcion, tbacompras.autorizo from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			query += " where tbacompras.id_proveedor='" + _proveedor + "' and tbacompras.fecha_credito like '" + fecha + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Compras> result = new List<Compras>();
@@ -130,7 +140,7 @@ namespace Cremeria.Models
 		}
 		public List<Compras> GetlastCompras(string fecha, string fecha_doc, string proveedor,double total)
 		{
-			string query = "select tbacompras.id, tbacompras.documento, tbacompras.fecha, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			string query = "select tbacompras.id, tbacompras.documento, tbacompras.fecha, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento, tbacompras.f_recepcion, tbacompras.autorizo from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			query += "  where tbacompras.fecha='" + fecha + "' and tbacompras.fecha_doc='" + fecha_doc + "' and tbacompras.id_proveedor='" + proveedor + "' and tbacompras.total='" + total.ToString() + "'";
 
 			MySqlDataReader data = runQuery(query);
@@ -148,7 +158,7 @@ namespace Cremeria.Models
 
 		public List<Compras> getCompraByid(int id)
 		{
-			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento, tbacompras.f_recepcion, tbacompras.autorizo from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			query += "  where tbacompras.id='" + id + "'";
 
 			MySqlDataReader data = runQuery(query);
@@ -166,7 +176,7 @@ namespace Cremeria.Models
 		
 		public List<Compras> getCompra_sin_pagar(string proveedor)
 		{
-			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento, tbacompras.f_recepcion, tbacompras.autorizo from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			query += "  where tbaproveedores.id='" + proveedor + "' and tbacompras.pagado='NO'";
 
 			MySqlDataReader data = runQuery(query);
@@ -183,7 +193,7 @@ namespace Cremeria.Models
 		}
 		public List<Compras> getCompras_sin_pagar()
 		{
-			string query = "select tbacompras.id, tbacompras.fecha,  tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			string query = "select tbacompras.id, tbacompras.fecha,  tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento, tbacompras.f_recepcion, tbacompras.autorizo from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			query += "  where tbacompras.pagado='NO' and fecha_credito  BETWEEN CONCAT(DATE_SUB(CURDATE(),INTERVAL 3 DAY),'  00:00:00') AND CONCAT(DATE_ADD(CURDATE(),INTERVAL 3 DAY),' 00:00:00')";
 
 			MySqlDataReader data = runQuery(query);
